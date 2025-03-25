@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnrollmentDAO implements DAO<Enrollment>{
-    // Thêm đăng ký mới
+
     public void add(Enrollment enrollment) {
         String sql = "INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)";
         try (Connection connection = DatabaseConnect.getConnection();
@@ -24,10 +24,7 @@ public class EnrollmentDAO implements DAO<Enrollment>{
     public List<Enrollment> getAll() {
         List<Enrollment> enrollmentList = new ArrayList<>();
         String sql = """
-                SELECT e.enrollment_id, e.student_id, e.course_id
-                FROM enrollments e
-                JOIN students s ON e.student_id = s.student_id
-                JOIN courses c ON e.course_id = c.course_id;
+                SELECT * FROM enrollments;
                 """;
         try (Connection connection = DatabaseConnect.getConnection();
              Statement statement = connection.createStatement();
@@ -44,7 +41,6 @@ public class EnrollmentDAO implements DAO<Enrollment>{
         }
         return enrollmentList;
     }
-    // Cập nhật thông tin đăng ký
 
     public void update(Enrollment enrollment) {
         String sql = "UPDATE enrollments SET student_id = ?, course_id = ? WHERE enrollment_id = ?";
@@ -59,7 +55,7 @@ public class EnrollmentDAO implements DAO<Enrollment>{
             throw new RuntimeException(e);
         }
     }
-    // Xóa đơn đăng ký
+
 
     public void delete(int id) {
         String sql = "DELETE FROM enrollments WHERE enrollment_id = ?";

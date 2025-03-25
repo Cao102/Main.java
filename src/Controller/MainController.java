@@ -2,8 +2,6 @@ package Controller;
 
 import View.*;
 
-import java.util.Scanner;
-
 public class MainController {
     private static final View view = new View();
     private final StudentController studentController = new StudentController(this);
@@ -11,6 +9,7 @@ public class MainController {
     private final EnrollmentController enrollmentController = new EnrollmentController(this);
     private final ClassController classController = new ClassController(this);
     private final TeacherController teacherController = new TeacherController(this);
+    private final ScoreController scoreController = new ScoreController(this);
     public void start(){
         while (true) {
             int input = view.menuView();
@@ -30,6 +29,8 @@ public class MainController {
                 case 5:
                     teacherController.start();
                     break;
+                case 6:
+                    scoreController.start();
                 case 7:
                     System.out.println("Thoát chương trình...");
                     return;

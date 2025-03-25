@@ -1,12 +1,10 @@
 package View;
 
 import Model.Teacher;
-
 import java.util.List;
-import java.util.Scanner;
 
 public class ViewTeacher implements ObjectView<Teacher> {
-    private static final Scanner sc = new Scanner(System.in);
+    private final Input input = new Input();
     public int menuObject(){
         System.out.print("""
             ╔════════════════════════════════════════╗
@@ -18,20 +16,14 @@ public class ViewTeacher implements ObjectView<Teacher> {
             ║ 4. Xóa thông tin giáo viên             ║
             ║ 5. Quay lại                            ║
             ╚════════════════════════════════════════╝
-            Nhập lựa chọn của bạn: \s""");
-        return Integer.parseInt(sc.nextLine());
+            """);
+        return input.inputInt("Nhập lựa chọn của bạn");
     }
     public Teacher addObject() {
         System.out.println("\nNhập thông tin giáo viên:");
-        System.out.print("Nhập tên giáo viên: ");
-        String name = sc.nextLine();
-
-        System.out.print("Nhập email giáo viên: ");
-        String email = sc.nextLine();
-
-        System.out.print("Nhập SĐT giáo viên: ");
-        String phone = sc.nextLine();
-
+        String name = input.inputString("Nhập tên giáo viên");
+        String email = input.inputString("Nhập email giáo viên");
+        String phone = input.inputString("Nhập SĐT giáo viên");
         return new Teacher(name, email, phone);
     }
 
@@ -41,7 +33,7 @@ public class ViewTeacher implements ObjectView<Teacher> {
             return;
         }
         System.out.println("""
-                      \s
+                      
                       ╔══════════════════════════════════════════════════════════════╗
                       ║                      DANH SÁCH GIÁO VIÊN                     ║
                       ╠═══════╦════════════════╦════════════════════════╦════════════╣
@@ -56,23 +48,15 @@ public class ViewTeacher implements ObjectView<Teacher> {
 
     public Teacher updateObject() {
         System.out.println("\n️Chỉnh sửa thông tin giáo viên:");
-        System.out.print("Nhập ID giáo viên cần chỉnh: ");
-        int teacher_id = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Nhập tên mới: ");
-        String name = sc.nextLine();
-
-        System.out.print("Nhập email mới: ");
-        String email = sc.nextLine();
-
-        System.out.print("Nhập SĐT mới: ");
-        String phone = sc.nextLine();
+        int teacher_id = input.inputInt("Nhập ID giáo viên cần chỉnh");
+        String name = input.inputString("Nhập tên mới");
+        String email = input.inputString("Nhập email mới");
+        String phone = input.inputString("Nhập SĐT mới");
 
         return new Teacher(teacher_id, name,email, phone);
     }
 
     public int deleteObject() {
-        System.out.print("\nNhập ID giáo viên cần xoá: ");
-        return Integer.parseInt(sc.nextLine());
+        return input.inputInt("\nNhập ID giáo viên cần xoá");
     }
 }

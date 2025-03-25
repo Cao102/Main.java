@@ -1,12 +1,10 @@
 package View;
 
 import Model.Class;
-
 import java.util.List;
-import java.util.Scanner;
 
 public class ViewClass implements ObjectView<Class> {
-    private final Scanner sc = new Scanner(System.in);
+    private final Input input = new Input();
     public int menuObject() {
         System.out.print("""
             ╔════════════════════════════════════════╗
@@ -18,16 +16,14 @@ public class ViewClass implements ObjectView<Class> {
             ║ 4. Xóa Thông Tin Lớp Học               ║
             ║ 5. Quay Lại                            ║
             ╚════════════════════════════════════════╝
-            Nhập lựa chọn của bạn:\s""");
-        return Integer.parseInt(sc.nextLine());
+            """);
+        return input.inputInt("Nhập lựa chọn của bạn");
     }
 
     public Class addObject() {
         System.out.println("\nNhập Thông tin Lớp Học");
-        System.out.print("Nhập Tên Lớp: ");
-        String name = sc.nextLine();
-        System.out.print("Nhập Id Giáo Viên Quản Lý:");
-        int teacher_id = Integer.parseInt(sc.nextLine());
+        String name = input.inputString("Nhập Tên Lớp");
+        int teacher_id = input.inputInt("Nhập Id Giáo Viên Quản Lý");
         return new Class(name, teacher_id);
     }
 
@@ -53,20 +49,13 @@ public class ViewClass implements ObjectView<Class> {
 
     public Class updateObject() {
         System.out.println("\nChỉnh sửa Thông tin Lớp Học");
-        System.out.print("Nhập id lớp cần cần chỉnh: ");
-        int class_id = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Nhập tên mới: ");
-        String class_name = sc.nextLine();
-
-        System.out.print("Nhập Id Giáo Viên Quản Lý:");
-        int teacher_id = Integer.parseInt(sc.nextLine());
-
+        int class_id = input.inputInt("Nhập id lớp cần cần chỉnh");
+        String class_name = input.inputString("Nhập tên mới");
+        int teacher_id = input.inputInt("Nhập Id Giáo Viên Quản Lý");
         return new Class(class_id, class_name, teacher_id);
     }
 
     public int deleteObject() {
-        System.out.print("\nNhập ID Lớp Học Cần Xoá: ");
-        return Integer.parseInt(sc.nextLine());
+        return input.inputInt("\nNhập ID Lớp Học Cần Xoá: ");
     }
 }
