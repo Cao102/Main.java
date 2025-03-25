@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDAO implements DAO<Course>{
-    // Thêm khóa học
+
     public void add(Course course) {
         String sql = "INSERT INTO courses (course_name, credits) VALUES (?, ?);";
         try (Connection connection = DatabaseConnect.getConnection();
@@ -21,7 +21,6 @@ public class CourseDAO implements DAO<Course>{
         }
     }
 
-    // Lấy danh sách tất cả khóa học
     public List<Course> getAll() {
         List<Course> courseList = new ArrayList<>();
         String sql = "SELECT * FROM courses;";
@@ -41,7 +40,6 @@ public class CourseDAO implements DAO<Course>{
         return courseList;
     }
 
-    // Cập nhật thông tin khóa học
     public void update(Course course) {
         String sql = "UPDATE courses SET course_name = ?, credits = ? WHERE course_id = ?";
         try (Connection connection = DatabaseConnect.getConnection();
@@ -56,7 +54,6 @@ public class CourseDAO implements DAO<Course>{
         }
     }
 
-    // Xóa khóa học
     public void delete(int courseId) {
         String sql = "DELETE FROM courses WHERE course_id = ?;";
         try (Connection connection = DatabaseConnect.getConnection();
@@ -69,7 +66,6 @@ public class CourseDAO implements DAO<Course>{
         }
     }
 
-    // Lấy khóa học theo ID
     public Course getCourseById(int id) {
         String sql = "SELECT * FROM courses WHERE course_id = ?;";
         try (Connection connection = DatabaseConnect.getConnection();
