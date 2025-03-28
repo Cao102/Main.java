@@ -23,7 +23,7 @@ public class ViewClass implements ObjectView<Class> {
     public Class addObject() {
         System.out.println("\nNhập Thông tin Lớp Học");
         String name = input.inputString("Nhập Tên Lớp");
-        int teacher_id = input.inputInt("Nhập Id Giáo Viên Quản Lý");
+        int teacher_id = input.inputInt("Nhập sức chứa");
         return new Class(name, teacher_id);
     }
 
@@ -34,28 +34,28 @@ public class ViewClass implements ObjectView<Class> {
         }
         System.out.print("""
             
-            ╔════════════════════════════════════════════╗
-            ║              DANH SÁCH LỚP HỌC             ║
-            ╠════════╦══════════════════╦════════════════╣
-            ║   ID   ║     Tên Lớp      ║    Giáo viên   ║
-            ╠════════╬══════════════════╬════════════════╣
+            ╔════════════════════════════╗
+            ║     DANH SÁCH LỚP HỌC      ║
+            ╠════╦════════════════╦══════╣
+            ║ ID ║     Tên Lớp    ║  SL  ║
+            ╠════╬════════════════╬══════╣
             """);
 
         for (Class object : objectList) {
             System.out.println(object);
         }
-        System.out.println("╚════════╩══════════════════╩════════════════╝");
+        System.out.println("╚════╩════════════════╩══════╝");
     }
 
     public Class updateObject() {
         System.out.println("\nChỉnh sửa Thông tin Lớp Học");
         int class_id = input.inputInt("Nhập id lớp cần cần chỉnh");
         String class_name = input.inputString("Nhập tên mới");
-        int teacher_id = input.inputInt("Nhập Id Giáo Viên Quản Lý");
-        return new Class(class_id, class_name, teacher_id);
+        int capacity = input.inputInt("Nhập sức chứa");
+        return new Class(class_id, class_name, capacity);
     }
 
     public int deleteObject() {
-        return input.inputInt("\nNhập ID Lớp Học Cần Xoá: ");
+        return input.inputInt("\nNhập ID Lớp Học Cần Xoá");
     }
 }
