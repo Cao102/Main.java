@@ -5,111 +5,217 @@ DROP DATABASE IF EXISTS StudentManagementSystem;
 CREATE DATABASE StudentManagementSystem;
 USE StudentManagementSystem;
 
--- Tạo bảng giảng viên (không có khóa ngoại)
-CREATE TABLE teachers (
-    teacher_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+-- Bảng sinh viên
+CREATE TABLE Students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    dob DATE,
+    email VARCHAR(100) UNIQUE,
     phone VARCHAR(15)
 );
 
--- Tạo bảng lớp học (có khóa ngoại đến teachers)
-CREATE TABLE classes (
-    class_id INT PRIMARY KEY AUTO_INCREMENT,
-    class_name VARCHAR(50) NOT NULL,
+-- Bảng giảng viên
+CREATE TABLE Teachers (
+    teacher_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(15)
+);
+
+-- Bảng môn học
+CREATE TABLE Subjects (
+    subject_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    description TEXT
+);
+
+-- Bảng lớp học
+CREATE TABLE Classrooms (
+    classroom_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    capacity INT
+);
+
+-- Bảng đăng ký môn học
+CREATE TABLE Registrations (
+    student_id INT,
+    subject_id INT,
+    PRIMARY KEY (student_id, subject_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+);
+
+-- Bảng điểm số
+CREATE TABLE Grades (
+    student_id INT,
+    subject_id INT,
+    grade DOUBLE,
+    PRIMARY KEY (student_id, subject_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+);
+
+-- Bảng lịch học
+CREATE TABLE Schedules (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    classroom_id INT,
+    subject_id INT,
     teacher_id INT,
-    FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id) ON DELETE SET NULL
+    schedule_time DATETIME,
+    FOREIGN KEY (classroom_id) REFERENCES Classrooms(classroom_id),
+    FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id),
+    FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id)
 );
 
--- Tạo bảng sinh viên (có khóa ngoại đến classes)
-CREATE TABLE students (
-    student_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    dob DATE,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(15),
+-- Bảng tài khoản người dùng
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(255)
+);
+
+-- Bảng học phí
+CREATE TABLE Tuition (
+    student_id INT PRIMARY KEY,
+    amount DOUBLE,
+    FOREIGN KEY (student_id) REFERENCES Students(student_id)
+);
+
+-- Bảng thư viện
+CREATE TABLE Library (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_name VARCHAR(100),
+    author VARCHAR(100)
+);
+
+-- Bảng mượn sách
+CREATE TABLE BorrowedBooks (
+    student_id INT,
+    book_id INT,
+    borrow_date DATE,
+    return_date DATE,
+    PRIMARY KEY (student_id, book_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (book_id) REFERENCES Library(book_id)
+);
+
+-- Bảng kỳ thi
+CREATE TABLE Exams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     class_id INT,
-    FOREIGN KEY (class_id) REFERENCES classes(class_id) ON DELETE SET NULL
+    subject_id INT,
+    exam_date DATETIME,
+    FOREIGN KEY (class_id) REFERENCES Classrooms(classroom_id),
+    FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
 );
 
--- Tạo bảng môn học (không có khóa ngoại)
-CREATE TABLE courses (
-    course_id INT PRIMARY KEY AUTO_INCREMENT,
-    course_name VARCHAR(100) NOT NULL,
-    credits INT CHECK (credits > 0)
+-- Bảng sự kiện
+CREATE TABLE Events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_name VARCHAR(100),
+    event_date DATETIME,
+    location VARCHAR(255)
 );
 
- -- Tạo bảng điểm (có khóa ngoại đến students và subjects)
- CREATE TABLE scores (
-    score_id INT PRIMARY KEY AUTO_INCREMENT,
+-- Bảng ký túc xá
+CREATE TABLE Dormitories (
+    dorm_id INT AUTO_INCREMENT PRIMARY KEY,
+    room_number VARCHAR(10),
+    capacity INT
+);
+
+CREATE TABLE StudentDormitory (
+    student_id INT PRIMARY KEY,
+    dorm_id INT,
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (dorm_id) REFERENCES Dormitories(dorm_id)
+);
+
+-- Bảng hỗ trợ sinh viên
+CREATE TABLE SupportRequests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT,
-    course_id INT,
-    score FLOAT CHECK (score >= 0 AND score <= 10),
-    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
- );
-
--- Tạo bảng đăng ký môn học (có khóa ngoại đến students và subjects)
-CREATE TABLE enrollments (
-    enrollment_id INT PRIMARY KEY AUTO_INCREMENT,
-    student_id INT,
-    course_id INT,
-    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+    message TEXT,
+    status ENUM('Pending', 'Resolved'),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id)
 );
+-- Chèn dữ liệu vào bảng Students
+INSERT INTO Students (name, dob, email, phone) VALUES
+('Nguyen Van A', '2002-05-10', 'a.nguyen@example.com', '0987654321'),
+('Tran Thi B', '2003-08-15', 'b.tran@example.com', '0976543210'),
+('Le Van C', '2001-12-20', 'c.le@example.com', '0965432109');
 
- -- Tạo bảng người dùng (đăng nhập)
- CREATE TABLE users (
-     user_id INT PRIMARY KEY AUTO_INCREMENT,
-     username VARCHAR(50) UNIQUE NOT NULL,
-     password VARCHAR(255) NOT NULL,
-     role ENUM('student', 'teacher', 'admin') NOT NULL
- );
- -- Thêm dữ liệu vào bảng teachers
-INSERT INTO teachers (name, email, phone) VALUES 
-('Nguyễn Văn A', 'a.nguyen@example.com', '0987654321'),
-('Trần Thị B', 'b.tran@example.com', '0976543210'),
-('Lê Văn C', 'c.le@example.com', '0965432109');
+-- Chèn dữ liệu vào bảng Teachers
+INSERT INTO Teachers (name, email, phone) VALUES
+('Dr. Hoang Minh', 'hoang.minh@example.com', '0912345678'),
+('Ms. Nguyen Thu', 'nguyen.thu@example.com', '0923456789');
 
--- Thêm dữ liệu vào bảng classes
-INSERT INTO classes (class_name, teacher_id) VALUES 
-('Lớp 1', 1),
-('Lớp 2', 2),
-('Lớp 3', 3);
+-- Chèn dữ liệu vào bảng Subjects
+INSERT INTO Subjects (name, description) VALUES
+('Mathematics', 'Basic and advanced math concepts'),
+('Physics', 'Introduction to physics'),
+('Computer Science', 'Programming and algorithms');
 
--- Thêm dữ liệu vào bảng students
-INSERT INTO students (name, dob, email, phone, class_id) VALUES 
-('Phạm Minh D', '2002-05-10', 'd.pham@example.com', '0912345678', 1),
-('Hoàng Anh E', '2001-07-15', 'e.hoang@example.com', '0923456789', 2),
-('Vũ Thị F', '2003-09-20', 'f.vu@example.com', '0934567890', 3);
+-- Chèn dữ liệu vào bảng Classrooms
+INSERT INTO Classrooms (name, capacity) VALUES
+('Room 101', 50),
+('Room 102', 40),
+('Lab 201', 30);
 
--- Thêm dữ liệu vào bảng courses
-INSERT INTO courses (course_name, credits) VALUES 
-('Toán', 3),
-('Lý', 2),
-('Hóa', 3),
-('Văn', 2);
+-- Chèn dữ liệu vào bảng Registrations
+INSERT INTO Registrations (student_id, subject_id) VALUES
+(1, 1), (1, 2), (2, 1), (3, 3);
 
--- Thêm dữ liệu vào bảng scores
-INSERT INTO scores (student_id, course_id, score) VALUES 
-(1, 1, 8.5),
-(1, 2, 7.0),
-(2, 3, 9.0),
-(2, 4, 6.5),
-(3, 1, 5.5),
-(3, 2, 7.5);
+-- Chèn dữ liệu vào bảng Grades
+INSERT INTO Grades (student_id, subject_id, grade) VALUES
+(1, 1, 8.5), (1, 2, 7.0), (2, 1, 9.0), (3, 3, 8.0);
 
--- Thêm dữ liệu vào bảng enrollments
-INSERT INTO enrollments (student_id, course_id) VALUES 
-(1, 1),
-(1, 2),
-(2, 3),
-(2, 4),
-(3, 1),
-(3, 2);
+-- Chèn dữ liệu vào bảng Schedules
+INSERT INTO Schedules (classroom_id, subject_id, teacher_id, schedule_time) VALUES
+(1, 1, 1, '2025-04-01 08:00:00'),
+(2, 2, 2, '2025-04-02 10:00:00');
 
--- Thêm dữ liệu vào bảng users
-INSERT INTO users (username, password, role) VALUES 
-('student1', 'password1', 'student'),
-('teacher1', 'password2', 'teacher'),
-('admin1', 'password3', 'admin');
+-- Chèn dữ liệu vào bảng Users
+INSERT INTO Users (username, password) VALUES
+('admin', 'admin123'),
+('student1', 'pass123'),
+('teacher1', 'pass456');
+
+-- Chèn dữ liệu vào bảng Tuition
+INSERT INTO Tuition (student_id, amount) VALUES
+(1, 5000.00), (2, 4800.00), (3, 5200.00);
+
+-- Chèn dữ liệu vào bảng Library
+INSERT INTO Library (book_name, author) VALUES
+('Data Structures', 'Mark Allen'),
+('Physics Principles', 'John Doe');
+
+-- Chèn dữ liệu vào bảng BorrowedBooks
+INSERT INTO BorrowedBooks (student_id, book_id, borrow_date, return_date) VALUES
+(1, 1, '2025-03-01', '2025-03-15'),
+(2, 2, '2025-03-05', '2025-03-20');
+
+-- Chèn dữ liệu vào bảng Exams
+INSERT INTO Exams (class_id, subject_id, exam_date) VALUES
+(1, 1, '2025-06-10 09:00:00'),
+(2, 2, '2025-06-15 14:00:00');
+
+-- Chèn dữ liệu vào bảng Events
+INSERT INTO Events (event_name, event_date, location) VALUES
+('Tech Fair', '2025-05-01 10:00:00', 'Main Hall'),
+('Math Olympiad', '2025-05-10 09:00:00', 'Auditorium');
+
+-- Chèn dữ liệu vào bảng Dormitories
+INSERT INTO Dormitories (room_number, capacity) VALUES
+('D101', 4),
+('D102', 3);
+
+-- Chèn dữ liệu vào bảng StudentDormitory
+INSERT INTO StudentDormitory (student_id, dorm_id) VALUES
+(1, 1), (2, 2);
+
+-- Chèn dữ liệu vào bảng SupportRequests
+INSERT INTO SupportRequests (student_id, message, status) VALUES
+(1, 'Need help with tuition payment', 'Pending'),
+(2, 'Lost student ID card', 'Resolved');
+
