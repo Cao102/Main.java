@@ -12,14 +12,13 @@ import java.util.List;
 
 public class StudentDAO implements DAO<Student> {
     public void add(Student student){
-        String sql = "INSERT INTO students (name, dob, email, phone, class_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO students (name, dob, email, phone) VALUES (?, ?, ?, ?)";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, student.getName());
             statement.setString(2, student.getDob());
             statement.setString(3, student.getEmail());
             statement.setString(4, student.getPhone());
-            statement.setInt(5, student.getClass_id());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi thêm sinh viên " + e.getMessage());
@@ -37,8 +36,7 @@ public class StudentDAO implements DAO<Student> {
                 String dob = resultSet.getString("dob");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
-                int class_id = resultSet.getInt("class_id");
-                studentsList.add(new Student(student_id, name, dob, email, phone, class_id));
+                studentsList.add(new Student(student_id, name, dob, email, phone));
             }
             return studentsList;
         } catch (SQLException e){
@@ -48,16 +46,15 @@ public class StudentDAO implements DAO<Student> {
     public void update(Student student){
         String sql = """
                 UPDATE students
-                SET name = ?, dob = ?, email = ?, phone = ?, class_id = ?
+                SET name = ?, dob = ?, email = ?, phone = ?
                 WHERE student_id = ?;""";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, student.getName());
-            statement.setString(2, student.getEmail());
-            statement.setString(3, student.getDob());
+            statement.setString(2, student.getDob());
+            statement.setString(3, student.getEmail());
             statement.setString(4, student.getPhone());
-            statement.setInt(5, student.getClass_id());
-            statement.setInt(6, student.getId());
+            statement.setInt(5, student.getId());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi sửa sinh viên " + e.getMessage());

@@ -27,8 +27,7 @@ public class ViewStudent implements ObjectView<Student>{
         String dob = input.inputString("Nhập ngày sinh (yyyy-MM-dd)");
         String email = input.inputString("Nhập email sinh viên");
         String phone = input.inputString("Nhập SĐT sinh viên");
-        int class_id = input.inputInt("Nhập mã lớp sinh viên");
-        return new Student(name, dob, email, phone, class_id);
+        return new Student(name, dob, email, phone);
     }
 
     public void getAllObject(List<Student> objectList) {
@@ -37,29 +36,26 @@ public class ViewStudent implements ObjectView<Student>{
             return;
         }
         System.out.print("""
-                ╔════════════════════════════════════════════════════════════════════════════════════╗
-                ║                               DANH SÁCH SINH VIÊN                                  ║
-                ╠══════╦════════════════╦═════════════════════╦══════════════╦════════════╦══════════╣
-                ║  ID  ║     Tên        ║        Email        ║  Ngày sinh   ║     SĐT    ║ Mã lớp   ║
-                ╠══════╬════════════════╬═════════════════════╬══════════════╬════════════╬══════════╣
+                ╔════════════════════════════════════════════════════════════════════════════╗
+                ║                               DANH SÁCH SINH VIÊN                          ║
+                ╠══════╦════════════════╦════════════════════════╦══════════════╦════════════╣
+                ║  ID  ║     Tên        ║          Email         ║   Ngày sinh  ║    SĐT     ║
+                ╠══════╬════════════════╬════════════════════════╬══════════════╬════════════╬
                 """);
         for (Student object : objectList) {
             System.out.println(object);
         }
-        System.out.println("╚══════╩════════════════╩═════════════════════╩══════════════╩════════════╩══════════╝");
+        System.out.println("╚══════╩════════════════╩════════════════════════╩══════════════╩════════════╝");
     }
 
     public Student updateObject() {
-        System.out.println("\n️Chỉnh sửa thông tin sinh viên:");
-        System.out.print(": ");
+        System.out.println("\nChỉnh sửa thông tin sinh viên:");
         int student_id = input.inputInt("Nhập ID sinh viên cần chỉnh");
         String name = input.inputString("Nhập tên mới");
         String dob = input.inputString("Nhập ngày sinh mới (yyyy-MM-dd)");
         String email = input.inputString("Nhập email mới");
         String phone = input.inputString("Nhập SĐT mới");
-        int class_id = input.inputInt("Nhập mã lớp mới");
-
-        return new Student(student_id, name, dob, email, phone, class_id);
+        return new Student(student_id, name, dob, email, phone);
     }
 
     public int deleteObject() {
