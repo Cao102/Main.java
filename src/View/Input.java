@@ -1,7 +1,7 @@
 package View;
 
 import java.util.Scanner;
-
+// Input
 public class Input {
     Scanner sc = new Scanner(System.in);
     public String inputString(String message){
