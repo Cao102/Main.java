@@ -14,7 +14,7 @@ public class View {
             ║ 3.  Quản lý Đăng Ký Khóa Học     ║
             ║ 4.  Quản lý Lớp Học              ║
             ║ 5.  Quản lý Giáo Viên            ║
-            ║ 6.  Quản lý Đăng Ký Khóa Học     ║
+            ║ 6.  Quản lý Học Phí              ║
             ║ 7.  Thoát                        ║
             ╚══════════════════════════════════╝
             Nhập lựa chọn: \s""");
