@@ -113,3 +113,5 @@ INSERT INTO users (username, password, role) VALUES
 ('student1', 'password1', 'student'),
 ('teacher1', 'password2', 'teacher'),
 ('admin1', 'password3', 'admin');
+
+-- Update DB
