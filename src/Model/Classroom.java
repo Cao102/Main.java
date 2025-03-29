@@ -2,17 +2,17 @@ package Model;
 
 import DAO.Convert;
 
-public class Class {
+public class Classroom {
     private final Convert convert = new Convert();
     private  int classroom_id;
     private final String name;
     private final int capacity;
-    public Class(int classroom_id, String name, int capacity){
+    public Classroom(int classroom_id, String name, int capacity){
         this.classroom_id = classroom_id;
         this.name = name;
         this.capacity = capacity;
     }
-    public Class(String class_name, int capacity){
+    public Classroom(String class_name, int capacity){
         this.name = class_name;
         this.capacity = capacity;
     }

@@ -3,10 +3,7 @@ package DAO;
 import Model.Student;
 import util.DatabaseConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class StudentDAO implements DAO<Student> {
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, student.getName());
-            statement.setString(2, student.getDob());
+            statement.setDate(2, student.getDob());
             statement.setString(3, student.getEmail());
             statement.setString(4, student.getPhone());
             statement.executeUpdate();
@@ -33,7 +30,7 @@ public class StudentDAO implements DAO<Student> {
             while (resultSet.next()){
                 int student_id = resultSet.getInt("student_id");
                 String name = resultSet.getString("name");
-                String dob = resultSet.getString("dob");
+                Date dob = resultSet.getDate("dob");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
                 studentsList.add(new Student(student_id, name, dob, email, phone));
@@ -51,7 +48,7 @@ public class StudentDAO implements DAO<Student> {
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, student.getName());
-            statement.setString(2, student.getDob());
+            statement.setDate(2, student.getDob());
             statement.setString(3, student.getEmail());
             statement.setString(4, student.getPhone());
             statement.setInt(5, student.getId());

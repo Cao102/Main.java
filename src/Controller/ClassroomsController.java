@@ -1,19 +1,19 @@
 package Controller;
 
-import DAO.ClassDAO;
+import DAO.ClassroomDAO;
 import DAO.DAO;
-import Model.Class;
+import Model.Classroom;
 import View.ObjectView;
-import View.ViewClass;
+import View.ViewClassroom;
 
 import java.util.List;
 
-public class ClassController {
-    private final ObjectView<Class> viewObject = new ViewClass();
-    private final DAO<Class> objectDAO = new ClassDAO();
+public class ClassroomsController {
+    private final ObjectView<Classroom> viewObject = new ViewClassroom();
+    private final DAO<Classroom> objectDAO = new ClassroomDAO();
 
     private final MainController mainController;
-    public ClassController(MainController mainController){
+    public ClassroomsController(MainController mainController){
         this.mainController = mainController;
     }
     public void start(){
@@ -21,15 +21,15 @@ public class ClassController {
             int input = viewObject.menuObject();
             switch (input) {
                 case 1:
-                    Class add = viewObject.addObject();
+                    Classroom add = viewObject.addObject();
                     objectDAO.add(add);
                     break;
                 case 2:
-                    List<Class> objectList = objectDAO.getAll();
+                    List<Classroom> objectList = objectDAO.getAll();
                     viewObject.getAllObject(objectList);
                     break;
                 case 3:
-                    Class updateObject = viewObject.updateObject();
+                    Classroom updateObject = viewObject.updateObject();
                     objectDAO.update(updateObject);
                     break;
                 case 4:

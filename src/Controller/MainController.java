@@ -7,7 +7,7 @@ public class MainController {
     private final StudentController studentController = new StudentController(this);
     private final CourseController courseController = new CourseController(this);
     private final EnrollmentController enrollmentController = new EnrollmentController(this);
-    private final ClassController classController = new ClassController(this);
+    private final ClassroomsController classroomsController = new ClassroomsController(this);
     private final TeacherController teacherController = new TeacherController(this);
     private final ScoreController scoreController = new ScoreController(this);
     public void start(){
@@ -24,7 +24,7 @@ public class MainController {
                     enrollmentController.start();
                     break;
                 case 4:
-                    classController.start();
+                    classroomsController.start();
                     break;
                 case 5:
                     teacherController.start();

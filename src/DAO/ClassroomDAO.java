@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Class;
+import Model.Classroom;
 import util.DatabaseConnect;
 
 import java.sql.Connection;
@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDAO implements DAO<Class>{
-    public void add(Class clazz){
+public class ClassroomDAO implements DAO<Classroom>{
+    public void add(Classroom clazz){
         String sql = "INSERT INTO Classrooms (classroom_id, name, capacity) VALUES (?, ?, ?)";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
@@ -23,8 +23,8 @@ public class ClassDAO implements DAO<Class>{
             throw new RuntimeException("Lỗi thêm lớp" + e.getMessage());
         }
     }
-    public List<Class> getAll(){
-        List<Class> classList = new ArrayList<>();
+    public List<Classroom> getAll(){
+        List<Classroom> classroomList = new ArrayList<>();
         String sql = "select * from Classrooms";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -33,14 +33,14 @@ public class ClassDAO implements DAO<Class>{
                 int class_id = resultSet.getInt("classroom_id");
                 String class_name = resultSet.getString("name");
                 int capacity = resultSet.getInt("capacity");
-                classList.add(new Class(class_id, class_name, capacity));
+                classroomList.add(new Classroom(class_id, class_name, capacity));
             }
-            return classList;
+            return classroomList;
         } catch (SQLException e){
             throw new RuntimeException("Lỗi hiển thị thông tin lớp" + e.getMessage());
         }
     }
-    public void update(Class clazz){
+    public void update(Classroom clazz){
         String sql = """
                 UPDATE Classrooms
                 SET name = ?, capacity = ?

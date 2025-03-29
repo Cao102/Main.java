@@ -1,9 +1,9 @@
 package View;
 
-import Model.Class;
+import Model.Classroom;
 import java.util.List;
 
-public class ViewClass implements ObjectView<Class> {
+public class ViewClassroom implements ObjectView<Classroom> {
     private final Input input = new Input();
     public int menuObject() {
         System.out.print("""
@@ -20,14 +20,14 @@ public class ViewClass implements ObjectView<Class> {
         return input.inputInt("Nhập lựa chọn của bạn");
     }
 
-    public Class addObject() {
+    public Classroom addObject() {
         System.out.println("\nNhập Thông tin Lớp Học");
         String name = input.inputString("Nhập Tên Lớp");
         int teacher_id = input.inputInt("Nhập sức chứa");
-        return new Class(name, teacher_id);
+        return new Classroom(name, teacher_id);
     }
 
-    public void getAllObject(List<Class> objectList) {
+    public void getAllObject(List<Classroom> objectList) {
         if (objectList.isEmpty()) {
             System.out.println("\nHiện không có lớp học nào.\n");
             return;
@@ -41,18 +41,18 @@ public class ViewClass implements ObjectView<Class> {
             ╠════╬════════════════╬══════╣
             """);
 
-        for (Class object : objectList) {
+        for (Classroom object : objectList) {
             System.out.println(object);
         }
         System.out.println("╚════╩════════════════╩══════╝");
     }
 
-    public Class updateObject() {
+    public Classroom updateObject() {
         System.out.println("\nChỉnh sửa Thông tin Lớp Học");
         int class_id = input.inputInt("Nhập id lớp cần cần chỉnh");
         String class_name = input.inputString("Nhập tên mới");
         int capacity = input.inputInt("Nhập sức chứa");
-        return new Class(class_id, class_name, capacity);
+        return new Classroom(class_id, class_name, capacity);
     }
 
     public int deleteObject() {

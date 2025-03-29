@@ -1,16 +1,16 @@
 package Model;
-
+import java.sql.Date;
 public class Student extends Person {
-    private final String dob;
-    public Student(int student_id, String name, String dob, String email, String phone){
+    private final Date dob;
+    public Student(int student_id, String name, Date dob, String email, String phone){
         super(student_id, name, email, phone);
         this.dob = dob;
     }
-    public Student(String name, String dob, String email, String phone){
+    public Student(String name, Date dob, String email, String phone){
         super(name, email, phone);
         this.dob = dob;
     }
-    public String getDob(){
+    public Date getDob(){
         return this.dob;
     }
     @Override
