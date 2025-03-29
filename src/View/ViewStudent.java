@@ -29,7 +29,8 @@ public class ViewStudent implements ObjectView<Student>{
             ║ 2. Hiển thị thông tin sinh viên        ║
             ║ 3. Chỉnh sửa thông tin sinh viên       ║
             ║ 4. Xóa thông tin sinh viên             ║
-            ║ 5. Quay lại                            ║
+            ║ 5. Tìm kiếm thông tin sinh viên        ║
+            ║ 6. Quay lại                            ║
             ╚════════════════════════════════════════╝
             """);
             return input.inputInt("Nhập lựa chọn của bạn");
@@ -70,7 +71,7 @@ public class ViewStudent implements ObjectView<Student>{
 
     public void getAllObject(List<Student> objectList) {
         if (objectList.isEmpty()) {
-            System.out.println("\nHiện không có khóa học nào.\n");
+            System.out.println("\nKhông có sinh viên nào.\n");
             return;
         }
         System.out.print("""
@@ -78,7 +79,7 @@ public class ViewStudent implements ObjectView<Student>{
                 ║                               DANH SÁCH SINH VIÊN                          ║
                 ╠══════╦════════════════╦════════════════════════╦══════════════╦════════════╣
                 ║  ID  ║     Tên        ║          Email         ║   Ngày sinh  ║    SĐT     ║
-                ╠══════╬════════════════╬════════════════════════╬══════════════╬════════════╬
+                ╠══════╬════════════════╬════════════════════════╬══════════════╬════════════╣
                 """);
         for (Student object : objectList) {
             System.out.println(object);
@@ -121,5 +122,24 @@ public class ViewStudent implements ObjectView<Student>{
 
     public int deleteObject() {
         return input.inputInt("Nhập ID sinh viên cần xoá");
+    }
+    public int viewSearch () {
+        System.out.print("""
+            
+            ╔════════════════════════════════════════╗
+            ║           Tìm Kiếm Thông Tin           ║
+            ╠════════════════════════════════════════╣
+            ║ 1. Tìm kiếm theo MSV                   ║
+            ║ 2. Tìm kiếm theo Tên SV                ║
+            ║ 3. Tìm kiếm theo ngày sinh             ║
+            ║ 4. Tìm kiếm theo email                 ║
+            ║ 5. Tìm kiếm theo SĐT                   ║
+            ║ 6. Quay lại                            ║
+            ╚════════════════════════════════════════╝
+            """);
+        return input.inputInt("Nhập lựa chọn");
+    }
+    public String infoSearch(){
+        return input.inputString("Nhập thông tin tìm kiếm");
     }
 }

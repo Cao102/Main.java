@@ -64,7 +64,31 @@ public class StudentDAO implements DAO<Student> {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e){
-            throw new RuntimeException("Lỗi xoá sinh viên" + e.getMessage());
+            throw new RuntimeException("Lỗi xoá sinh viên " + e.getMessage());
         }
     }
+    public List<Student> search(String name_column, String attribute) {
+        List<Student> studentList = new ArrayList<>();
+        String sql = "SELECT * FROM Students WHERE " + name_column + " = ?";
+
+        try (Connection connection = DatabaseConnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, attribute);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int student_id = resultSet.getInt("student_id");
+                    String name = resultSet.getString("name");
+                    Date dob = resultSet.getDate("dob");
+                    String email = resultSet.getString("email");
+                    String phone = resultSet.getString("phone");
+                    studentList.add(new Student(student_id, name, dob, email, phone));
+                }
+            }
+        return studentList;
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi truy xuất dữ liệu: " + e.getMessage());
+        }
+    }
+
 }

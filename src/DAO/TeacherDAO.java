@@ -1,12 +1,10 @@
 package DAO;
 
+import Model.Student;
 import Model.Teacher;
 import util.DatabaseConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +63,28 @@ public class TeacherDAO implements DAO<Teacher> {
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi xoá giáo viên" + e.getMessage());
+        }
+    }
+    public List<Teacher> search(String name_column, String attribute) {
+        List<Teacher> teacherList = new ArrayList<>();
+        String sql = "SELECT * FROM Teachers WHERE " + name_column + " = ?";
+
+        try (Connection connection = DatabaseConnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, attribute);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int teacher_id = resultSet.getInt("teacher_id");
+                    String name = resultSet.getString("name");
+                    String email = resultSet.getString("email");
+                    String phone = resultSet.getString("phone");
+                    teacherList.add(new Teacher(teacher_id, name, email, phone));
+                }
+            }
+            return teacherList;
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi truy xuất dữ liệu: " + e.getMessage());
         }
     }
 }

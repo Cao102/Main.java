@@ -14,7 +14,8 @@ public class ViewTeacher implements ObjectView<Teacher> {
             ║ 2. Hiển thị thông tin giáo viên        ║
             ║ 3. Chỉnh sửa thông tin giáo viên       ║
             ║ 4. Xóa thông tin giáo viên             ║
-            ║ 5. Quay lại                            ║
+            ║ 5. Tìm kiếm thông tin giáo viên        ║
+            ║ 6. Quay lại                            ║
             ╚════════════════════════════════════════╝
             """);
         return input.inputInt("Nhập lựa chọn của bạn");
@@ -22,8 +23,22 @@ public class ViewTeacher implements ObjectView<Teacher> {
     public Teacher addObject() {
         System.out.println("\nNhập thông tin giáo viên:");
         String name = input.inputString("Nhập tên giáo viên");
-        String email = input.inputString("Nhập email giáo viên");
-        String phone = input.inputString("Nhập SĐT giáo viên");
+        String email;
+        while (true) {
+            email = input.inputString("Nhập email mới sinh viên (@gmail.com)");
+            if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+                break;
+            }
+            System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
+        }
+        String phone;
+        while (true) {
+            phone = input.inputString("Nhập SĐT sinh viên (10 số)");
+            if (phone.matches("^\\d{10}$")) {
+                break;
+            }
+            System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
+        }
         return new Teacher(name, email, phone);
     }
 
@@ -50,8 +65,22 @@ public class ViewTeacher implements ObjectView<Teacher> {
         System.out.println("\n️Chỉnh sửa thông tin giáo viên:");
         int teacher_id = input.inputInt("Nhập ID giáo viên cần chỉnh");
         String name = input.inputString("Nhập tên mới");
-        String email = input.inputString("Nhập email mới");
-        String phone = input.inputString("Nhập SĐT mới");
+        String email;
+        while (true) {
+            email = input.inputString("Nhập email mới sinh viên (@gmail.com)");
+            if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+                break;
+            }
+            System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
+        }
+        String phone;
+        while (true) {
+            phone = input.inputString("Nhập SĐT sinh viên (10 số)");
+            if (phone.matches("^\\d{10}$")) {
+                break;
+            }
+            System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
+        }
 
         return new Teacher(teacher_id, name,email, phone);
     }
@@ -59,4 +88,24 @@ public class ViewTeacher implements ObjectView<Teacher> {
     public int deleteObject() {
         return input.inputInt("\nNhập ID giáo viên cần xoá");
     }
+
+    public int viewSearch () {
+        System.out.print("""
+            
+            ╔════════════════════════════════════════╗
+            ║           Tìm Kiếm Thông Tin           ║
+            ╠════════════════════════════════════════╣
+            ║ 1. Tìm kiếm theo MGV                   ║
+            ║ 2. Tìm kiếm theo Tên GV                ║
+            ║ 3. Tìm kiếm theo email                 ║
+            ║ 4. Tìm kiếm theo SĐT                   ║
+            ║ 5. Quay lại                            ║
+            ╚════════════════════════════════════════╝
+            """);
+        return input.inputInt("Nhập lựa chọn");
+    }
+    public String infoSearch(){
+        return input.inputString("Nhập thông tin tìm kiếm");
+    }
 }
+
