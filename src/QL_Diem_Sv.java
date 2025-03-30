@@ -1,27 +1,36 @@
-import java.util.Scanner;
-public class QL_Diem_Sv {
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Xin moi nhap lua chon : ");
-        System.out.println("Them diem     : 1");
-        System.out.println("Sua diem      : 2");
-        System.out.println("Xoa diem      : 3");
-        System.out.println("Hien thi diem : 4");
-        int t = Integer.parseInt(sc.nextLine());
-        if(t==1){
-            //themDiem();
+import connectDatabase.DatabaseConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+class QL_Diem_Sv {
+    Connection conn = DatabaseConnect.getConnection();
+    public QL_Diem_Sv(){
+
+    }
+    public void themDiem(int student_id, int subject_id, double grade){
+        String sql = "INSERT INTO grades (student_id,subject_id,grade) VALUE (?,?,?)";
+        try(PreparedStatement st = conn.prepareStatement(sql)){
+            st.setInt(1,student_id);
+            st.setInt(2,subject_id);
+            st.setDouble(10,grade);
+            st.executeUpdate();
+        } catch (SQLException err){
+            err.printStackTrace();
         }
-        else if(t==2){
-            //suaDiem()
+    }
+    public void suaDiem(int student_id, int subject_id, double grade){
+        String sql = "UPDATE grades SET grade = ? WHERE student_id = ? AND subject_id = ? ";
+        try(PreparedStatement st = conn.prepareStatement(sql)){
+            st.setInt(1,student_id);
+            st.setInt(2,subject_id);
+            st.setDouble(10,grade);
+            st.executeUpdate();
+        } catch (SQLException err){
+            err.printStackTrace();
         }
-        else if(t==3){
-            //xoaDiem()
-        }
-        else if(t==4){
-            //hienThiDiem()
-        }
-        else{
-            System.out.println("Xin moi nhap lai diem");
-        }
+    }
+    public void xoaDiem(){
+
     }
 }
