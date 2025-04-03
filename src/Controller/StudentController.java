@@ -1,7 +1,6 @@
 package Controller;
 
 import DAO.DAO;
-import Model.Enrollment;
 import Model.Student;
 import DAO.StudentDAO;
 import View.ObjectView;
@@ -21,20 +20,38 @@ public class StudentController {
             int input = viewObject.menuObject();
             switch (input) {
                 case 1:
-                    Student add = viewObject.addObject();
-                    objectDAO.add(add);
+                    while(true){
+                        Student add = viewObject.addObject();
+                        if(((StudentDAO)objectDAO).search("email", add.getEmail()).isEmpty()){
+                            objectDAO.add(add);
+                            break;
+                        }
+                        ((ViewStudent) viewObject).error("Email đã tồn tại Vui lòng nhập lại thông tin SV");
+                    }
                     break;
                 case 2:
                     List<Student> objectList = objectDAO.getAll();
                     viewObject.getAllObject(objectList);
                     break;
                 case 3:
-                    Student updateObject = viewObject.updateObject();
-                    objectDAO.update(updateObject);
+                    while (true){
+                        Student updateObject = viewObject.updateObject();
+                        if(((StudentDAO)objectDAO).search("student_id", String.valueOf(updateObject.getId())).isEmpty()){
+                            objectDAO.update(updateObject);
+                            break;
+                        }
+
+                    }
                     break;
                 case 4:
-                    int id = viewObject.deleteObject();
-                    objectDAO.delete(id);
+                    while (true){
+                        int id = viewObject.deleteObject();
+                        if(((StudentDAO)objectDAO).search("student_id", String.valueOf(id)).isEmpty()){
+                            objectDAO.delete(id);
+                            break;
+                        }
+                        ((ViewStudent) viewObject).error("Không tồn tại SV có id" + id);
+                    }
                     break;
                 case 5:
                     while (true) {

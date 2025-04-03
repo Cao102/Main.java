@@ -38,8 +38,13 @@ public class ViewStudent implements ObjectView<Student>{
 
     public Student addObject() {
         System.out.println("\nNhập thông tin sinh viên:");
-        String name = input.inputString("Nhập tên sinh viên");
+        String name, email, phone;
         Date dob;
+        while(true){
+            name = input.inputString("Nhập tên sinh viên");
+            if(!name.isEmpty() && name.length() < 100) break;
+            System.out.println("Nhập tên không được trắng với ít hơn 100 ký tự");
+        }
         while (true) {
             String dobStr = input.inputString("Nhập ngày sinh (yyyy-MM-dd)");
             dob = validateDate(dobStr);
@@ -48,10 +53,9 @@ public class ViewStudent implements ObjectView<Student>{
             }
             System.out.println("Ngày sinh không hợp lệ! Vui lòng nhập lại theo định dạng yyyy-MM-dd.");
         }
-        String email;
-        String phone;
         while (true) {
             email = input.inputString("Nhập email sinh viên (@gmail.com)");
+
             if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
                 break;
             }
@@ -59,7 +63,7 @@ public class ViewStudent implements ObjectView<Student>{
         }
         while (true) {
             phone = input.inputString("Nhập SĐT sinh viên (10 số)");
-            if (phone.matches("^\\d{10}$")) {
+            if (!phone.matches("^\\d{10}$")) {
                 break;
             }
             System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
@@ -67,7 +71,6 @@ public class ViewStudent implements ObjectView<Student>{
 
         return new Student(name, dob, email, phone);
     }
-
 
     public void getAllObject(List<Student> objectList) {
         if (objectList.isEmpty()) {
@@ -103,23 +106,18 @@ public class ViewStudent implements ObjectView<Student>{
         String email;
         while (true) {
             email = input.inputString("Nhập email mới sinh viên (@gmail.com)");
-            if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
-                break;
-            }
+            if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$"))  break;
             System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
         }
         String phone;
         while (true) {
             phone = input.inputString("Nhập SĐT sinh viên (10 số)");
-            if (phone.matches("^\\d{10}$")) {
-                break;
-            }
+            if (phone.matches("^\\d{10}$")) break;
             System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
         }
 
         return new Student(student_id, name, dob, email, phone);
     }
-
     public int deleteObject() {
         return input.inputInt("Nhập ID sinh viên cần xoá");
     }
@@ -141,5 +139,8 @@ public class ViewStudent implements ObjectView<Student>{
     }
     public String infoSearch(){
         return input.inputString("Nhập thông tin tìm kiếm");
+    }
+    public void error(String s){
+        System.out.println(s);
     }
 }
