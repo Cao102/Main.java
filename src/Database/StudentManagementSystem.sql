@@ -8,20 +8,25 @@ USE StudentManagementSystem;
 -- Bảng sinh viên
 CREATE TABLE Students (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    dob DATE,
-    email VARCHAR(100) UNIQUE,
-    phone VARCHAR(15)
+    name VARCHAR(100) NOT NULL,
+    dob DATE NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    address VARCHAR(255)
 );
 
 -- Bảng giảng viên
 CREATE TABLE Teachers (
     teacher_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    phone VARCHAR(15)
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15),
+    address VARCHAR(255),
+    years_of_experience INT DEFAULT 0,
+    base_salary DECIMAL(10,2) DEFAULT 5000, -- Lương cơ bản mặc định là 5 triệu
+    salary DECIMAL(10,2) GENERATED ALWAYS AS (base_salary + (years_of_experience DIV 5) * 5000) STORED
 );
-
 -- Bảng môn học
 CREATE TABLE Subjects (
     subject_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -140,15 +145,24 @@ CREATE TABLE SupportRequests (
     FOREIGN KEY (student_id) REFERENCES Students(student_id)
 );
 -- Chèn dữ liệu vào bảng Students
-INSERT INTO Students (name, dob, email, phone) VALUES
-('Nguyen Van A', '2002-05-10', 'a.nguyen@example.com', '0987654321'),
-('Tran Thi B', '2003-08-15', 'b.tran@example.com', '0976543210'),
-('Le Van C', '2001-12-20', 'c.le@example.com', '0965432109');
+INSERT INTO Students (name, dob, gender, email, phone, address) VALUES
+('Nguyen Van A', '2002-05-10', 'Male', 'a.nguyen@example.com', '0987654321', 'Hanoi'),
+('Tran Thi B', '2003-08-15', 'Female', 'b.tran@example.com', '0976543210', 'Ho Chi Minh City'),
+('Le Van C', '2001-12-20', 'Male', 'c.le@example.com', '0965432109', 'Da Nang'),
+('Pham Thi D', '2000-07-25', 'Female', 'd.pham@example.com', '0954321098', 'Hai Phong'),
+('Do Van E', '2004-03-18', 'Male', 'e.do@example.com', '0943210987', 'Can Tho'),
+('Hoang Minh F', '2002-11-30', 'Male', 'f.hoang@example.com', '0932109876', 'Hue'),
+('Bui Thi G', '2003-09-05', 'Female', 'g.bui@example.com', '0921098765', 'Vung Tau'),
+('Nguyen Van H', '2001-06-12', 'Male', 'h.nguyen@example.com', '0910987654', 'Nha Trang');
+
 
 -- Chèn dữ liệu vào bảng Teachers
-INSERT INTO Teachers (name, email, phone) VALUES
-('Dr. Hoang Minh', 'hoang.minh@example.com', '0912345678'),
-('Ms. Nguyen Thu', 'nguyen.thu@example.com', '0923456789');
+INSERT INTO Teachers (name, email, phone, address, years_of_experience, base_salary) VALUES
+('Dr. Hoang Minh', 'hoang.minh@example.com', '0912345678',  'Hanoi', 10, 5000),
+('Ms. Nguyen Thu', 'nguyen.thu@example.com', '0923456789', 'Ho Chi Minh City', 7, 5000),
+('Mr. Tran Van An', 'tran.an@example.com', '0934567890', 'Da Nang', 15, 6000),
+('Mrs. Le Hai Yen', 'le.haiyen@example.com', '0945678901', 'Hai Phong', 3, 5500);
+
 
 -- Chèn dữ liệu vào bảng Subjects
 INSERT INTO Subjects (name, description) VALUES
@@ -218,4 +232,3 @@ INSERT INTO StudentDormitory (student_id, dorm_id) VALUES
 INSERT INTO SupportRequests (student_id, message, status) VALUES
 (1, 'Need help with tuition payment', 'Pending'),
 (2, 'Lost student ID card', 'Resolved');
-

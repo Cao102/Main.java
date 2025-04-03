@@ -6,8 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import Model.Student;
 
-public class ViewStudent implements ObjectView<Student>{
+public class ViewStudent{
     private final Input input = new Input();
+    private boolean checkEmpty(String s, String message){
+        if(s.isEmpty()){
+            System.out.println("Vui lòng không để " + message + " trống");
+            return true;
+        }
+        return false;
+    }
     private Date validateDate(String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false); // Không cho phép nhập ngày sai
@@ -20,7 +27,7 @@ public class ViewStudent implements ObjectView<Student>{
         }
     }
     public int menuObject() {
-            System.out.print("""
+        System.out.print("""
             
             ╔════════════════════════════════════════╗
             ║           QUẢN LÝ SINH VIÊN            ║
@@ -33,43 +40,110 @@ public class ViewStudent implements ObjectView<Student>{
             ║ 6. Quay lại                            ║
             ╚════════════════════════════════════════╝
             """);
-            return input.inputInt("Nhập lựa chọn của bạn");
+        return input.inputInt("Nhập lựa chọn của bạn");
     }
-
-    public Student addObject() {
-        System.out.println("\nNhập thông tin sinh viên:");
-        String name, email, phone;
+    public void errorChoose(){
+        System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
+    }
+    public int getID(){
+        int student_id;
+        while (true){
+            String line = input.inputString("Nhập ID SV");
+            if(!line.matches("\\d++")){
+                System.out.println("Nhập lại ID chỉ bao gồm số");
+                continue;
+            }
+            student_id = Integer.parseInt(line);
+            break;
+        }
+        return student_id;
+    }
+    public String getName(){
+        String name;
+        while(true){
+            name = input.inputString("Nhập tên SV");
+            if(name.isEmpty()){
+                System.out.println("Không được để trên trắng");
+                continue;
+            }
+            break;
+        }
+        return name;
+    }
+    public Date getDob(){
         Date dob;
         while(true){
-            name = input.inputString("Nhập tên sinh viên");
-            if(!name.isEmpty() && name.length() < 100) break;
-            System.out.println("Nhập tên không được trắng với ít hơn 100 ký tự");
-        }
-        while (true) {
             String dobStr = input.inputString("Nhập ngày sinh (yyyy-MM-dd)");
             dob = validateDate(dobStr);
-            if (dob != null) {
-                break;
+            if (dob == null) {
+                System.out.println("Ngày sinh không hợp lệ! Vui lòng nhập lại theo định dạng yyyy-MM-dd.");
+                continue;
             }
-            System.out.println("Ngày sinh không hợp lệ! Vui lòng nhập lại theo định dạng yyyy-MM-dd.");
+            break;
         }
+        return dob;
+    }
+    public String getGender(){
+        String gender;
+        while(true){
+            gender = input.inputString("Nhập giới tính SV");
+            if(gender.isEmpty()){
+                System.out.println("Đầu vào không được để trắng");
+                continue;
+            }
+            String checkGender = gender.toLowerCase();
+            if(!(checkGender.equals("male") || checkGender.equals("female") || checkGender.equals("other"))){
+                System.out.println("Nhập lại giới tính với đầu vào là Male, Female, Other");
+                continue;
+            }
+            break;
+        }
+        return gender;
+    }
+    public String getEmail(){
+        String email;
         while (true) {
             email = input.inputString("Nhập email sinh viên (@gmail.com)");
-
-            if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
-                break;
+            if(checkEmpty(email, "email")){
+                continue;
             }
-            System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
+            if (!email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+                System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
+                continue;
+            }
+            break;
         }
+        return email;
+    }
+    public String getPhone(){
+        String phone;
         while (true) {
             phone = input.inputString("Nhập SĐT sinh viên (10 số)");
-            if (!phone.matches("^\\d{10}$")) {
-                break;
+            if(checkEmpty(phone, "phone")){
+                continue;
             }
-            System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
+            if (!phone.matches("^\\d{10}$")) {
+                System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
+                continue;
+            }
+            break;
         }
-
-        return new Student(name, dob, email, phone);
+        return phone;
+    }
+    public String getAddress(){
+        String address;
+        while (true){
+            address = input.inputString("Nhập địa chị SV");
+            if(checkEmpty(address, "address")){
+                continue;
+            }
+            if(address.length() >= 255){
+                System.out.println("Vui lòng không nhấp quá 255 ký tự");
+                continue;
+            }
+            break;
+        }
+        return address;
     }
 
     public void getAllObject(List<Student> objectList) {
@@ -78,49 +152,20 @@ public class ViewStudent implements ObjectView<Student>{
             return;
         }
         System.out.print("""
-                ╔════════════════════════════════════════════════════════════════════════════╗
-                ║                               DANH SÁCH SINH VIÊN                          ║
-                ╠══════╦════════════════╦════════════════════════╦══════════════╦════════════╣
-                ║  ID  ║     Tên        ║          Email         ║   Ngày sinh  ║    SĐT     ║
-                ╠══════╬════════════════╬════════════════════════╬══════════════╬════════════╣
+                ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+                ║                                                   DANH SÁCH SINH VIÊN                                           ║
+                ╠══════╦════════════════╦══════════════╦═══════════╦═══════════════════════════╦══════════════╦═══════════════════╣
+                ║  ID  ║      Tên       ║   Ngày sinh  ║ Giới Tính ║           Email           ║      SĐT     ║      Địa chỉ      ║
+                ╠══════╬════════════════╬══════════════╬═══════════╬═══════════════════════════╬══════════════╬═══════════════════╣
                 """);
         for (Student object : objectList) {
             System.out.println(object);
         }
-        System.out.println("╚══════╩════════════════╩════════════════════════╩══════════════╩════════════╝");
+        System.out.println("""
+                ╚══════╩════════════════╩══════════════╩═══════════╩═══════════════════════════╩══════════════╩═══════════════════╝
+                """);
     }
 
-    public Student updateObject() {
-        System.out.println("\nChỉnh sửa thông tin sinh viên:");
-        int student_id = input.inputInt("Nhập ID sinh viên cần chỉnh");
-        String name = input.inputString("Nhập tên mới");
-        Date dob;
-        while (true) {
-            String dobStr = input.inputString("Nhập ngày sinh (yyyy-MM-dd)");
-            dob = validateDate(dobStr);
-            if (dob != null) {
-                break;
-            }
-            System.out.println("Ngày sinh không hợp lệ! Vui lòng nhập lại theo định dạng yyyy-MM-dd.");
-        }
-        String email;
-        while (true) {
-            email = input.inputString("Nhập email mới sinh viên (@gmail.com)");
-            if (email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$"))  break;
-            System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
-        }
-        String phone;
-        while (true) {
-            phone = input.inputString("Nhập SĐT sinh viên (10 số)");
-            if (phone.matches("^\\d{10}$")) break;
-            System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
-        }
-
-        return new Student(student_id, name, dob, email, phone);
-    }
-    public int deleteObject() {
-        return input.inputInt("Nhập ID sinh viên cần xoá");
-    }
     public int viewSearch () {
         System.out.print("""
             
@@ -130,17 +175,19 @@ public class ViewStudent implements ObjectView<Student>{
             ║ 1. Tìm kiếm theo MSV                   ║
             ║ 2. Tìm kiếm theo Tên SV                ║
             ║ 3. Tìm kiếm theo ngày sinh             ║
-            ║ 4. Tìm kiếm theo email                 ║
-            ║ 5. Tìm kiếm theo SĐT                   ║
-            ║ 6. Quay lại                            ║
+            ║ 4. Tìm kiếm theo Giới tính             ║
+            ║ 5. Tìm kiếm theo email                 ║
+            ║ 6. Tìm kiếm theo SĐT                   ║
+            ║ 7. Tìm kiếm theo Địa chỉ               ║
+            ║ 8. Quay lại                            ║
             ╚════════════════════════════════════════╝
             """);
         return input.inputInt("Nhập lựa chọn");
     }
-    public String infoSearch(){
-        return input.inputString("Nhập thông tin tìm kiếm");
+    public void checkID(){
+        System.out.println("Không tồn tại SV có ID đã nhập");
     }
-    public void error(String s){
-        System.out.println(s);
+    public void checkEmail(){
+        System.out.println("Email đã tồn tại. Vui lòng nhập lại");
     }
 }

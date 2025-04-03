@@ -2,8 +2,10 @@ package Controller;
 
 import DAO.DAO;
 import DAO.TeacherDAO;
+import Model.Student;
 import Model.Teacher;
 import View.ObjectView;
+import View.ViewStudent;
 import View.ViewTeacher;
 
 import java.util.List;
@@ -21,20 +23,37 @@ public class TeacherController {
             int input = viewObject.menuObject();
             switch (input) {
                 case 1:
-                    Teacher add = viewObject.addObject();
-                    objectDAO.add(add);
+                    while(true){
+                        Teacher add = viewObject.addObject();
+                        if(((TeacherDAO)objectDAO).search("email", add.getEmail()).isEmpty()){
+                            objectDAO.add(add);
+                            break;
+                        }
+                        ((ViewTeacher) viewObject).error("Email đã tồn tại Vui lòng nhập lại thông tin GV");
+                    }
                     break;
                 case 2:
                     List<Teacher> objectList = objectDAO.getAll();
                     viewObject.getAllObject(objectList);
                     break;
                 case 3:
-                    Teacher updateObject = viewObject.updateObject();
-                    objectDAO.update(updateObject);
+                    while (true){
+                        Teacher updateObject = viewObject.updateObject();
+                        if(((TeacherDAO)objectDAO).search("teacher_id", String.valueOf(updateObject.getId())).isEmpty()){
+                            objectDAO.update(updateObject);
+                            break;
+                        }
+                    }
                     break;
                 case 4:
-                    int id = viewObject.deleteObject();
-                    objectDAO.delete(id);
+                    while (true){
+                        int id = viewObject.deleteObject();
+                        if(((TeacherDAO)objectDAO).search("teacher_id", String.valueOf(id)).isEmpty()){
+                            objectDAO.delete(id);
+                            break;
+                        }
+                        ((ViewTeacher) viewObject).error("Không tồn tại GV có id" + id);
+                    }
                     break;
                 case 5:
                     while (true){

@@ -5,16 +5,19 @@ public class Person {
     protected String name;
     protected String email;
     protected String phone;
-    public Person(int id, String name, String email, String phone){
+    protected String address;
+    public Person(int id, String name, String email, String phone, String address){
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.address = address;
     }
-    public Person(String name, String email, String phone){
+    public Person(String name, String email, String phone, String address){
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.address = address;
     }
     public int getId(){
         return this.id;
@@ -28,8 +31,7 @@ public class Person {
     public String getPhone(){
         return this.phone;
     }
-    @Override
-    public String toString(){
-        return String.format("║ %-5d ║ %-14s ║ %-22s ║ %-10s ║", id, name, email, phone);
+    public String getAddress() {
+        return address;
     }
 }

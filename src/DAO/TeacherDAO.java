@@ -1,9 +1,9 @@
 package DAO;
 
-import Model.Student;
 import Model.Teacher;
 import util.DatabaseConnect;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,11 @@ public class TeacherDAO implements DAO<Teacher> {
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
-                teacherList.add(new Teacher(teacher_id, name, email, phone));
+                String address = resultSet.getString("address");
+                int years_of_experience = resultSet.getInt("years_of_experience");
+                BigDecimal base_salary = resultSet.getBigDecimal("base_salary");
+                BigDecimal salary = resultSet.getBigDecimal("salary");
+                teacherList.add(new Teacher(teacher_id, name, email, phone, address, years_of_experience, base_salary, salary));
             }
             return teacherList;
         } catch (SQLException e){
@@ -79,7 +83,11 @@ public class TeacherDAO implements DAO<Teacher> {
                     String name = resultSet.getString("name");
                     String email = resultSet.getString("email");
                     String phone = resultSet.getString("phone");
-                    teacherList.add(new Teacher(teacher_id, name, email, phone));
+                    String address = resultSet.getString("address");
+                    int years_of_experience = resultSet.getInt("years_of_experience");
+                    BigDecimal base_salary = resultSet.getBigDecimal("base_salary");
+                    BigDecimal salary = resultSet.getBigDecimal("salary");
+                    teacherList.add(new Teacher(teacher_id, name, email, phone, address, years_of_experience, base_salary, salary));
                 }
             }
             return teacherList;
