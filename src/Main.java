@@ -9,7 +9,8 @@ public class Main {
         System.out.println("Hien thi diem : 4");
         int t = Integer.parseInt(sc.nextLine());
         if(t==1){
-            //themDiem();
+            QL_Diem_Sv ql = new QL_Diem_Sv();
+            ql.themDiem(1,3,10);
         }
         else if(t==2){
             //suaDiem()
