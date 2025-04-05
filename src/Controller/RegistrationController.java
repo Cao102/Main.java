@@ -20,7 +20,7 @@ public class RegistrationController {
         List<Registration> list = dao.getRegisteredSubjects(studentId);
         System.out.println("Danh sách môn học đã đăng ký của sinh viên " + studentId + ":");
         for (Registration r : list) {
-            System.out.println("- SubjectID: " + r.getSubjectId());
+            System.out.println("- SubjectID: " + r.getSubjectId() + "----" + r.getName());
         }
     }
 

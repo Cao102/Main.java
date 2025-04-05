@@ -34,7 +34,11 @@ public class RegistrationDAO {
         }
     }
     public List<Registration> getRegisteredSubjects(int student_id){
-        String sql = "SELECT subject_id FROM studentmanagementsystem.registrations WHERE student_id = ?";
+        String sql = "SELECT s.subject_id,s.name " +
+                "FROM studentmanagementsystem.registrations r " +
+                "INNER JOIN studentmanagementsystem.subjects s " +
+                "ON r.subject_id = s.subject_id " +
+                "WHERE r.student_id = ?";
         List<Registration> subjects = new ArrayList<>();
 
         try{
@@ -45,7 +49,8 @@ public class RegistrationDAO {
 
             while (rs.next()) {
                 int sj = rs.getInt("subject_id");
-                subjects.add(new Registration(student_id, sj)); // student_id là tham số truyền vào
+                String name = rs.getString("name");
+                subjects.add(new Registration(name, sj));
             }
 
         } catch(Exception e){
