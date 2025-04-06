@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.util.*;
 import java.sql.ResultSet;
 public class RegistrationDAO {
-    public void add(int student_id, int subject_id){
+    public void addSubject(int student_id, int subject_id){
         String sql = "INSERT INTO studentmanagementsystem.registrations (student_id,subject_id) VALUES (?,?)";
         try {
             Connection cn = DatabaseConnect.getConnection();
@@ -20,7 +20,7 @@ public class RegistrationDAO {
             System.out.println("Error Add");
         }
     }
-    public void remove(int student_id, int subject_id){
+    public void removeSubject(int student_id, int subject_id){
         String sql = "DELETE FROM studentmanagementsystem.registrations WHERE student_id = ? AND subject_id = ?";
         try {
             Connection cn = DatabaseConnect.getConnection();
