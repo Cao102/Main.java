@@ -26,4 +26,15 @@ public class GradeController {
             System.out.println("Bạn " + x.getName() + " được " + x.getGrade() + " điểm");
         }
     }
+    public double calculateGrade(int studentID){
+        List<Grade> listGrade = dao.showGradeByStudentDAO(studentID);
+        double gpa = 0;
+        double n = 0;
+        for(Grade x : listGrade){
+            gpa += x.getGrade();
+            n+=1.0;
+        }
+        gpa/=n;
+        return gpa;
+    }
 }

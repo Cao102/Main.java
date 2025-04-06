@@ -13,6 +13,7 @@ public class ViewGrade {
         System.out.println("Sửa điểm");
         System.out.println("Show điểm các môn của 1 sinh viên");
         System.out.println("Show điểm các sinh viên của 1 môn");
+        System.out.println("Tính GPA của sinh viên");
         int n = sc.nextInt();
         if(n==1){
             System.out.println("Nhập ID sinh viên : ");
@@ -41,6 +42,11 @@ public class ViewGrade {
             System.out.println("Nhập ID môn học : ");
             int a = sc.nextInt();
             controller.showGradeBySubjectController(a);
+        }
+        else{
+            System.out.println("Nhập ID sinh viên : ");
+            int a = sc.nextInt();
+            System.out.println(controller.calculateGrade(a));
         }
     }
 }

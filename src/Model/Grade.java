@@ -20,4 +20,5 @@ public class Grade {
     public String getName(){
         return name;
     }
+
 }
