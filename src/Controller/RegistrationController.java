@@ -9,11 +9,11 @@ public class RegistrationController {
 
     public void registerSubject(int studentId, int subjectId) {
         Registration reg = new Registration(studentId, subjectId);
-        dao.add(studentId, subjectId);
+        dao.addSubject(studentId, subjectId);
     }
 
     public void cancelSubject(int studentId, int subjectId) {
-        dao.remove(studentId, subjectId);
+        dao.removeSubject(studentId, subjectId);
     }
 
     public void showRegisteredSubjects(int studentId) {
