@@ -63,4 +63,25 @@ public class GradeDAO {
         }
         return listGrade;
     }
+    public List<Grade> showGradeBySubjectDAO(int subjectID){
+        List<Grade> listGrade = new ArrayList<>();
+        String sql = "SELECT s.name, g.grade " +
+                "FROM studentmanagementsystem.grades g " +
+                "INNER JOIN studentmanagementsystem.students s ON g.student_id = s.student_id " +
+                "WHERE g.subject_id = ?";
+        try {
+            Connection cn = DatabaseConnect.getConnection();
+            PreparedStatement pr = cn.prepareStatement(sql);
+            pr.setInt(1,subjectID);
+            ResultSet rs = pr.executeQuery();
+            while(rs.next()){
+                String n = rs.getString("name");
+                double gr = rs.getDouble("grade");
+                listGrade.add(new Grade(n,gr));
+            }
+        } catch(Exception e){
+            System.out.println("Error");
+        }
+        return listGrade;
+    }
 }

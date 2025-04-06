@@ -20,4 +20,10 @@ public class GradeController {
             System.out.println("Môn " + x.getName() + ": " + x.getGrade() + " điểm");
         }
     }
+    public void showGradeBySubjectController(int subjectID){
+        List<Grade> listGrade = dao.showGradeBySubjectDAO(subjectID);
+        for(Grade x : listGrade){
+            System.out.println("Bạn " + x.getName() + " được " + x.getGrade() + " điểm");
+        }
+    }
 }
