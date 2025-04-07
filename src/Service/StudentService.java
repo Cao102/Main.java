@@ -22,14 +22,14 @@ public class StudentService {
     public void updateObject(Student student){
         studentDAO.update(student);
     }
-    public void deleteObject(int student_id){
+    public void deleteObject(String student_id){
         studentDAO.delete(student_id);
     }
     public List<Student> searchObject(String name_column, String attribute){
         return studentDAO.search(name_column, attribute);
     }
-    public boolean checkID(int student_id){
-        return searchObject("student_id", String.valueOf(student_id)).isEmpty();
+    public boolean checkID(String student_id){
+        return searchObject("student_id", student_id).isEmpty();
     }
     public boolean checkEmail(String email){
         return searchObject("email", email).isEmpty();

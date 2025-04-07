@@ -8,14 +8,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherDAO implements DAO<Teacher> {
+public class TeacherDAO {
     public void add(Teacher teacher){
-        String sql = "INSERT INTO teachers (name, email, phone) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO teachers (teacher_id, name, email, phone, address, years_of_experience, base_salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, teacher.getName());
-            statement.setString(2, teacher.getEmail());
-            statement.setString(3, teacher.getPhone());
+            statement.setString(1, teacher.getId());
+            statement.setString(2, teacher.getName());
+            statement.setString(3, teacher.getEmail());
+            statement.setString(4, teacher.getPhone());
+            statement.setString(5, teacher.getAddress());
+            statement.setInt(6, teacher.getYearsOfExperience());
+            statement.setBigDecimal(7, teacher.getBaseSalary());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi thêm giáo viên" + e.getMessage());
@@ -28,7 +32,7 @@ public class TeacherDAO implements DAO<Teacher> {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery()){
             while (resultSet.next()){
-                int teacher_id = resultSet.getInt("teacher_id");
+                String teacher_id = resultSet.getString("teacher_id");
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
@@ -46,24 +50,28 @@ public class TeacherDAO implements DAO<Teacher> {
     public void update(Teacher object){
         String sql = """
                 UPDATE teachers
-                SET name = ?, email = ?, phone = ?
-                WHERE teacher_id = ?;""";
+                SET name = ?, email = ?, phone = ?, address = ?, years_of_experience = ?, base_salary = ? 
+                WHERE teacher_id = ?;
+                """;
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, object.getName());
             statement.setString(2, object.getEmail());
             statement.setString(3, object.getPhone());
-            statement.setInt(4, object.getId());
+            statement.setString(4, object.getAddress());
+            statement.setInt(5, object.getYearsOfExperience());
+            statement.setBigDecimal(6, object.getBaseSalary());
+            statement.setString(7, object.getId());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi sửa thông tin giáo viên " + e.getMessage());
         }
     }
-    public void delete(int id){
+    public void delete(String id){
         String sql = "DELETE FROM teachers WHERE teacher_id = ?;";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, id);
+            statement.setString(1, id);
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi xoá giáo viên" + e.getMessage());
@@ -79,7 +87,7 @@ public class TeacherDAO implements DAO<Teacher> {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    int teacher_id = resultSet.getInt("teacher_id");
+                    String teacher_id = resultSet.getString("teacher_id");
                     String name = resultSet.getString("name");
                     String email = resultSet.getString("email");
                     String phone = resultSet.getString("phone");

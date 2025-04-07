@@ -45,15 +45,14 @@ public class ViewStudent{
     public void errorChoose(){
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
     }
-    public int getID(){
-        int student_id;
+    public String getID(){
+        String student_id;
         while (true){
-            String line = input.inputString("Nhập ID SV");
-            if(!line.matches("\\d++")){
-                System.out.println("Nhập lại ID chỉ bao gồm số");
+            student_id = input.inputString("Nhập ID SV");
+            if(checkEmpty(student_id, "ID")){
+                System.out.println("ID");
                 continue;
             }
-            student_id = Integer.parseInt(line);
             break;
         }
         return student_id;

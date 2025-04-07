@@ -6,7 +6,7 @@ public class Input {
     Scanner sc = new Scanner(System.in);
     public String inputString(String message){
         System.out.print(message + ": ");
-        return sc.nextLine();
+        return sc.nextLine().trim();
     }
     public int inputInt(String message){
             System.out.print(message + ": ");

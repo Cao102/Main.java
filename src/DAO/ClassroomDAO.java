@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassroomDAO implements DAO<Classroom>{
+public class ClassroomDAO{
     public void add(Classroom clazz){
         String sql = "INSERT INTO Classrooms (classroom_id, name, capacity) VALUES (?, ?, ?)";
         try(Connection connection = DatabaseConnect.getConnection();

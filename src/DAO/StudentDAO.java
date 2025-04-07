@@ -7,17 +7,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDAO implements DAO<Student> {
+public class StudentDAO {
     public void add(Student student){
-        String sql = "INSERT INTO students (name, dob, gender, email, phone, address) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO students (student_id, name, dob, gender, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, student.getName());
-            statement.setDate(2, student.getDob());
-            statement.setString(3, student.getGender());
-            statement.setString(4, student.getEmail());
-            statement.setString(5, student.getPhone());
-            statement.setString(6, student.getAddress());
+            statement.setString(1, student.getId());
+            statement.setString(2, student.getName());
+            statement.setDate(3, student.getDob());
+            statement.setString(4, student.getGender());
+            statement.setString(5, student.getEmail());
+            statement.setString(6, student.getPhone());
+            statement.setString(7, student.getAddress());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi thêm sinh viên " + e.getMessage());
@@ -30,7 +31,7 @@ public class StudentDAO implements DAO<Student> {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery()){
             while (resultSet.next()){
-                int student_id = resultSet.getInt("student_id");
+                String student_id = resultSet.getString("student_id");
                 String name = resultSet.getString("name");
                 Date dob = resultSet.getDate("dob");
                 String gender = resultSet.getString("gender");
@@ -57,17 +58,17 @@ public class StudentDAO implements DAO<Student> {
             statement.setString(4, student.getEmail());
             statement.setString(5, student.getPhone());
             statement.setString(6, student.getAddress());
-            statement.setInt(7, student.getId());
+            statement.setString(7, student.getId());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi sửa sinh viên " + e.getMessage());
         }
     }
-    public void delete(int id){
+    public void delete(String id){
         String sql = "DELETE FROM students WHERE student_id = ?;";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, id);
+            statement.setString(1, id);
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi xoá sinh viên " + e.getMessage());
@@ -83,7 +84,7 @@ public class StudentDAO implements DAO<Student> {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    int student_id = resultSet.getInt("student_id");
+                    String student_id = resultSet.getString("student_id");
                     String name = resultSet.getString("name");
                     Date dob = resultSet.getDate("dob");
                     String gender = resultSet.getString("gender");

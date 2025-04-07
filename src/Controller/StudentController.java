@@ -43,6 +43,7 @@ public class StudentController {
         }
     }
     public void addObject(){
+        String student_id = viewStudent.getID();
         String name = viewStudent.getName();
         Date dob = viewStudent.getDob();
         String gender = viewStudent.getGender();
@@ -57,13 +58,13 @@ public class StudentController {
         }
         String phone = viewStudent.getPhone();
         String address = viewStudent.getAddress();
-        studentService.addObject(new Student(name, dob, gender, email, phone, address));
+        studentService.addObject(new Student(student_id, name, dob, gender, email, phone, address));
     }
     public void updateObject(){
-        int studen_id;
+        String studen_id;
         while (true){
             studen_id = viewStudent.getID();
-            if(studentService.checkID(studen_id)){
+            if(!studentService.checkID(studen_id)){
                 viewStudent.checkID();
                 continue;
             }
@@ -87,7 +88,7 @@ public class StudentController {
         studentService.updateObject(new Student(studen_id, name, dob, gender, email, phone, address));
     }
     public void deleteObject(){
-        int student_id;
+        String student_id;
         while (true){
             student_id = viewStudent.getID();
             if(studentService.checkID(student_id)){

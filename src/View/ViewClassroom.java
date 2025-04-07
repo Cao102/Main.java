@@ -22,9 +22,11 @@ public class ViewClassroom implements ObjectView<Classroom> {
 
     public Classroom addObject() {
         System.out.println("\nNhập Thông tin Lớp Học");
+        //System.out.println(""Nhập thông tin lớp);
+        // String name = sc.nextLine();
         String name = input.inputString("Nhập Tên Lớp");
-        int teacher_id = input.inputInt("Nhập sức chứa");
-        return new Classroom(name, teacher_id);
+        int capacity = input.inputInt("Nhập sức chứa");
+        return new Classroom(name, capacity);
     }
 
     public void getAllObject(List<Classroom> objectList) {
