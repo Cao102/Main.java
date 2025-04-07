@@ -35,21 +35,11 @@ public class ViewTuition {
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
     }
 
-    public int getStudentId() {
-        int student_id;
-        while (true) {
-            String line = input.inputString("Nhập ID sinh viên");
-            if (!line.matches("\\d++")) {
-                System.out.println("Nhập lại ID chỉ bao gồm số");
-                continue;
-            }
-            student_id = Integer.parseInt(line);
-            break;
-        }
-        return student_id;
+    public String inputStudentId() {
+        return input.inputString("Nhập ID sinh viên");
     }
 
-    public double getAmount() {
+    public double inputAmount() {
         double amount;
         while (true) {
             String line = input.inputString("Nhập số tiền học phí");
@@ -105,11 +95,19 @@ public class ViewTuition {
     public void checkTuitionDeleted() {
         System.out.println("Học phí đã được xóa thành công!");
     }
-
+    public boolean confirmUpdateTuition() {
+        // Hỏi người dùng có muốn cập nhật học phí không
+        System.out.print("Sinh viên đã có học phí. Bạn có muốn cập nhật học phí không? (Y/N) ");
+        String choice = input.inputString("");
+        return choice.equalsIgnoreCase("Y");  // Nếu người dùng chọn 'Y', trả về true
+    }
+    public void showStudentNotExist() {
+        System.out.println("Sinh viên không tồn tại trong hệ thống. Vui lòng kiểm tra lại ID.");
+    }
+    public void showTuitionNotExist(){
+        System.out.println("Không tìm thấy học phí cho sinh viên với ID đã nhập.");
+    }
     public void showTuitionDetails(Tuition tuition) {
-        if (tuition == null) {
-            System.out.println("Không tìm thấy học phí cho sinh viên với ID đã nhập.");
-        } else {
             System.out.println("Thông tin học phí:");
             System.out.print("""
                 ╔════════════════╦═════════════════════╗
@@ -121,6 +119,5 @@ public class ViewTuition {
             System.out.println(""" 
                 ╚════════════════╩═════════════════════╝
                 """);
-        }
     }
 }
