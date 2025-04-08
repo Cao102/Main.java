@@ -13,13 +13,13 @@ public class ViewStudent{
     }
     private Date validateDate(String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setLenient(false); // Không cho phép nhập ngày sai
+        sdf.setLenient(false);
 
         try {
-            java.util.Date utilDate = sdf.parse(dateStr); // Chuyển chuỗi thành java.util.Date
-            return new java.sql.Date(utilDate.getTime()); // Chuyển thành java.sql.Date để lưu vào SQL
+            java.util.Date utilDate = sdf.parse(dateStr);
+            return new java.sql.Date(utilDate.getTime());
         } catch (ParseException e) {
-            return null; // Nếu sai định dạng, trả về null
+            return null;
         }
     }
     public int menuObject() {

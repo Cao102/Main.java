@@ -44,7 +44,7 @@ public class ViewClassroom{
     }
 
     public void addObject() {
-        System.out.println("\nNhập Thông tin Lớp Học");
+        System.out.println("\nNhập Thông tin Lớp Học (hoặc Enter để quay lại):");
     }
 
     public void getAllObject(List<Classroom> objectList) {
@@ -68,10 +68,10 @@ public class ViewClassroom{
     }
 
     public void updateObject() {
-        System.out.println("\nChỉnh sửa Thông tin Lớp Học");
+        System.out.println("\nChỉnh sửa Thông tin Lớp Học (hoặc Enter để quay lại):");
     }
 
     public void deleteObject() {
-        System.out.println("Nhập thông tin xoá");
+        System.out.println("Nhập thông tin xoá (hoặc Enter để quay lại):");
     }
 }
