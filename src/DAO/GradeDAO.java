@@ -1,4 +1,5 @@
 package DAO;
+
 import Model.Grade;
 import connectDatabase.DatabaseConnect;
 
@@ -9,40 +10,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GradeDAO {
-    public void addGrade(int studentID, int subjectID, double grade){
-        String sql = "INSERT INTO studentmanagementsystem.grades (student_id,subject_id, grade) VALUES (?,? ,?)";
-        try{
+    public void addGrade(String studentID, String subjectID, double grade) {
+        String sql = "INSERT INTO studentmanagementsystem.grades (student_id, subject_id, grade) VALUES (?, ?, ?)";
+        try {
             Connection cn = DatabaseConnect.getConnection();
             PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setInt(1,studentID);
-            pr.setInt(2,subjectID);
-            pr.setDouble(3,grade);
+            pr.setString(1, studentID);
+            pr.setString(2, subjectID);
+            pr.setDouble(3, grade);
             pr.executeUpdate();
             System.out.println("Successfully");
-        } catch(Exception e){
-            System.out.println("Error Add Grade");
+        } catch (Exception e) {
+            System.out.println("Error Add Grade: " + e.getMessage());
         }
     }
-    public void updateGrade(int studentID, int subjectID, double grade){
+
+    public void updateGrade(String studentID, String subjectID, double grade) {
         String sql = "UPDATE studentmanagementsystem.grades SET grade = ? WHERE student_id = ? AND subject_id = ?";
-        try{
+        try {
             Connection cn = DatabaseConnect.getConnection();
             PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setDouble(1,grade);
-            pr.setInt(2,studentID);
-            pr.setInt(3,subjectID);
+            pr.setDouble(1, grade);
+            pr.setString(2, studentID);
+            pr.setString(3, subjectID);
             int check = pr.executeUpdate();
-            if(check > 0){
+            if (check > 0) {
                 System.out.println("Successfully");
+            } else {
+                System.out.println("Không tồn tại");
             }
-            else{
-                System.out.println("Khong ton tai");
-            }
-        } catch(Exception e){
-            System.out.println("Error Add Grade");
+        } catch (Exception e) {
+            System.out.println("Error Update Grade: " + e.getMessage());
         }
     }
-    public List<Grade> showGradeByStudentDAO(int studentID){
+
+    public List<Grade> showGradeByStudentDAO(String studentID) {
         List<Grade> listGrade = new ArrayList<>();
         String sql = "SELECT s.name, g.grade " +
                 "FROM studentmanagementsystem.grades g " +
@@ -51,19 +53,20 @@ public class GradeDAO {
         try {
             Connection cn = DatabaseConnect.getConnection();
             PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setInt(1,studentID);
+            pr.setString(1, studentID);
             ResultSet rs = pr.executeQuery();
-            while(rs.next()){
-                String n = rs.getString("name");
-                double gr = rs.getDouble("grade");
-                listGrade.add(new Grade(n,gr));
+            while (rs.next()) {
+                String subjectName = rs.getString("name");
+                double grade = rs.getDouble("grade");
+                listGrade.add(new Grade(subjectName, grade));
             }
-        } catch(Exception e){
-            System.out.println("Error");
+        } catch (Exception e) {
+            System.out.println("Error showGradeByStudent: " + e.getMessage());
         }
         return listGrade;
     }
-    public List<Grade> showGradeBySubjectDAO(int subjectID){
+
+    public List<Grade> showGradeBySubjectDAO(String subjectID) {
         List<Grade> listGrade = new ArrayList<>();
         String sql = "SELECT s.name, g.grade " +
                 "FROM studentmanagementsystem.grades g " +
@@ -72,15 +75,15 @@ public class GradeDAO {
         try {
             Connection cn = DatabaseConnect.getConnection();
             PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setInt(1,subjectID);
+            pr.setString(1, subjectID);
             ResultSet rs = pr.executeQuery();
-            while(rs.next()){
-                String n = rs.getString("name");
-                double gr = rs.getDouble("grade");
-                listGrade.add(new Grade(n,gr));
+            while (rs.next()) {
+                String studentName = rs.getString("name");
+                double grade = rs.getDouble("grade");
+                listGrade.add(new Grade(studentName, grade));
             }
-        } catch(Exception e){
-            System.out.println("Error");
+        } catch (Exception e) {
+            System.out.println("Error showGradeBySubject: " + e.getMessage());
         }
         return listGrade;
     }

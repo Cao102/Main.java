@@ -15,34 +15,34 @@ public class ViewRegister {
         System.out.println("4. Xem danh sách sinh viên của môn học");
         System.out.print("Chọn chức năng: ");
 
-        int choice = sc.nextInt();
+        int choice = Integer.parseInt(sc.nextLine());
 
         switch (choice) {
             case 1:
                 System.out.print("Nhập mã sinh viên: ");
-                int studentId1 = sc.nextInt();
+                String studentId1 = sc.nextLine();
                 System.out.print("Nhập mã môn học: ");
-                int subjectId1 = sc.nextInt();
+                String subjectId1 = sc.nextLine();
                 controller.registerSubject(studentId1, subjectId1);
                 break;
 
             case 2:
                 System.out.print("Nhập mã sinh viên: ");
-                int studentId2 = sc.nextInt();
+                String studentId2 = sc.nextLine();
                 System.out.print("Nhập mã môn học: ");
-                int subjectId2 = sc.nextInt();
+                String subjectId2 = sc.nextLine();
                 controller.cancelSubject(studentId2, subjectId2);
                 break;
 
             case 3:
                 System.out.print("Nhập mã sinh viên: ");
-                int studentId3 = sc.nextInt();
+                String studentId3 = sc.nextLine();
                 controller.showRegisteredSubjects(studentId3);
                 break;
 
             case 4:
                 System.out.print("Nhập mã môn học: ");
-                int subjectId3 = sc.nextInt();
+                String subjectId3 = sc.nextLine();
                 controller.showStudentsBySubject(subjectId3);
                 break;
 

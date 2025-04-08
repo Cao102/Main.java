@@ -7,16 +7,16 @@ import Model.Registration;
 public class RegistrationController {
     private RegistrationDAO dao = new RegistrationDAO();
 
-    public void registerSubject(int studentId, int subjectId) {
+    public void registerSubject(String studentId, String subjectId) {
         Registration reg = new Registration(studentId, subjectId);
         dao.addSubject(studentId, subjectId);
     }
 
-    public void cancelSubject(int studentId, int subjectId) {
+    public void cancelSubject(String studentId, String subjectId) {
         dao.removeSubject(studentId, subjectId);
     }
 
-    public void showRegisteredSubjects(int studentId) {
+    public void showRegisteredSubjects(String studentId) {
         List<Registration> list = dao.getRegisteredSubjects(studentId);
         System.out.println("Danh sách môn học đã đăng ký của sinh viên " + studentId + ":");
         for (Registration r : list) {
@@ -24,7 +24,7 @@ public class RegistrationController {
         }
     }
 
-    public void showStudentsBySubject(int subjectId) {
+    public void showStudentsBySubject(String subjectId) {
         List<Registration> list = dao.getRegisteredStudent(subjectId);
         System.out.println("Danh sách sinh viên đăng ký môn học " + subjectId + ":");
         for (Registration r : list) {

@@ -1,24 +1,25 @@
 package Model;
 
 public class Registration {
-    private int studentId;
-    private int subjectId;
+    private String studentId;
+    private String subjectId;
     private String name;
-    public Registration(int studentId, int subjectId) {
+    public Registration(String studentId, String subjectId, String name) {
         this.studentId = studentId;
         this.subjectId = subjectId;
     }
-    public Registration(String name, int subjectId) {
+    public Registration(String name, String subjectId) {
         this.name = name;
         this.subjectId = subjectId;
     }
-    public int getStudentId() {
+
+    public String getStudentId() {
         return studentId;
     }
     public String getName(){
         return name;
     }
-    public int getSubjectId() {
+    public String getSubjectId() {
         return subjectId;
     }
 
