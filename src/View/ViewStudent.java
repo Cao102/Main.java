@@ -165,10 +165,11 @@ public class ViewStudent{
             """);
         return input.inputInt("Nhập lựa chọn");
     }
-    public void checkID(){
-        System.out.println("Không tồn tại SV có ID đã nhập");
+    public void checkID(String message){
+        System.out.println("ID " + message + " tồn tại. Vui lòng nhập lại");
     }
-    public void checkEmail(){
+
+    public void checkEmail() {
         System.out.println("Email đã tồn tại. Vui lòng nhập lại");
     }
 }

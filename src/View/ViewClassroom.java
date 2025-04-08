@@ -37,7 +37,8 @@ public class ViewClassroom{
             ║ 2. Hiển Thị Thông tin Lớp Học          ║
             ║ 3. Chỉnh Sửa Thông tin Lớp Học         ║
             ║ 4. Xóa Thông Tin Lớp Học               ║
-            ║ 5. Quay Lại                            ║
+            ║ 5. Tìm Kiếm Thông Tin Lớp Học          ║
+            ║ 6. Quay Lại                            ║
             ╚════════════════════════════════════════╝
             """);
         return input.inputInt("Nhập lựa chọn của bạn");
@@ -73,5 +74,22 @@ public class ViewClassroom{
 
     public void deleteObject() {
         System.out.println("Nhập thông tin xoá (hoặc Enter để quay lại):");
+    }
+    public int viewSearch () {
+        System.out.print("""
+            
+            ╔════════════════════════════════════════╗
+            ║           Tìm Kiếm Thông Tin           ║
+            ╠════════════════════════════════════════╣
+            ║ 1. Tìm kiếm theo Mã Lớp                ║
+            ║ 2. Tìm kiếm theo Tên Lớp               ║
+            ║ 3. Tìm kiếm theo Sức Chứa              ║
+            ║ 4. Quay lại                            ║
+            ╚════════════════════════════════════════╝
+            """);
+        return input.inputInt("Nhập lựa chọn");
+    }
+    public void errorChoose(){
+        System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
     }
 }

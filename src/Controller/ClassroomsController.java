@@ -1,7 +1,7 @@
 package Controller;
 
-import DAO.ClassroomDAO;
 import Model.Classroom;
+import Model.Student;
 import Service.ClassroomService;
 import View.ViewClassroom;
 
@@ -115,5 +115,57 @@ public class ClassroomsController {
             break;
         }
         classroomService.deleteObject(classroom_id);
+    }
+    public void searchObject() {
+        while (true) {
+            int choose = viewClassroom.viewSearch();
+            if (choose == 4) {
+                break;
+            } else if (choose < 1 || choose > 5) {
+                viewClassroom.errorChoose();
+                continue;
+            }
+            String name_column, attribute;
+            switch (choose) {
+                case 1:
+                    name_column = "student_id";
+                    while (true) {
+                        attribute = viewClassroom.getID();
+                        if (attribute.isEmpty()) {
+                            viewClassroom.checkEmpty("ID");
+                            continue;
+                        }
+                        break;
+                    }
+                    break;
+                case 2:
+                    name_column = "name";
+                    while (true) {
+                        attribute = viewClassroom.getName();
+                        if (attribute.isEmpty()) {
+                            viewClassroom.checkEmpty("Tên");
+                            continue;
+                        }
+                        break;
+                    }
+                    break;
+                case 3:
+                    name_column = "capacity";
+                    while (true) {
+                        int capacity = viewClassroom.getCapacity();
+                        if (capacity < 0) {
+                            viewClassroom.checkEmpty("Sức Chứa");
+                            continue;
+                        }
+                        attribute = String.valueOf(capacity);
+                        break;
+                    }
+                    break;
+                default:
+                    return;
+            }
+            List<Classroom> classroomList = classroomService.searchObject(name_column, attribute);
+            viewClassroom.getAllObject(classroomList);
+        }
     }
 }

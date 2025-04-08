@@ -170,8 +170,8 @@ public class ViewTeacher{
             """);
         return input.inputInt("Nhập lựa chọn");
     }
-    public void checkID(){
-        System.out.println("ID chưa tồn lại. Vui lòng nhập lại");
+    public void checkID(String message){
+        System.out.println("ID " + message + " tồn lại. Vui lòng nhập lại");
     }
     public void checkEmail(){
         System.out.println("Email đã tồn tại. Vui lòng nhập lạ");

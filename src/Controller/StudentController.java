@@ -55,8 +55,9 @@ public class StudentController {
         while (true){
             student_id = viewStudent.getID();
             if (student_id.isEmpty()) return;
-            if(studentService.checkID(student_id)){
-                viewStudent.checkID();
+            if(!studentService.checkID(student_id)){
+                viewStudent.checkID("Đã");
+                continue;
             }
             break;
         }
@@ -119,7 +120,7 @@ public class StudentController {
             student_id = viewStudent.getID();
             if (student_id.isEmpty()) return;
             if(studentService.checkID(student_id)){
-                viewStudent.checkID();
+                viewStudent.checkID("chưa");
                 continue;
             }
             break;
@@ -155,7 +156,7 @@ public class StudentController {
             student_id = viewStudent.getID();
             if (student_id.isEmpty()) return;
             if(studentService.checkID(student_id)){
-                viewStudent.checkID();
+                viewStudent.checkID("chưa");
                 continue;
             }
             break;

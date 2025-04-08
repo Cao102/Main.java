@@ -1,7 +1,7 @@
 import Controller.*;
 
 public class Main {
-    private static MainController mainController = new MainController();
+    private final static MainController mainController = new MainController();
     private static ClassroomsController classroomsController = new ClassroomsController(mainController);
     private static StudentController studentController = new StudentController(mainController);
     private static TeacherController teacherController = new TeacherController(mainController);
