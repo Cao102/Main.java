@@ -3,10 +3,7 @@ package DAO;
 import Model.Classroom;
 import util.DatabaseConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class ClassroomDAO{
         String sql = "INSERT INTO Classrooms (classroom_id, name, capacity) VALUES (?, ?, ?)";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, clazz.getClassroom_id());
+            statement.setString(1, clazz.getClassroom_id());
             statement.setString(2, clazz.getName());
             statement.setInt(3, clazz.getCapacity());
             statement.executeUpdate();
@@ -30,7 +27,7 @@ public class ClassroomDAO{
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery()){
             while (resultSet.next()){
-                int class_id = resultSet.getInt("classroom_id");
+                String class_id = resultSet.getString("classroom_id");
                 String class_name = resultSet.getString("name");
                 int capacity = resultSet.getInt("capacity");
                 classroomList.add(new Classroom(class_id, class_name, capacity));
@@ -49,20 +46,41 @@ public class ClassroomDAO{
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, clazz.getName());
             statement.setInt(2, clazz.getCapacity());
-            statement.setInt(3, clazz.getClassroom_id());
+            statement.setString(3, clazz.getClassroom_id());
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi sửa lớp học " + e.getMessage());
         }
     }
-    public void delete(int id){
+    public void delete(String classroom_id){
         String sql = "DELETE FROM Classrooms WHERE classroom_id = ?;";
         try(Connection connection = DatabaseConnect.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, id);
+            statement.setString(1, classroom_id);
             statement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Lỗi xoá lớp" + e.getMessage());
+        }
+    }
+    public List<Classroom> search(String name_column, String attribute) {
+        List<Classroom> classroomList = new ArrayList<>();
+        String sql = "SELECT * FROM classrooms WHERE " + name_column + " = ?";
+
+        try (Connection connection = DatabaseConnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, attribute);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String classroom_id = resultSet.getString("classroom_id");
+                    String name = resultSet.getString("name");
+                    int capacity = resultSet.getInt("capacity");
+                    classroomList.add(new Classroom(classroom_id, name, capacity));
+                }
+            }
+            return classroomList;
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi truy xuất dữ liệu: " + e.getMessage());
         }
     }
 }

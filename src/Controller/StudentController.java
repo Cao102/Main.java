@@ -15,6 +15,13 @@ public class StudentController {
     public StudentController(MainController mainController){
         this.mainController = mainController;
     }
+    private boolean checkEmpty(String s, String message){
+        if(s.isEmpty()){
+            viewStudent.checkEmpty(message);
+            return true;
+        }
+        return false;
+    }
     public void start(){
         while (true) {
             int input = viewStudent.menuObject();
@@ -43,37 +50,88 @@ public class StudentController {
         }
     }
     public void addObject(){
-        String student_id = viewStudent.getID();
-        String name = viewStudent.getName();
-        Date dob = viewStudent.getDob();
-        String gender = viewStudent.getGender();
-        String email;
+        viewStudent.addObject();
+        String student_id;
+        while (true){
+            student_id = viewStudent.getID();
+            if (student_id.isEmpty()) return;
+            if(studentService.checkID(student_id)){
+                viewStudent.checkID();
+            }
+            break;
+        }
+
+        String name, gender, email, address, phone;
+        while (true){
+            name = viewStudent.getName();
+            if (checkEmpty(name, "Tên")){
+                continue;
+            }
+            break;
+        }
+        Date dob;
+        while (true){
+            dob = viewStudent.getDob();
+            if(dob == null){
+                viewStudent.checkEmpty("Ngày Sinh");
+                continue;
+            }
+            break;
+        }
+        while (true){
+            gender = viewStudent.getGender();
+            if (checkEmpty(gender, "giới tính")){
+                continue;
+            }
+            break;
+        }
         while(true){
             email = viewStudent.getEmail();
+            if (checkEmpty(email, "email")){
+                continue;
+            }
             if(!studentService.checkEmail(email)){
                 viewStudent.checkEmail();
                 continue;
             }
             break;
         }
-        String phone = viewStudent.getPhone();
-        String address = viewStudent.getAddress();
+        while (true){
+            phone = viewStudent.getPhone();
+            if (checkEmpty(phone, "Đt")){
+                continue;
+            }
+            break;
+        }
+        while (true){
+            address = viewStudent.getAddress();
+            if(checkEmpty(address, "Địa chỉ")){
+                continue;
+            }
+            break;
+        }
         studentService.addObject(new Student(student_id, name, dob, gender, email, phone, address));
     }
     public void updateObject(){
-        String studen_id;
+        viewStudent.updateObject();
+        String student_id;
         while (true){
-            studen_id = viewStudent.getID();
-            if(!studentService.checkID(studen_id)){
+            student_id = viewStudent.getID();
+            if (student_id.isEmpty()) return;
+            if(studentService.checkID(student_id)){
                 viewStudent.checkID();
                 continue;
             }
             break;
         }
-
+        List<Student> studentList = studentService.searchObject("student_id", student_id);
+        Student student = studentList.getFirst();
         String name = viewStudent.getName();
+        if(name.isEmpty()) name = student.getName();
         Date dob = viewStudent.getDob();
+        if(dob == null) dob = student.getDob();
         String gender = viewStudent.getGender();
+        if(gender.isEmpty()) gender = student.getGender();
         String email;
         while(true){
             email = viewStudent.getEmail();
@@ -83,14 +141,19 @@ public class StudentController {
             }
             break;
         }
+        if (email.isEmpty()) email = student.getEmail();
         String phone = viewStudent.getPhone();
+        if(phone.isEmpty()) phone = student.getPhone();
         String address = viewStudent.getAddress();
-        studentService.updateObject(new Student(studen_id, name, dob, gender, email, phone, address));
+        if(phone.isEmpty()) phone = student.getPhone();
+        studentService.updateObject(new Student(student_id, name, dob, gender, email, phone, address));
     }
     public void deleteObject(){
+        viewStudent.deleteObject();
         String student_id;
         while (true){
             student_id = viewStudent.getID();
+            if (student_id.isEmpty()) return;
             if(studentService.checkID(student_id)){
                 viewStudent.checkID();
                 continue;
@@ -112,23 +175,59 @@ public class StudentController {
             switch (choose) {
                 case 1:
                     name_column = "student_id";
-                    attribute = String.valueOf(viewStudent.getID());
+                    while (true){
+                        attribute = viewStudent.getID();
+                        if(attribute.isEmpty()){
+                            viewStudent.checkEmpty("ID");
+                            continue;
+                        }
+                        break;
+                    }
                     break;
                 case 2:
                     name_column = "name";
-                    attribute = viewStudent.getName();
+                    while (true){
+                        attribute = viewStudent.getName();
+                        if(attribute.isEmpty()){
+                            viewStudent.checkEmpty("Tên");
+                            continue;
+                        }
+                        break;
+                    }
                     break;
                 case 3:
                     name_column = "dob";
-                    attribute = String.valueOf(viewStudent.getDob());
+                    while (true){
+                        Date dob = viewStudent.getDob();
+                        if(dob == null){
+                            viewStudent.checkEmpty("DOB");
+                            continue;
+                        }
+                        attribute = String.valueOf(dob);
+                        break;
+                    }
                     break;
                 case 4:
                     name_column = "gender";
-                    attribute = viewStudent.getGender();
+                    while (true){
+                        attribute = viewStudent.getGender();
+                        if(attribute.isEmpty()){
+                            viewStudent.checkEmpty("Giới tính");
+                            continue;
+                        }
+                        break;
+                    }
                     break;
                 case 5:
                     name_column = "email";
-                    attribute = viewStudent.getEmail();
+                    while (true){
+                        attribute = viewStudent.getEmail();
+                        if(attribute.isEmpty()){
+                            viewStudent.checkEmpty("Email");
+                            continue;
+                        }
+                        break;
+                    }
                     break;
                 case 6:
                     name_column = "phone";

@@ -99,5 +99,4 @@ public class StudentDAO {
             throw new RuntimeException("Lỗi truy xuất dữ liệu: " + e.getMessage());
         }
     }
-
 }

@@ -29,14 +29,6 @@ public class Teacher extends Person {
         return baseSalary;
     }
 
-    public BigDecimal getSalary() {
-        return salary;
-    }
-
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
-    }
-
     @Override
     public String toString() {
         return String.format(

@@ -8,12 +8,8 @@ import Model.Student;
 
 public class ViewStudent{
     private final Input input = new Input();
-    private boolean checkEmpty(String s, String message){
-        if(s.isEmpty()){
-            System.out.println("Vui lòng không để " + message + " trống");
-            return true;
-        }
-        return false;
+    public void checkEmpty(String message){
+        System.out.println("Vui lòng không để " + message + " trống");
     }
     private Date validateDate(String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,34 +42,19 @@ public class ViewStudent{
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
     }
     public String getID(){
-        String student_id;
-        while (true){
-            student_id = input.inputString("Nhập ID SV");
-            if(checkEmpty(student_id, "ID")){
-                System.out.println("ID");
-                continue;
-            }
-            break;
-        }
-        return student_id;
+        return input.inputString("Nhập ID SV");
     }
     public String getName(){
-        String name;
-        while(true){
-            name = input.inputString("Nhập tên SV");
-            if(name.isEmpty()){
-                System.out.println("Không được để trên trắng");
-                continue;
-            }
-            break;
-        }
-        return name;
+        return input.inputString("Nhập tên SV");
     }
     public Date getDob(){
         Date dob;
         while(true){
             String dobStr = input.inputString("Nhập ngày sinh (yyyy-MM-dd)");
             dob = validateDate(dobStr);
+            if (dobStr.isEmpty()){
+                break;
+            }
             if (dob == null) {
                 System.out.println("Ngày sinh không hợp lệ! Vui lòng nhập lại theo định dạng yyyy-MM-dd.");
                 continue;
@@ -86,10 +67,7 @@ public class ViewStudent{
         String gender;
         while(true){
             gender = input.inputString("Nhập giới tính SV");
-            if(gender.isEmpty()){
-                System.out.println("Đầu vào không được để trắng");
-                continue;
-            }
+            if (gender.isEmpty()) break;
             String checkGender = gender.toLowerCase();
             if(!(checkGender.equals("male") || checkGender.equals("female") || checkGender.equals("other"))){
                 System.out.println("Nhập lại giới tính với đầu vào là Male, Female, Other");
@@ -103,9 +81,7 @@ public class ViewStudent{
         String email;
         while (true) {
             email = input.inputString("Nhập email sinh viên (@gmail.com)");
-            if(checkEmpty(email, "email")){
-                continue;
-            }
+            if(email.isEmpty()) break;
             if (!email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
                 System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
                 continue;
@@ -118,9 +94,7 @@ public class ViewStudent{
         String phone;
         while (true) {
             phone = input.inputString("Nhập SĐT sinh viên (10 số)");
-            if(checkEmpty(phone, "phone")){
-                continue;
-            }
+            if (phone.isEmpty()) return "";
             if (!phone.matches("^\\d{10}$")) {
                 System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
                 continue;
@@ -133,9 +107,6 @@ public class ViewStudent{
         String address;
         while (true){
             address = input.inputString("Nhập địa chị SV");
-            if(checkEmpty(address, "address")){
-                continue;
-            }
             if(address.length() >= 255){
                 System.out.println("Vui lòng không nhấp quá 255 ký tự");
                 continue;
@@ -144,7 +115,18 @@ public class ViewStudent{
         }
         return address;
     }
-
+    public void addObject(){
+        System.out.println("Nhập thông tin mới (hoặc Enter để quay lại):");
+    }
+    public void updateObject(){
+        System.out.println("""
+                                Nhập thông tin cần chỉnh sửa (hoặc Enter để quay lại)
+                                Sau khi nhập ID thì Enter để giữ lại thông tin cũ)
+                                """);
+    }
+    public void deleteObject(){
+        System.out.println("Nhập ID cần xoá (hoặc Enter để quay lại)");
+    }
     public void getAllObject(List<Student> objectList) {
         if (objectList.isEmpty()) {
             System.out.println("\nKhông có sinh viên nào.\n");

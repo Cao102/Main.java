@@ -3,8 +3,31 @@ package View;
 import Model.Classroom;
 import java.util.List;
 
-public class ViewClassroom implements ObjectView<Classroom> {
+public class ViewClassroom{
     private final Input input = new Input();
+    public void checkEmpty(String message){
+        System.out.println("Không được để " + message + " trắng");
+    }
+    public void checkID(String message){
+        System.out.println(message);
+    }
+    public String getID(){
+        return input.inputString("Nhập ID");
+    }
+    public String getName(){
+        return input.inputString("Nhập Tên");
+    }
+    public int getCapacity(){
+        while (true){
+            String line = input.inputString("Nhập Sức Chứa");
+            if (line.isEmpty()) return -1;
+            if(!line.matches("\\d+")){
+                System.out.println("Đầu vào là Sô");
+                continue;
+            }
+            return Integer.parseInt(line);
+        }
+    }
     public int menuObject() {
         System.out.print("""
             ╔════════════════════════════════════════╗
@@ -20,13 +43,8 @@ public class ViewClassroom implements ObjectView<Classroom> {
         return input.inputInt("Nhập lựa chọn của bạn");
     }
 
-    public Classroom addObject() {
+    public void addObject() {
         System.out.println("\nNhập Thông tin Lớp Học");
-        //System.out.println(""Nhập thông tin lớp);
-        // String name = sc.nextLine();
-        String name = input.inputString("Nhập Tên Lớp");
-        int capacity = input.inputInt("Nhập sức chứa");
-        return new Classroom(name, capacity);
     }
 
     public void getAllObject(List<Classroom> objectList) {
@@ -49,15 +67,11 @@ public class ViewClassroom implements ObjectView<Classroom> {
         System.out.println("╚════╩════════════════╩══════╝");
     }
 
-    public Classroom updateObject() {
+    public void updateObject() {
         System.out.println("\nChỉnh sửa Thông tin Lớp Học");
-        int class_id = input.inputInt("Nhập id lớp cần cần chỉnh");
-        String class_name = input.inputString("Nhập tên mới");
-        int capacity = input.inputInt("Nhập sức chứa");
-        return new Classroom(class_id, class_name, capacity);
     }
 
-    public int deleteObject() {
-        return input.inputInt("\nNhập ID Lớp Học Cần Xoá");
+    public void deleteObject() {
+        System.out.println("Nhập thông tin xoá");
     }
 }

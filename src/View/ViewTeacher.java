@@ -7,33 +7,16 @@ import java.util.List;
 
 public class ViewTeacher{
     private final Input input = new Input();
-    private boolean checkEmpty(String s, String message){
-        if(s.isEmpty()){
-            System.out.println("Vui lòng không để " + message + " trống");
-            return true;
-        }
-        return false;
+    public void checkEmpty(String message){
+        System.out.println("Vui lòng không để " + message + " trống");
     }
     public String getID(){
-        String teacher_id;
-        while (true){
-            teacher_id = input.inputString("Nhập ID GV");
-            if(checkEmpty(teacher_id, "Mã ID")){
-                System.out.println("Nhập lại ID chỉ bao gồm số");
-                continue;
-            }
-            break;
-        }
-        return teacher_id;
+        return input.inputString("Nhập ID GV");
     }
     public String getName(){
         String name;
         while(true){
             name = input.inputString("Nhập tên GV");
-            if(name.isEmpty()){
-                System.out.println("Không được để trên trắng");
-                continue;
-            }
             if(name.length() >= 100){
                 System.out.println("Tên không được quá 100 ký tự");
                 continue;
@@ -46,9 +29,7 @@ public class ViewTeacher{
         String email;
         while (true) {
             email = input.inputString("Nhập email GV (@gmail.com)");
-            if(checkEmpty(email, "email")){
-                continue;
-            }
+            if(email.isEmpty()) break;
             if (!email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
                 System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
                 continue;
@@ -61,9 +42,7 @@ public class ViewTeacher{
         String phone;
         while (true) {
             phone = input.inputString("Nhập SĐT GV (10 số)");
-            if(checkEmpty(phone, "phone")){
-                continue;
-            }
+            if(phone.isEmpty()) break;
             if (!phone.matches("^\\d{10}$")) {
                 System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
                 continue;
@@ -76,9 +55,7 @@ public class ViewTeacher{
         String address;
         while (true){
             address = input.inputString("Nhập địa chị GV");
-            if(checkEmpty(address, "address")){
-                continue;
-            }
+            if (address.isEmpty()) break;
             if(address.length() >= 255){
                 System.out.println("Vui lòng không nhấp quá 255 ký tự");
                 continue;
@@ -91,6 +68,10 @@ public class ViewTeacher{
         int years_of_experience;
         while(true){
             String line = input.inputString("Nhập năm kinh nghiệm");
+            if(line.isEmpty()){
+                years_of_experience = -1;
+                break;
+            }
             if(!line.matches("\\d+")){
                 System.out.println("Đầu vào chỉ là số");
                 continue;
@@ -104,6 +85,10 @@ public class ViewTeacher{
         BigDecimal bigDecimal;
         while(true){
             String line = input.inputString("Nhập Mức Lương Cơ Bản Của GV");
+            if (line.isEmpty()){
+                bigDecimal = new BigDecimal(-1);
+                break;
+            }
             if(!line.matches("\\d++")){
                 System.out.println("Nhập lại với Input chỉ bao gồm số");
                 continue;
@@ -134,13 +119,16 @@ public class ViewTeacher{
         return input.inputInt("Nhập lựa chọn của bạn");
     }
     public void addObject(){
-        System.out.println("Nhập thông tin mới:");
+        System.out.println("Nhập thông tin mới (hoặc Enter để quay lại):");
     }
     public void updateObject(){
-        System.out.println("Nhập thông tin cần chỉnh sửa:");
+        System.out.println("""
+                                Nhập thông tin cần chỉnh sửa (hoặc Enter để quay lại)
+                                Sau khi nhập ID thì Enter để giữ lại thông tin cũ)
+                                """);
     }
     public void deleteObject(){
-        System.out.println("Nhập ID cần xoá:");
+        System.out.println("Nhập ID cần xoá (hoặc Enter để quay lại):");
     }
     public void getAllObject(List<Teacher> objectList) {
         if (objectList.isEmpty()) {
