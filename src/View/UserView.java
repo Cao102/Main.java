@@ -29,7 +29,13 @@ public class UserView {
                     System.out.print("Password: ");
                     String password = scanner.nextLine();
                     User user = controller.login(username, password);
-                    System.out.println(user != null ? "Login successful!" : "Login failed!");
+                    if (user != null) {
+                        System.out.println("Đăng nhập thành công!");
+                        ExamView examView = new ExamView();
+                        examView.displayMenu();
+                    } else {
+                        System.out.println("Sai thông tin đăng nhập!");
+                    }
                 }
                 case 3 -> {
                     System.out.print("User ID to logout: ");
