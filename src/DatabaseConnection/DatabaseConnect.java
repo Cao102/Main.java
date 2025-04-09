@@ -1,4 +1,4 @@
-package util;
+package DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnect {
     public static Connection getConnection(){
         try{
-            String PASSWORD = "caobnkx123";
+            String PASSWORD = "10122002";
             String USER = "root";
             String URL = "jdbc:mysql://localhost:3306/StudentManagementSystem";
             return DriverManager.getConnection(URL, USER, PASSWORD);
