@@ -38,6 +38,9 @@ public class ClassroomsController {
                     deleteObject();
                     break;
                 case 5:
+                    searchObject();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Vui lòng nhập lại");
@@ -119,16 +122,16 @@ public class ClassroomsController {
     public void searchObject() {
         while (true) {
             int choose = viewClassroom.viewSearch();
-            if (choose == 4) {
+            if (choose == 6) {
                 break;
-            } else if (choose < 1 || choose > 5) {
+            } else if (choose < 1 || choose > 6) {
                 viewClassroom.errorChoose();
                 continue;
             }
             String name_column, attribute;
             switch (choose) {
                 case 1:
-                    name_column = "student_id";
+                    name_column = "classroom_id";
                     while (true) {
                         attribute = viewClassroom.getID();
                         if (attribute.isEmpty()) {
