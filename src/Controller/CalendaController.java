@@ -10,7 +10,10 @@ public class CalendaController {
         ca.addCalendaDAO(a);
     }
     public void updateCalendaController(Calenda a){
-        ca.updateCalenda(a);
+        ca.updateCalendaDAO(a);
+    }
+    public void removeCalendaController(String id){
+        ca.removeCalendaDAO(id);
     }
 
 }

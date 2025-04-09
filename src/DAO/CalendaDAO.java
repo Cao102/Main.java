@@ -27,7 +27,7 @@ public class CalendaDAO {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    public void updateCalenda(Calenda a) {
+    public void updateCalendaDAO(Calenda a) {
         String sql = "UPDATE studentmanagementsystem.schedules SET classroom_id = ?, subject_id = ?, teacher_id = ?, schedule_time = ? WHERE id = ?";
         try {
             Connection cn = DatabaseConnect.getConnection();
@@ -49,5 +49,16 @@ public class CalendaDAO {
             System.out.println("Error Update Calenda: " + e.getMessage());
         }
     }
-
+    public void removeCalendaDAO(String id){
+        String sql = "DELETE FROM studentmanagementsystem.schedules WHERE id = ?";
+        try{
+            Connection cn = DatabaseConnect.getConnection();
+            PreparedStatement pr = cn.prepareStatement(sql);
+            pr.setString(1,id);
+            pr.executeUpdate();
+        } catch (Exception e){
+            System.out.println("Error");
+        }
+    }
+//    public void
 }

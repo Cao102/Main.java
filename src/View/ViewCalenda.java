@@ -45,8 +45,10 @@ public class ViewCalenda {
             Calenda c = new Calenda(id, classroom_id, subject_id, teacher_id, schedule_time);
             controller.updateCalendaController(c);
         }
-        else {
-            System.out.println("Lựa chọn không hợp lệ.");
+        else if(n==3){
+            System.out.println("Nhập ID lịch:");
+            String id = sc.nextLine();
+            controller.removeCalendaController(id);
         }
     }
 }
