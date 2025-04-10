@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Classroom;
-import Model.Student;
 import Service.ClassroomService;
 import View.ViewClassroom;
 
@@ -10,18 +9,22 @@ import java.util.List;
 public class ClassroomsController {
     private final ViewClassroom viewClassroom = new ViewClassroom();
     private final ClassroomService classroomService = new ClassroomService();
-    public boolean checkEmpty(String s, String message){
-        if(s.isEmpty()){
+
+    public boolean checkEmpty(String s, String message) {
+        if (s.isEmpty()) {
             viewClassroom.checkEmpty(message);
             return true;
         }
         return false;
     }
+
     private final MainController mainController;
-    public ClassroomsController(MainController mainController){
+
+    public ClassroomsController(MainController mainController) {
         this.mainController = mainController;
     }
-    public void start(){
+
+    public void start() {
         while (true) {
             int input = viewClassroom.menuObject();
             switch (input) {
@@ -47,44 +50,47 @@ public class ClassroomsController {
             }
         }
     }
-    public void addObject(){
+
+    public void addObject() {
         viewClassroom.addObject();
         String classroom_id;
-        while (true){
+        while (true) {
             classroom_id = viewClassroom.getID();
             if (classroom_id.isEmpty()) return;
-            if(!classroomService.checkID(classroom_id)){
+            if (!classroomService.checkID(classroom_id)) {
                 viewClassroom.checkID("ID đã tồn tại. Vui lòng nhập lại");
                 continue;
             }
             break;
         }
         String name;
-        while (true){
+        while (true) {
             name = viewClassroom.getName();
-            if(checkEmpty(name, "Tên")){
+            if (checkEmpty(name, "Tên")) {
                 continue;
             }
             break;
         }
         int capacity;
-        while (true){
+        while (true) {
             capacity = viewClassroom.getCapacity();
-            if(capacity < 0){
+            if (capacity < 0) {
                 viewClassroom.checkEmpty("Sức Chứa");
                 continue;
             }
             break;
         }
+        viewClassroom.successful("thêm");
         classroomService.addObject(new Classroom(classroom_id, name, capacity));
     }
-    public void updateObject(){
+
+    public void updateObject() {
         viewClassroom.updateObject();
         String classroom_id;
-        while (true){
-            classroom_id  = viewClassroom.getID();
+        while (true) {
+            classroom_id = viewClassroom.getID();
             if (classroom_id.isEmpty()) return;
-            if (classroomService.checkID(classroom_id)){
+            if (classroomService.checkID(classroom_id)) {
                 viewClassroom.checkID("\"ID chưa tồn tại. Vui lòng nhập lại\"");
                 continue;
             }
@@ -93,32 +99,37 @@ public class ClassroomsController {
         List<Classroom> classroomList = classroomService.searchObject("classroom_id", classroom_id);
         Classroom classroom = classroomList.getFirst();
         String name = viewClassroom.getName();
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             name = classroom.getName();
         }
         int capacity = viewClassroom.getCapacity();
-        if (capacity < 0){
+        if (capacity < 0) {
             capacity = classroom.getCapacity();
         }
+        viewClassroom.successful("Chỉnh sửa");
         classroomService.updateObject(new Classroom(classroom_id, name, capacity));
     }
-    public void getAll(){
+
+    public void getAll() {
         viewClassroom.getAllObject(classroomService.getAll());
     }
-    public void deleteObject(){
+
+    public void deleteObject() {
         viewClassroom.deleteObject();
         String classroom_id;
-        while (true){
+        while (true) {
             classroom_id = viewClassroom.getID();
-            if(classroom_id.isEmpty()) return;
-            if (classroomService.checkID(classroom_id)){
+            if (classroom_id.isEmpty()) return;
+            if (classroomService.checkID(classroom_id)) {
                 viewClassroom.checkID("\"ID chưa tồn tại. Vui lòng nhập lại\"");
                 continue;
             }
             break;
         }
+        viewClassroom.successful("xoá");
         classroomService.deleteObject(classroom_id);
     }
+
     public void searchObject() {
         while (true) {
             int choose = viewClassroom.viewSearch();

@@ -48,7 +48,7 @@ public class TeacherController {
                 case 6:
                     return;
                 default:
-                    System.out.println("Vui lòng nhập lại");
+                    viewTeacher.errorChoose();
             }
         }
     }
@@ -117,6 +117,7 @@ public class TeacherController {
             }
             break;
         }
+        viewTeacher.successful("thêm");
         teacherService.addObject(new Teacher(teacher_id, name, email, phone, address, years_of_experience, baseSalary));
     }
 
@@ -169,6 +170,7 @@ public class TeacherController {
         if (baseSalary.compareTo(BigDecimal.ZERO) < 0) {
             baseSalary = teacher.getBaseSalary();
         }
+        viewTeacher.successful("chỉnh sửa");
         teacherService.updateObject(new Teacher(teacher_id, name, email, phone, address, years_of_experience, baseSalary));
     }
 
@@ -186,6 +188,7 @@ public class TeacherController {
             }
             break;
         }
+        viewTeacher.successful("xoá");
         teacherService.deleteObject(teacher_id);
     }
 
@@ -193,9 +196,9 @@ public class TeacherController {
         while (true) {
             int choose = viewTeacher.viewSearch();
             if (choose == 8) {
-                break; // Quay lại menu quản lý sinh viên
+                break;
             } else if (choose < 1 || choose > 8) {
-                System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
+                viewTeacher.errorChoose();
                 continue;
             }
             String name_column, attribute;

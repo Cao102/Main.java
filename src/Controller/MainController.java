@@ -7,7 +7,8 @@ public class MainController {
     private final StudentController studentController = new StudentController(this);
     private final ClassroomsController classroomsController = new ClassroomsController(this);
     private final TeacherController teacherController = new TeacherController(this);
-    public void start(){
+
+    public void start() {
         while (true) {
             int input = view.menuView();
             switch (input) {

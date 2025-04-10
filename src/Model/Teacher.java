@@ -14,6 +14,7 @@ public class Teacher extends Person {
         this.baseSalary = baseSalary;
         this.salary = salary;
     }
+
     public Teacher(String teacher_id, String name, String email, String phone, String address,
                    int yearsOfExperience, BigDecimal baseSalary) {
         super(teacher_id, name, email, phone, address);

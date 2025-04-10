@@ -7,7 +7,8 @@ public class Classroom {
     private String classroom_id;
     private final String name;
     private final int capacity;
-    public Classroom(String classroom_id, String name, int capacity){
+
+    public Classroom(String classroom_id, String name, int capacity) {
         this.classroom_id = classroom_id;
         this.name = name;
         this.capacity = capacity;
@@ -26,7 +27,7 @@ public class Classroom {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("║%-4s║%-16s║%-6d║", this.classroom_id, this.name, this.capacity);
     }
 }
