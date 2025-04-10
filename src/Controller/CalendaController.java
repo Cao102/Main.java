@@ -17,16 +17,38 @@ public class CalendaController {
     public void removeCalendaController(String id){
         ca.removeCalendaDAO(id);
     }
-    public void showCalendabyClassRoomIDController(String classroom_id){
-        List<Calenda> list = ca.showCalendabyClassroomIDDAO(classroom_id);
-        for(Calenda x : list){
-            System.out.println("Phòng "+ x.getClassroomID()+" tại khung giờ " + x.getScheduleTime() + " giảng dạy môn "+ x.getNameSubject() + " bởi giáo viên " + x.getName());
+    public void showCalendabyClassRoomIDController(String classroomId) {
+        List<Calenda> list = ca.showCalendabyClassroomIDDAO(classroomId);
+        if (list.isEmpty()) {
+            System.out.println("Không có lịch học nào cho phòng " + classroomId);
+            return;
+        }
+
+        for (Calenda x : list) {
+            System.out.println("----------------------------------------------");
+            System.out.println("Phòng học   : " + x.getClassroomID());
+            System.out.println("Môn học     : " + x.getNameSubject());
+            System.out.println("Giảng viên  : " + x.getName());
+            System.out.println("Thời gian   : " + x.getScheduleTime());
+            System.out.println("----------------------------------------------");
         }
     }
-    public void showCalendabyTeacherIDController(String teacherID){
+
+    public void showCalendabyTeacherIDController(String teacherID) {
         List<Calenda> list = ca.showCalendabyTeacherIDDAO(teacherID);
-        for(Calenda x : list){
-            System.out.println("Phòng "+ x.getClassroomID()+" tại khung giờ " + x.getScheduleTime() + " giảng dạy môn "+ x.getNameSubject() + " bởi giáo viên " + x.getName());
+        if (list.isEmpty()) {
+            System.out.println("Không có lịch học nào cho giảng viên " + teacherID);
+            return;
+        }
+
+        for (Calenda x : list) {
+            System.out.println("----------------------------------------------");
+            System.out.println("Phòng học   : " + x.getClassroomID());
+            System.out.println("Môn học     : " + x.getNameSubject());
+            System.out.println("Giảng viên  : " + x.getName());
+            System.out.println("Thời gian   : " + x.getScheduleTime());
+            System.out.println("----------------------------------------------");
         }
     }
+
 }
