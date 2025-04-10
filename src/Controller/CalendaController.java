@@ -23,4 +23,10 @@ public class CalendaController {
             System.out.println("Phòng "+ x.getClassroomID()+" tại khung giờ " + x.getScheduleTime() + " giảng dạy môn "+ x.getNameSubject() + " bởi giáo viên " + x.getName());
         }
     }
+    public void showCalendabyTeacherIDController(String teacherID){
+        List<Calenda> list = ca.showCalendabyTeacherIDDAO(teacherID);
+        for(Calenda x : list){
+            System.out.println("Phòng "+ x.getClassroomID()+" tại khung giờ " + x.getScheduleTime() + " giảng dạy môn "+ x.getNameSubject() + " bởi giáo viên " + x.getName());
+        }
+    }
 }

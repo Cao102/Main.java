@@ -94,4 +94,31 @@ public class CalendaDAO {
         }
         return list;
     }
+    public List<Calenda> showCalendabyTeacherIDDAO(String TeacherID) {
+        String sql = "SELECT s.id, s.classroom_id, s.subject_id, " +
+                "sub.name AS subject_name, t.name AS teacher_name, s.schedule_time " +
+                "FROM studentmanagementsystem.schedules s " +
+                "INNER JOIN studentmanagementsystem.teachers t ON s.teacher_id = t.teacher_id " +
+                "INNER JOIN studentmanagementsystem.subjects sub ON s.subject_id = sub.subject_id " +
+                "WHERE s.teacher_id = ?";
+        List<Calenda> list = new ArrayList<>();
+        try {
+            Connection cn = DatabaseConnect.getConnection();
+            PreparedStatement pr = cn.prepareStatement(sql);
+            pr.setString(1, TeacherID);
+            ResultSet rs = pr.executeQuery();
+
+            while (rs.next()) {
+                String classroom_id = rs.getString("classroom_id");
+                String subject_name = rs.getString("subject_name");
+                String teacher_name = rs.getString("teacher_name");
+                String schedule_time = rs.getString("schedule_time");
+
+                list.add(new Calenda(classroom_id, subject_name, teacher_name, schedule_time));
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return list;
+    }
 }

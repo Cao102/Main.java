@@ -14,7 +14,7 @@ public class ViewCalenda {
             System.out.println("2. Cập nhật lịch học");
             System.out.println("3. Xoá lịch học");
             System.out.println("4. Xem lịch học theo phòng");
-            System.out.println("5. Xem lịch học theo giảng viên (sắp làm)");
+            System.out.println("5. Xem lịch học theo giảng viên");
             System.out.println("0. Thoát");
             System.out.println("====================================");
 
@@ -71,7 +71,9 @@ public class ViewCalenda {
 
                 case 5:
                     System.out.println("--- Xem Lịch Theo Giảng Viên ---");
-
+                    System.out.print("Nhập giảng viên: ");
+                    String teacherId = sc.nextLine();
+                    controller.showCalendabyTeacherIDController(teacherId);
                     break;
 
                 case 0:
