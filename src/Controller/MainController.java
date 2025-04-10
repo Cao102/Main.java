@@ -16,19 +16,40 @@ public class MainController {
                     studentController.start();
                     break;
                 case 2:
+                    teacherController.start();
                     break;
                 case 3:
+
                     break;
                 case 4:
                     classroomsController.start();
                     break;
                 case 5:
-                    teacherController.start();
+
                     break;
                 case 6:
+
                     break;
                 case 7:
-                    System.out.println("Thoát chương trình...");
+
+                    break;
+                case 8:
+
+                    break;
+                case 9:
+
+                    break;
+                case 10:
+
+                    break;
+                case 11:
+
+                    break;
+                case 12:
+
+                    break;
+                case 13:
+                    view.exit();
                     return;
                 default:
                     System.out.println("Vui lòng nhập lại lựa chọn");

@@ -73,13 +73,6 @@ CREATE TABLE Schedules (
     FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id)
 );
 
--- Bảng tài khoản người dùng
-CREATE TABLE Users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE,
-    password VARCHAR(255)
-);
-
 -- Bảng học phí
 CREATE TABLE Tuition (
     student_id VARCHAR(10) PRIMARY KEY,
@@ -144,6 +137,13 @@ CREATE TABLE SupportRequests (
     message TEXT,
     status ENUM('Pending', 'Resolved'),
     FOREIGN KEY (student_id) REFERENCES Students(student_id)
+);
+
+-- Bảng tài khoản người dùng
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(255)
 );
 
 -- Dữ liệu mẫu
