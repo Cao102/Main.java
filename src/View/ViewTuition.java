@@ -62,7 +62,7 @@ public class ViewTuition {
 
     public void getAllTuition(List<Tuition> tuitionList) {
         if (tuitionList.isEmpty()) {
-            System.out.println("\nKhông có học phí nào.\n");
+            System.out.println("Không có học phí nào.");
             return;
         }
         System.out.print("""
@@ -107,16 +107,16 @@ public class ViewTuition {
     public void showTuitionNotExist(){
         System.out.println("Không tìm thấy học phí cho sinh viên với ID đã nhập.");
     }
-    public void showTuitionDetails(Tuition tuition) {
-            System.out.println("Thông tin học phí:");
-            System.out.print("""
+    public void showTuitionByStudentId(Tuition tuition) {
+        System.out.println("Thông tin học phí:");
+        System.out.print("""
                 ╔════════════════╦═════════════════════╗
                 ║  Mã sinh viên  ║       Học phí       ║
                 ╠════════════════╬═════════════════════╣
                 """);
 
-            System.out.println(tuition);
-            System.out.println(""" 
+        System.out.println(tuition);
+        System.out.println(""" 
                 ╚════════════════╩═════════════════════╝
                 """);
     }

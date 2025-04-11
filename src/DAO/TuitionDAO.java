@@ -65,7 +65,7 @@ public class TuitionDAO implements DAO<Tuition> {
         return null;
     }
 
-    // Kiểm tra sự tồn tại của student_id trong bảng Tuition
+    // Kiểm tra sự tồn tại của student_id trong bảng student
     public boolean isStudentExist(String studentId) {
         String sql = "SELECT COUNT(*) FROM students WHERE student_id = ?";
         try (Connection connection = DatabaseConnect.getConnection();

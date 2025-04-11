@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class View {
     public int menuView() {
         Scanner sc = new Scanner(System.in);
-            System.out.print("""
+        System.out.print("""
             ╔══════════════════════════════════╗
             ║         HỆ THỐNG QUẢN LÝ         ║
             ╠══════════════════════════════════╣
@@ -15,9 +15,10 @@ public class View {
             ║ 4.  Quản lý Lớp Học              ║
             ║ 5.  Quản lý Giáo Viên            ║
             ║ 6.  Quản lý Học Phí              ║
-            ║ 7.  Thoát                        ║
+            ║ 7.  Quản lý Thư Viện             ║
+            ║ 8.  Thoát                        ║
             ╚══════════════════════════════════╝
             Nhập lựa chọn: \s""");
-            return Integer.parseInt(sc.nextLine());
+        return Integer.parseInt(sc.nextLine());
     }
 }

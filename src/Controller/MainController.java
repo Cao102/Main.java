@@ -5,6 +5,7 @@ import View.*;
 public class MainController {
     private static final View view = new View();
     private final TuitionController tuitioncontroller = new TuitionController();
+    private final LibraryManagementController libraryManagementController = new LibraryManagementController();
     public void start(){
         while (true) {
             int input = view.menuView();
@@ -23,6 +24,9 @@ public class MainController {
                     tuitioncontroller.startTuition();
                     break;
                 case 7:
+                    libraryManagementController.startLibrary();
+                    break;
+                case 8:
                     System.out.println("Thoát chương trình...");
                     return;
                 default:
