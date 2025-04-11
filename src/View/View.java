@@ -16,7 +16,8 @@ public class View {
             ║ 5.  Quản lý Giáo Viên            ║
             ║ 6.  Quản lý Học Phí              ║
             ║ 7.  Quản lý Thư Viện             ║
-            ║ 8.  Thoát                        ║
+            ║ 8.  Quản lý Sự kiện              ║
+            ║ 9.  Thoát                        ║
             ╚══════════════════════════════════╝
             Nhập lựa chọn: \s""");
         return Integer.parseInt(sc.nextLine());
