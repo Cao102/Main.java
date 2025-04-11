@@ -1,15 +1,28 @@
-import Controller.*;
-import Model.Course;
+
+
+import View.*;
+import java.util.Scanner;
 
 public class Main {
-    private static MainController mainController = new MainController();
-    private static ClassController classController = new ClassController(mainController);
-    private static CourseController courseController = new CourseController(mainController);
-    private static StudentController studentController = new StudentController(mainController);
-    private static TeacherController teacherController = new TeacherController(mainController);
-    private static EnrollmentController enrollmentController = new EnrollmentController(mainController);
-    private static ScoreController scoreController = new ScoreController(mainController);
     public static void main(String[] args) {
-        mainController.start();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("====== STUDENT MANAGEMENT SYSTEM ======");
+        System.out.println("1. Quản lý kí túc xá");
+        System.out.println("2. Báo cáo thống kê");
+        System.out.println("3. Quản lý môn học");
+        System.out.println("=================================");
+        System.out.print("Chọn chức năng: ");
+
+        int i = Integer.parseInt(sc.nextLine());
+        if (i == 1) {
+            DormitoryView.main(null);
+        }
+        else if (i == 2) {
+            ReportView.main(null);
+        } else if (i == 3) {
+            SubjectView.main(null);
+        }  else {
+            System.out.println("Lựa chọn không hợp lệ!");
+        }
     }
 }
