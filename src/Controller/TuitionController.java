@@ -115,7 +115,7 @@ public class TuitionController {
             String studentId = viewTuition.inputStudentId();  // Lấy ID sinh viên
             Tuition tuition = tuitionDAO.searchByStudentId(studentId);
             if (tuition != null) {
-                viewTuition.showTuitionDetails(tuition);
+                viewTuition.showTuitionByStudentId(tuition);
             } else {
                 viewTuition.showTuitionNotExist();  // Thông báo học phí không tồn tại
                 continue;
