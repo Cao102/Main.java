@@ -7,6 +7,6 @@ public class Main {
     private static TeacherController teacherController = new TeacherController(mainController);
 
     public static void main(String[] args) {
-        classroomsController.start();
+        mainController.start();
     }
 }

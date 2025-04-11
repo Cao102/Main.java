@@ -2,7 +2,7 @@ package DAO;
 
 import Model.Dormitory;
 import Model.StudentDormitory;
-import connectDatabase.DatabaseConnect;
+import util.DatabaseConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

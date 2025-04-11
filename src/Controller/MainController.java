@@ -7,7 +7,9 @@ public class MainController {
     private final StudentController studentController = new StudentController(this);
     private final ClassroomsController classroomsController = new ClassroomsController(this);
     private final TeacherController teacherController = new TeacherController(this);
-
+    private final DormitoryView dormitoryView = new DormitoryView();
+    private final SubjectView subjectView = new SubjectView();
+    private final ReportView reportView = new ReportView();
     public void start() {
         while (true) {
             int input = view.menuView();
@@ -19,7 +21,7 @@ public class MainController {
                     teacherController.start();
                     break;
                 case 3:
-
+                    subjectView.main(null);
                     break;
                 case 4:
                     classroomsController.start();
@@ -46,9 +48,11 @@ public class MainController {
 
                     break;
                 case 12:
-
+                    dormitoryView.main(null);
                     break;
                 case 13:
+                    reportView.main(null);
+                case 14:
                     view.exit();
                     return;
                 default:

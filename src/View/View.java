@@ -22,7 +22,8 @@ public class View {
                 ║ 10.  Quản lý Kỳ Thi              ║
                 ║ 11.  Quản lý Sự Kiện             ║
                 ║ 12.  Quản lý Ký Túc Xá           ║
-                ║ 13.  Thoát                       ║
+                ║ 13.  Báo Cáo Và Thống Kê         ║
+                ║ 14.  Thoát                       ║
                 ╚══════════════════════════════════╝
                 Nhập lựa chọn: \s""");
         return Integer.parseInt(sc.nextLine());
