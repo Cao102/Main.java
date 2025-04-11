@@ -3,8 +3,8 @@ package Model;
 import java.math.BigDecimal;
 
 public class Teacher extends Person {
-    private int yearsOfExperience;
-    private BigDecimal baseSalary;
+    private final int yearsOfExperience;
+    private final BigDecimal baseSalary;
     private BigDecimal salary;
 
     public Teacher(String teacher_id, String name, String email, String phone, String address,

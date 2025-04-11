@@ -19,11 +19,7 @@ public class TeacherController {
         return false;
     }
 
-    private final MainController mainController;
-
-    public TeacherController(MainController mainController) {
-        this.mainController = mainController;
-    }
+    public TeacherController(MainController ignoredMainController) {}
 
     public void start() {
         while (true) {
@@ -79,7 +75,7 @@ public class TeacherController {
             if (checkEmpty(email, "email")) {
                 continue;
             }
-            if (!teacherService.checkEmail(email)) {
+            if (teacherService.checkEmail(email)) {
                 viewTeacher.checkEmail();
                 continue;
             }
@@ -142,7 +138,7 @@ public class TeacherController {
         String email;
         while (true) {
             email = viewTeacher.getEmail();
-            if (!teacherService.checkEmail(email)) {
+            if (teacherService.checkEmail(email)) {
                 viewTeacher.checkEmail();
                 continue;
             }

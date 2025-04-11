@@ -18,11 +18,7 @@ public class ClassroomsController {
         return false;
     }
 
-    private final MainController mainController;
-
-    public ClassroomsController(MainController mainController) {
-        this.mainController = mainController;
-    }
+    public ClassroomsController(MainController ignoredMainController) {}
 
     public void start() {
         while (true) {

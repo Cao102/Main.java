@@ -22,14 +22,4 @@ public class Input {
         }
     }
 
-    public float inputFloat(String message) {
-        System.out.print(message + ": ");
-        while (true) {
-            try {
-                return Float.parseFloat(sc.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.print("Lỗi! Vui lòng nhập số  hợp lệ: ");
-            }
-        }
-    }
 }

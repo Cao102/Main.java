@@ -52,9 +52,9 @@ public class TeacherDAO {
     public void update(Teacher object) {
         String sql = """
                 UPDATE teachers
-                SET name = ?, email = ?, phone = ?, address = ?, years_of_experience = ?, base_salary = ? 
+                SET name = ?, email = ?, phone = ?, address = ?, years_of_experience = ?, base_salary = ?\s
                 WHERE teacher_id = ?;
-                """;
+               \s""";
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, object.getName());

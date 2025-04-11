@@ -1,10 +1,7 @@
 package Model;
 
-import DAO.Convert;
-
 public class Classroom {
-    private final Convert convert = new Convert();
-    private String classroom_id;
+    private final String classroom_id;
     private final String name;
     private final int capacity;
 

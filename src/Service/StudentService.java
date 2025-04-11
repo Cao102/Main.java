@@ -8,11 +8,8 @@ import java.util.List;
 
 public class StudentService {
     private final StudentDAO studentDAO = new StudentDAO();
-    private final StudentController studentController;
 
-    public StudentService(StudentController studentController) {
-        this.studentController = studentController;
-    }
+    public StudentService(StudentController studentController) {}
 
     public void addObject(Student student) {
         studentDAO.add(student);
@@ -39,6 +36,6 @@ public class StudentService {
     }
 
     public boolean checkEmail(String email) {
-        return searchObject("email", email).isEmpty();
+        return !searchObject("email", email).isEmpty();
     }
 }

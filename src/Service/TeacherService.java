@@ -8,10 +8,8 @@ import Model.Teacher;
 
 public class TeacherService {
     private final TeacherDAO teacherDAO = new TeacherDAO();
-    private final TeacherController teacherController;
 
     public TeacherService(TeacherController teacherController) {
-        this.teacherController = teacherController;
     }
 
     public void addObject(Teacher teacher) {
@@ -39,6 +37,6 @@ public class TeacherService {
     }
 
     public boolean checkEmail(String email) {
-        return teacherDAO.search("email", email).isEmpty();
+        return !teacherDAO.search("email", email).isEmpty();
     }
 }

@@ -11,11 +11,7 @@ public class StudentController {
     private final ViewStudent viewStudent = new ViewStudent();
     private final StudentService studentService = new StudentService(this);
 
-    private final MainController mainController;
-
-    public StudentController(MainController mainController) {
-        this.mainController = mainController;
-    }
+    public StudentController(MainController ignoredMainController) {}
 
     private boolean checkEmpty(String s, String message) {
         if (s.isEmpty()) {
@@ -95,7 +91,7 @@ public class StudentController {
             if (checkEmpty(email, "email")) {
                 continue;
             }
-            if (!studentService.checkEmail(email)) {
+            if (studentService.checkEmail(email)) {
                 viewStudent.checkEmail();
                 continue;
             }
@@ -142,7 +138,7 @@ public class StudentController {
         String email;
         while (true) {
             email = viewStudent.getEmail();
-            if (!studentService.checkEmail(email)) {
+            if (studentService.checkEmail(email)) {
                 viewStudent.checkEmail();
                 continue;
             }
