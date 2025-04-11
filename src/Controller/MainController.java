@@ -10,6 +10,9 @@ public class MainController {
     private final DormitoryView dormitoryView = new DormitoryView();
     private final SubjectView subjectView = new SubjectView();
     private final ReportView reportView = new ReportView();
+    private final TuitionController tuitionController = new TuitionController();
+    private final LibraryManagementController libraryManagementController = new LibraryManagementController();
+    private final EventsController eventsController = new EventsController();
     public void start() {
         while (true) {
             int input = view.menuView();
@@ -36,16 +39,16 @@ public class MainController {
 
                     break;
                 case 8:
-
+                    tuitionController.startTuition();
                     break;
                 case 9:
-
+                    libraryManagementController.startLibrary();
                     break;
                 case 10:
 
                     break;
                 case 11:
-
+                    eventsController.startEvents();
                     break;
                 case 12:
                     dormitoryView.main(null);
