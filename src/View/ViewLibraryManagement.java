@@ -197,5 +197,8 @@ public class ViewLibraryManagement {
     public void showBookNotBorrowed() {
         System.out.println("Sinh viên không có mượn sách này hoặc đã trả trước đó.");
     }
+    public void notifyAlreadyBorrowed() {
+        System.out.println("Sinh viên đã mượn cuốn sách này và chưa trả!");
+    }
 
 }

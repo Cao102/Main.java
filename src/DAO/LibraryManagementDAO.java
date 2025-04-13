@@ -76,7 +76,7 @@ public class LibraryManagementDAO {
     }
 
     // 5. tìm kiếm theo tên
-    public List<Library> searchByBookName(String keyword) {
+    public List<Library> searchByKeyWord(String keyword) {
         List<Library> result = new ArrayList<>();
         String sql = "SELECT * FROM Library WHERE book_name LIKE ?";
         try (Connection connection = DatabaseConnect.getConnection();
