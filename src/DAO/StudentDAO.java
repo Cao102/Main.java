@@ -80,11 +80,11 @@ public class StudentDAO {
 
     public List<Student> search(String name_column, String attribute) {
         List<Student> studentList = new ArrayList<>();
-        String sql = "SELECT * FROM Students WHERE " + name_column + " = ?";
+        String sql = "SELECT * FROM Students WHERE " + name_column + " LIKE ?";
 
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, attribute);
+            statement.setString(1, "%" + attribute + "%");
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

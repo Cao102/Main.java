@@ -145,7 +145,7 @@ public class ViewTeacher {
 
     public void getAllObject(List<Teacher> objectList) {
         if (objectList.isEmpty()) {
-            System.out.println("\nHiện không có khóa học nào.\n");
+            System.out.println("\nHiện không có giáo viên nào.\n");
             return;
         }
         System.out.print("""
