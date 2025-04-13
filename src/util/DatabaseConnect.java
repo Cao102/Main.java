@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnect {
     public static Connection getConnection(){
         try{
-            String PASSWORD = "031203";
+            String PASSWORD = "caobnkx123";
             String USER = "root";
             String URL = "jdbc:mysql://localhost:3306/StudentManagementSystem";
             return DriverManager.getConnection(URL, USER, PASSWORD);
