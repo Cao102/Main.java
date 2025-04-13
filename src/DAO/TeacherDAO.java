@@ -1,7 +1,7 @@
 package DAO;
 
 import Model.Teacher;
-import util.DatabaseConnect;
+import connectDatabase.DatabaseConnect;
 
 import java.math.BigDecimal;
 import java.sql.*;
