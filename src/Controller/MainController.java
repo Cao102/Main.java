@@ -13,6 +13,9 @@ public class MainController {
     private final TuitionController tuitionController = new TuitionController();
     private final LibraryManagementController libraryManagementController = new LibraryManagementController();
     private final EventsController eventsController = new EventsController();
+    private final ViewRegister viewRegister = new ViewRegister();
+    private final ViewGrade viewGrade = new ViewGrade();
+    private final ViewCalenda viewCalenda = new ViewCalenda();
     public void start() {
         while (true) {
             int input = view.menuView();
@@ -30,13 +33,13 @@ public class MainController {
                     classroomsController.start();
                     break;
                 case 5:
-
+                    viewRegister.main(null);
                     break;
                 case 6:
-
+                    viewGrade.main(null);
                     break;
                 case 7:
-
+                    viewCalenda.main(null);
                     break;
                 case 8:
                     tuitionController.startTuition();
