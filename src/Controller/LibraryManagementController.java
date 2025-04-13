@@ -150,7 +150,10 @@ public class LibraryManagementController {
                 break;
             }
         }
-
+        if (libraryManagementDAO.isBookBorrowedByStudent(studentId, bookId)) {
+            viewLibraryManagement.notifyAlreadyBorrowed();
+            return;
+        }
         // Kiểm tra số lượng
         if (!libraryManagementDAO.decreaseQuantity(bookId)) {
             viewLibraryManagement.notifyOutOfStock();
