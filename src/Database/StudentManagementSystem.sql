@@ -94,6 +94,7 @@ CREATE TABLE Users (
 CREATE TABLE Tuition (
    student_id VARCHAR(10) PRIMARY KEY,
    amount DOUBLE,
+   status VARCHAR(20) DEFAULT 'Chưa nộp',
    FOREIGN KEY (student_id) REFERENCES Students(student_id)
 );
 
