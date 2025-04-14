@@ -200,4 +200,58 @@ public class DormitoryDAO {
 
         return studentList;
     }
+    public void changeDormitoryDAO(String studentId, String newDormId) {
+        // Kiểm tra xem sinh viên đã có phòng chưa
+        StudentDormitory currentDorm = getDormitoryByStudentDAO(studentId);
+        if (currentDorm == null) {
+            System.out.println("Sinh viên chưa có phòng. Vui lòng gán phòng trước.");
+            return;
+        }
+
+        // Kiểm tra xem phòng mới còn chỗ trống không
+        String checkRoomSQL = "SELECT capacity, COUNT(sd.student_id) as occupied " +
+                "FROM studentmanagementsystem.dormitories d " +
+                "LEFT JOIN studentmanagementsystem.studentdormitory sd ON d.dorm_id = sd.dorm_id " +
+                "WHERE d.dorm_id = ? " +
+                "GROUP BY d.capacity";
+
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement pr = cn.prepareStatement(checkRoomSQL)) {
+            pr.setString(1, newDormId);
+            ResultSet rs = pr.executeQuery();
+
+            if (rs.next()) {
+                int capacity = rs.getInt("capacity");
+                int occupied = rs.getInt("occupied");
+                if (occupied >= capacity) {
+                    System.out.println("Phòng mới đã đầy. Không thể chuyển.");
+                    return;
+                }
+            } else {
+                System.out.println("Không tìm thấy phòng mới.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Lỗi khi kiểm tra phòng mới: " + e.getMessage());
+            return;
+        }
+
+        // Thực hiện cập nhật
+        String updateSQL = "UPDATE studentmanagementsystem.studentdormitory SET dorm_id = ? WHERE student_id = ?";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement pr = cn.prepareStatement(updateSQL)) {
+            pr.setString(1, newDormId);
+            pr.setString(2, studentId);
+
+            int rowsAffected = pr.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Chuyển phòng thành công.");
+            } else {
+                System.out.println("Không thể chuyển phòng.");
+            }
+        } catch (Exception e) {
+            System.out.println("Lỗi khi đổi phòng: " + e.getMessage());
+        }
+    }
+
 }
