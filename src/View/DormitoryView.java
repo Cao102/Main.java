@@ -21,6 +21,7 @@ public class DormitoryView {
             System.out.println("4. Xem danh sách phòng trống");
             System.out.println("5. Xem danh sách tất cả phòng");
             System.out.println("6. Xem danh sách sinh viên trong phòng");
+            System.out.println("7. Đổi phòng cho sinh viên");
             System.out.println("0. Thoát");
             System.out.println("=========================================");
 
@@ -52,6 +53,14 @@ public class DormitoryView {
                 case 6:
                     displayStudentsInDorm(controller, sc);
                     break;
+                case 7:
+                    System.out.print("Nhập mã sinh viên: ");
+                    String stuIdChange = sc.nextLine();
+                    System.out.print("Nhập mã phòng mới: ");
+                    String newDormId = sc.nextLine();
+                    controller.changeDormitoryController(stuIdChange, newDormId);
+                    break;
+
                 case 0:
                     exit = true;
                     System.out.println("Đã thoát chương trình.");
