@@ -32,6 +32,10 @@ public class DormitoryController {
     public List<StudentDormitory> getStudentsInDormController(String dormId) {
         return dormitoryDAO.getStudentsInDormDAO(dormId);
     }
+    public void changeDormitoryController(String studentId, String newDormId) {
+        dormitoryDAO.changeDormitoryDAO(studentId, newDormId);
+    }
+
 
     // Hiển thị thông tin phòng của sinh viên
     public void displayStudentDormitory(StudentDormitory studentDorm) {
