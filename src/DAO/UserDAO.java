@@ -102,7 +102,24 @@ public class UserDAO {
         return null;
     }
 
-    public boolean logout(int  userId) {
+    public boolean isUsernameExists(String username) {
+        String sql = "SELECT id FROM users WHERE username = ?";
+        try (Connection conn = DatabaseConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            return rs.next(); // Nếu có dòng trả về nghĩa là username đã tồn tại
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean logout(int userId) {
+        // Tùy vào logic hệ thống mà bạn có thể xử lý logout như xóa session, cập nhật trạng thái,...
         return false;
     }
 }

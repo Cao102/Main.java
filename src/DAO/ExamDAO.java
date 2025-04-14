@@ -85,4 +85,24 @@ public class ExamDAO {
         // Mô phỏng trả kết quả, thực tế cần JOIN bảng điểm (ExamResults)
         return "Kết quả kỳ thi ID " + examId + ": (chưa triển khai thực tế)";
     }
+
+    // ✅ Thêm hàm kiểm tra lịch thi có trùng không
+    public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
+        String sql = "SELECT COUNT(*) FROM Exams WHERE class_id = ? AND subject_id = ? AND exam_date = ?";
+        try (Connection conn = DatabaseConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, classId);
+            stmt.setString(2, subjectId);
+            stmt.setTimestamp(3, Timestamp.valueOf(examDate));
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Nếu có ít nhất 1 dòng thì đã tồn tại
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

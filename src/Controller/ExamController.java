@@ -3,6 +3,7 @@ package Controller;
 import DAO.ExamDAO;
 import Model.Exam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ExamController {
@@ -26,5 +27,10 @@ public class ExamController {
 
     public String getExamResults(int examId) {
         return dao.getExamResults(examId);
+    }
+
+    // ✅ Hàm kiểm tra lịch thi đã tồn tại chưa
+    public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
+        return dao.isExamScheduled(classId, subjectId, examDate);
     }
 }

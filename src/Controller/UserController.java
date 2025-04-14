@@ -1,4 +1,3 @@
-
 package Controller;
 
 import DAO.UserDAO;
@@ -9,7 +8,15 @@ public class UserController {
     private final UserDAO userDAO = new UserDAO();
 
     public User registerUser(String username, String password) {
-        return userDAO.registerUser(username, password);
+        if (userDAO.isUsernameExists(username)) {
+            System.out.println("Tên đăng nhập đã tồn tại, vui lòng nhập tên khác");
+            return null;
+        }
+        else{
+            System.out.println("Đăng ký thành công: " + username);
+            return userDAO.registerUser(username, password);
+        }
+
     }
 
     public User login(String username, String password) {
