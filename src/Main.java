@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("====== STUDENT MANAGEMENT SYSTEM ======");
-        System.out.println("1. Quản lý kí túc xá");
+        System.out.println("1. Báo cáo thống kê");
         System.out.println("2. Quản lý môn học");
         System.out.println("3. Hỗ trợ sinh viên");
         System.out.println("=================================");
@@ -15,7 +15,7 @@ public class Main {
 
         int i = Integer.parseInt(sc.nextLine());
         if (i == 1) {
-            DormitoryView.main(null);
+            ReportView.main(null);
         }
         else if (i == 2) {
             SubjectView.main(null);
