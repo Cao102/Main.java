@@ -44,6 +44,7 @@ CREATE TABLE Subjects (
 CREATE TABLE Classrooms (
    classroom_id VARCHAR(10) PRIMARY KEY,
    name VARCHAR(50),
+   location VARCHAR(255),
    capacity INT
 );
 
@@ -204,12 +205,12 @@ INSERT INTO Subjects (subject_id, name, description) VALUES
 
 
 -- Classrooms
-INSERT INTO Classrooms (classroom_id, name, capacity) VALUES
-('C001', 'Room 101', 50),
-('C002', 'Room 102', 40),
-('C003', 'Lab 201', 30),
-('C004', 'Room 103', 35),
-('C005', 'Lab 202', 25);
+INSERT INTO Classrooms (classroom_id, name, location, capacity) VALUES
+('C001', 'Room 101', 'Building A - Floor 1', 50),
+('C002', 'Room 102', 'Building A - Floor 1', 40),
+('C003', 'Lab 201', 'Building B - Floor 2', 30),
+('C004', 'Room 103', 'Building A - Floor 1', 35),
+('C005', 'Lab 202', 'Building B - Floor 2', 25);
 
 
 -- Registrations
@@ -324,5 +325,3 @@ INSERT INTO SupportRequests (student_id, message, status) VALUES
 ('S002', 'Lost student ID card', 'Resolved'),
 ('S003', 'Request for extra class on physics', 'Pending'),
 ('S004', 'Medical leave approval needed', 'Resolved');
-
-SELECT * from Tuition;

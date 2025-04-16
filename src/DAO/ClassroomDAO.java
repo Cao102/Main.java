@@ -9,12 +9,13 @@ import java.util.List;
 
 public class ClassroomDAO {
     public void add(Classroom clazz) {
-        String sql = "INSERT INTO Classrooms (classroom_id, name, capacity) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Classrooms (classroom_id, name, capacity, location) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, clazz.getClassroom_id());
             statement.setString(2, clazz.getName());
             statement.setInt(3, clazz.getCapacity());
+            statement.setString(4, clazz.getLocation());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi thêm lớp" + e.getMessage());
@@ -31,7 +32,8 @@ public class ClassroomDAO {
                 String class_id = resultSet.getString("classroom_id");
                 String class_name = resultSet.getString("name");
                 int capacity = resultSet.getInt("capacity");
-                classroomList.add(new Classroom(class_id, class_name, capacity));
+                String locatioon = resultSet.getString("location");
+                classroomList.add(new Classroom(class_id, class_name, capacity, locatioon));
             }
             return classroomList;
         } catch (SQLException e) {
@@ -42,13 +44,14 @@ public class ClassroomDAO {
     public void update(Classroom clazz) {
         String sql = """
                 UPDATE Classrooms
-                SET name = ?, capacity = ?
+                SET name = ?, capacity = ?, location = ?
                 WHERE classroom_id = ?;""";
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, clazz.getName());
             statement.setInt(2, clazz.getCapacity());
-            statement.setString(3, clazz.getClassroom_id());
+            statement.setString(3, clazz.getLocation());
+            statement.setString(4, clazz.getClassroom_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi sửa lớp học " + e.getMessage());
@@ -79,7 +82,8 @@ public class ClassroomDAO {
                     String classroom_id = resultSet.getString("classroom_id");
                     String name = resultSet.getString("name");
                     int capacity = resultSet.getInt("capacity");
-                    classroomList.add(new Classroom(classroom_id, name, capacity));
+                    String locatioon = resultSet.getString("location");
+                    classroomList.add(new Classroom(classroom_id, name, capacity, locatioon));
                 }
             }
             return classroomList;

@@ -76,8 +76,16 @@ public class ClassroomsController {
             }
             break;
         }
+        String location;
+        while (true) {
+            location = viewClassroom.getLocation();
+            if (checkEmpty(name, "Vị Chí")) {
+                continue;
+            }
+            break;
+        }
         viewClassroom.successful("thêm");
-        classroomService.addObject(new Classroom(classroom_id, name, capacity));
+        classroomService.addObject(new Classroom(classroom_id, name, capacity, location));
     }
 
     public void updateObject() {
@@ -102,8 +110,12 @@ public class ClassroomsController {
         if (capacity < 0) {
             capacity = classroom.getCapacity();
         }
+        String location= viewClassroom.getLocation();
+        if (location.isEmpty()) {
+            location = classroom.getLocation();
+        }
         viewClassroom.successful("Chỉnh sửa");
-        classroomService.updateObject(new Classroom(classroom_id, name, capacity));
+        classroomService.updateObject(new Classroom(classroom_id, name, capacity, location));
     }
 
     public void getAll() {
@@ -168,6 +180,18 @@ public class ClassroomsController {
                             continue;
                         }
                         attribute = String.valueOf(capacity);
+                        break;
+                    }
+                    break;
+                case 4:
+                    name_column = "location";
+                    while (true) {
+                        String location = viewClassroom.getLocation();
+                        if (location.isEmpty()) {
+                            viewClassroom.checkEmpty("Vị trí");
+                            continue;
+                        }
+                        attribute = location;
                         break;
                     }
                     break;

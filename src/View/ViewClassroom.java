@@ -34,7 +34,9 @@ public class ViewClassroom {
             return Integer.parseInt(line);
         }
     }
-
+    public String getLocation(){
+        return input.inputString("Nhập Địa Chỉ: ");
+    }
     public int menuObject() {
         System.out.print("""
                 ╔════════════════════════════════════════╗
@@ -62,17 +64,17 @@ public class ViewClassroom {
         }
         System.out.print("""
                 
-                ╔════════════════════════════╗
-                ║     DANH SÁCH LỚP HỌC      ║
-                ╠════╦════════════════╦══════╣
-                ║ ID ║     Tên Lớp    ║  SL  ║
-                ╠════╬════════════════╬══════╣
+                ╔════════════════════════════════════════════════════════╗
+                ║                   DANH SÁCH LỚP HỌC                    ║
+                ╠════╦════════════════╦══════╦═══════════════════════════╣
+                ║ ID ║     Tên Lớp    ║  SC  ║           Vị Trí          ║
+                ╠════╬════════════════╬══════╬═══════════════════════════╣
                 """);
 
         for (Classroom object : objectList) {
             System.out.println(object);
         }
-        System.out.println("╚════╩════════════════╩══════╝");
+        System.out.println("╚════╩════════════════╩══════╩═══════════════════════════╝");
     }
 
     public void updateObject() {

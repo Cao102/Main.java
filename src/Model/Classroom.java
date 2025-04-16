@@ -4,11 +4,12 @@ public class Classroom {
     private final String classroom_id;
     private final String name;
     private final int capacity;
-
-    public Classroom(String classroom_id, String name, int capacity) {
+    private final String location;
+    public Classroom(String classroom_id, String name, int capacity, String location) {
         this.classroom_id = classroom_id;
         this.name = name;
         this.capacity = capacity;
+        this.location = location;
     }
 
     public int getCapacity() {
@@ -23,8 +24,12 @@ public class Classroom {
         return name;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     @Override
     public String toString() {
-        return String.format("║%-4s║%-16s║%-6d║", this.classroom_id, this.name, this.capacity);
+        return String.format("║%-4s║%-16s║%-6d║ %-25s ║", this.classroom_id, this.name, this.capacity, this.location);
     }
 }
