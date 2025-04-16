@@ -35,7 +35,7 @@ public class LibraryManagementController {
                     deleteBook();
                     break;
                 case 5:
-                    searchBookByName();
+                    searchBookByKeyWord();
                     break;
                 case 6:
                     borrowBook();
@@ -90,13 +90,13 @@ public class LibraryManagementController {
     private void updateBook() {
         while (true) {
             String bookId = viewLibraryManagement.inputBookId();
-            if (!libraryManagementDAO.isBookIdExist(bookId)) {
-                viewLibraryManagement.showBookNotExist();
-                continue;
-            } else {
+            if (libraryManagementDAO.isBookIdExist(bookId)) {
                 Library book = viewLibraryManagement.inputBookDetails(bookId);
                 libraryManagementDAO.updateBook(book);
                 viewLibraryManagement.notifyBookUpdated();
+            } else {
+                viewLibraryManagement.showBookNotExist();
+                continue;
             }
             break;
         }
@@ -105,21 +105,21 @@ public class LibraryManagementController {
     private void deleteBook() {
         while (true) {
             String bookId = viewLibraryManagement.inputBookId();
-            if (!libraryManagementDAO.isBookIdExist(bookId)) {
-                viewLibraryManagement.showBookNotExist();
-                continue;
-            } else {
+            if (libraryManagementDAO.isBookIdExist(bookId)) {
                 libraryManagementDAO.deleteBook(bookId);
                 viewLibraryManagement.notifyBookDeleted();
+            } else {
+                viewLibraryManagement.showBookNotExist();
+                continue;
             }
             break;
         }
     }
 
-    private void searchBookByName() {
+    private void searchBookByKeyWord() {
         while (true) {
             String keyWord = viewLibraryManagement.inputKeyWord();
-            List<Library> results = libraryManagementDAO.searchByBookName(keyWord);
+            List<Library> results = libraryManagementDAO.searchByKeyWord(keyWord);
             if (results.isEmpty()) {
                 viewLibraryManagement.showKeyWordNotFound();
                 continue;
@@ -134,21 +134,25 @@ public class LibraryManagementController {
         String studentId;
         while (true) {
             studentId = viewLibraryManagement.inputStudentId();
-            if (!libraryManagementDAO.isStudentExist(studentId)) {
-                viewLibraryManagement.showStudentNotExist();
-            } else {
+            if (libraryManagementDAO.isStudentExist(studentId)) {
                 break;
+            } else {
+                viewLibraryManagement.showStudentNotExist();
             }
         }
 
         String bookId;
         while (true) {
             bookId = viewLibraryManagement.inputBookId();
-            if (!libraryManagementDAO.isBookIdExist(bookId)) {
-                viewLibraryManagement.showBookNotExist();
-            } else {
+            if (libraryManagementDAO.isBookIdExist(bookId)) {
                 break;
+            } else {
+                viewLibraryManagement.showBookNotExist();
             }
+        }
+        if (libraryManagementDAO.isBookBorrowedByStudent(studentId, bookId)) {
+            viewLibraryManagement.notifyAlreadyBorrowed();
+            return;
         }
 
         // Kiểm tra số lượng
@@ -171,20 +175,20 @@ public class LibraryManagementController {
         String studentId;
         while (true) {
             studentId = viewLibraryManagement.inputStudentId();
-            if (!libraryManagementDAO.isStudentExist(studentId)) {
-                viewLibraryManagement.showStudentNotExist();
-            } else {
+            if (libraryManagementDAO.isStudentExist(studentId)) {
                 break;
+            } else {
+                viewLibraryManagement.showStudentNotExist();
             }
         }
 
         String bookId;
         while (true) {
             bookId = viewLibraryManagement.inputBookId();
-            if (!libraryManagementDAO.isBookIdExist(bookId)) {
-                viewLibraryManagement.showBookNotExist();
-            } else {
+            if (libraryManagementDAO.isBookIdExist(bookId)) {
                 break;
+            } else {
+                viewLibraryManagement.showBookNotExist();
             }
         }
 

@@ -40,8 +40,8 @@ public class ViewLibraryManagement {
         int quantity;
         while (true) {
             quantity = input.inputInt("Nhập số lượng sách");
-            if (quantity < 0) {
-                System.out.println("Số lượng sách không thể âm. Vui lòng nhập lại.");
+            if (quantity <= 0) {
+                System.out.println("Số lượng sách phải lớn hơn không. Vui lòng nhập lại.");
             } else {
                 break;
             }
@@ -196,6 +196,9 @@ public class ViewLibraryManagement {
     }
     public void showBookNotBorrowed() {
         System.out.println("Sinh viên không có mượn sách này hoặc đã trả trước đó.");
+    }
+    public void notifyAlreadyBorrowed() {
+        System.out.println("Sinh viên đã mượn cuốn sách này và chưa trả!");
     }
 
 }

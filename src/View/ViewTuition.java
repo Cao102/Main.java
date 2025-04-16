@@ -23,7 +23,7 @@ public class ViewTuition {
             ║ 1. Thêm học phí                        ║
             ║ 2. Hiển thị thông tin học phí          ║
             ║ 3. Cập nhật học phí                    ║
-            ║ 4. Xóa học phí                         ║
+            ║ 4. Cập nhật trạng thái học phí         ║
             ║ 5. Tìm kiếm học phí theo ID            ║
             ║ 6. Quay lại                            ║
             ╚════════════════════════════════════════╝
@@ -38,6 +38,8 @@ public class ViewTuition {
     public String inputStudentId() {
         return input.inputString("Nhập ID sinh viên");
     }
+
+    public String inputStatus(){ return input.inputString("Nhập trạng thái học phí");   }
 
     public double inputAmount() {
         double amount;
@@ -65,23 +67,24 @@ public class ViewTuition {
             System.out.println("Không có học phí nào.");
             return;
         }
-        System.out.print("""
-                ╔═════════════════════════════════════════════╗
-                ║             DANH SÁCH HỌC PHÍ               ║
-                ╠══════╦════════════════╦═════════════════════╣
-                ║ STT  ║  Mã sinh viên  ║       Học phí       ║
-                ╠══════╬════════════════╬═════════════════════╣
-                """);
+        System.out.print(""" 
+            ╔══════════════════════════════════════════════════════════╗
+            ║                     DANH SÁCH HỌC PHÍ                    ║
+            ╠══════╦════════════════╦═════════════════════╦════════════╣
+            ║ STT  ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
+            ╠══════╬════════════════╬═════════════════════╬════════════╣
+            """);
 
         // In danh sách học phí, STT tự động tăng từ 1
         int stt = 1;
         for (Tuition tuition : tuitionList) {
-            System.out.println(String.format("║ %-4d ", stt++) + tuition); // In ra STT và thông tin học phí
+            System.out.println(String.format("║ %-4d ", stt++) + tuition); // In ra STT, thông tin học phí và trạng thái
         }
         System.out.println(""" 
-                ╚══════╩════════════════╩═════════════════════╝
-                """);
+            ╚══════╩════════════════╩═════════════════════╩════════════╝
+            """);
     }
+
 
 
     public void checkTuitionAdded() {
@@ -92,12 +95,11 @@ public class ViewTuition {
         System.out.println("Học phí đã được cập nhật thành công!");
     }
 
-    public void checkTuitionDeleted() {
-        System.out.println("Học phí đã được xóa thành công!");
+    public void checkTuitionUpdateStatus() {
+        System.out.println("Trạng thái học phí đã được cập nhật thành công!");
     }
     public boolean confirmUpdateTuition() {
-        // Hỏi người dùng có muốn cập nhật học phí không
-        System.out.print("Sinh viên đã có học phí. Bạn có muốn cập nhật học phí không? (Y/N) ");
+        System.out.print("Sinh viên đã có học phí trước đó. Bạn có muốn cập nhật học phí không? (Y/N) ");
         String choice = input.inputString("");
         return choice.equalsIgnoreCase("Y");  // Nếu người dùng chọn 'Y', trả về true
     }
@@ -107,17 +109,20 @@ public class ViewTuition {
     public void showTuitionNotExist(){
         System.out.println("Không tìm thấy học phí cho sinh viên với ID đã nhập.");
     }
+    public void showTuitionAlreadyPaid(){
+        System.out.println("Học phí đã được nộp. Không thể cập nhật");
+    }
     public void showTuitionByStudentId(Tuition tuition) {
         System.out.println("Thông tin học phí:");
         System.out.print("""
-                ╔════════════════╦═════════════════════╗
-                ║  Mã sinh viên  ║       Học phí       ║
-                ╠════════════════╬═════════════════════╣
+                ╔════════════════╦═════════════════════╦════════════╗
+                ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
+                ╠════════════════╬═════════════════════╬════════════╣
                 """);
 
         System.out.println(tuition);
         System.out.println(""" 
-                ╚════════════════╩═════════════════════╝
+                ╚════════════════╩═════════════════════╩════════════╝
                 """);
     }
 }

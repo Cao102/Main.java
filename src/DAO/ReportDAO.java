@@ -2,7 +2,7 @@ package DAO;
 
 import Model.Report;
 import Model.TopStudent;
-import util.DatabaseConnect;
+import connectDatabase.DatabaseConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

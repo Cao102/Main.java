@@ -1,7 +1,7 @@
 package DAO;
 
 import Model.Events;
-import util.DatabaseConnect;
+import connectDatabase.DatabaseConnect;
 
 import java.sql.*;
 import java.time.LocalDate;

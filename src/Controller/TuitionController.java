@@ -30,7 +30,7 @@ public class TuitionController {
                     updateTuition();
                     break;
                 case 4:
-                    deleteTuition();
+                    updateTuitionStatus();
                     break;
                 case 5:
                     searchByStudentId();
@@ -47,12 +47,10 @@ public class TuitionController {
     private void addTuition() {
         while (true) {
             String studentId = viewTuition.inputStudentId();
-
             if (!tuitionDAO.isStudentExist(studentId)) {
                 viewTuition.showStudentNotExist();
                 continue; // cho nhập lại ID
             }
-
             Tuition existingTuition = tuitionDAO.searchByStudentId(studentId);
             if (existingTuition == null) {
                 double amount = viewTuition.inputAmount();
@@ -62,6 +60,10 @@ public class TuitionController {
             } else {
                 boolean update = viewTuition.confirmUpdateTuition();
                 if (update) {
+                    if (existingTuition.getStatus().equals("ok")) {
+                        viewTuition.showTuitionAlreadyPaid();  // Thông báo học phí đã được nộp
+                        continue;
+                    }
                     double amount = viewTuition.inputAmount();
                     Tuition tuition = new Tuition(studentId, amount);
                     tuitionDAO.update(tuition);
@@ -70,7 +72,7 @@ public class TuitionController {
                     continue;
                 }
             }
-            break; // kết thúc thêm học phí và quay về menu chính
+            break;
         }
     }
 
@@ -87,6 +89,10 @@ public class TuitionController {
                 viewTuition.showTuitionNotExist();  // Thông báo không tồn tại học phí
                 continue;
             } else {
+                if (existingTuition.getStatus().equals("ok")) {
+                    viewTuition.showTuitionAlreadyPaid();  // Thông báo học phí đã được nộp
+                    continue;
+                }
                 double amount = viewTuition.inputAmount();  // Lấy số tiền học phí mới
                 Tuition tuition = new Tuition(studentId, amount);
                 tuitionDAO.update(tuition);
@@ -96,16 +102,17 @@ public class TuitionController {
         }
     }
 
-    private void deleteTuition() {
+    private void updateTuitionStatus() {
         while (true){
-            String studentId = viewTuition.inputStudentId();  // Lấy ID sinh viên
+            String studentId = viewTuition.inputStudentId();
             Tuition existingTuition = tuitionDAO.searchByStudentId(studentId);
             if (existingTuition == null) {
                 viewTuition.showTuitionNotExist();
                 continue;
             } else {
-                tuitionDAO.delete(studentId);
-                viewTuition.checkTuitionDeleted();
+                String status = viewTuition.inputStatus();
+                tuitionDAO.updateStatus(studentId, status);
+                viewTuition.checkTuitionUpdateStatus();
             }
             break;
         }
