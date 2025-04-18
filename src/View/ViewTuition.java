@@ -1,6 +1,8 @@
 package View;
 
 import Model.Tuition;
+import util.TableUtils;
+
 import java.util.List;
 
 public class ViewTuition {
@@ -62,27 +64,30 @@ public class ViewTuition {
         return amount;
     }
 
-    public void getAllTuition(List<Tuition> tuitionList) {
-        if (tuitionList.isEmpty()) {
+    public void getAllTuition(List<Tuition> objectList) {
+        if (objectList.isEmpty()) {
             System.out.println("Không có học phí nào.");
             return;
         }
-        System.out.print(""" 
-            ╔══════════════════════════════════════════════════════════╗
-            ║                     DANH SÁCH HỌC PHÍ                    ║
-            ╠══════╦════════════════╦═════════════════════╦════════════╣
-            ║ STT  ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
-            ╠══════╬════════════════╬═════════════════════╬════════════╣
-            """);
-
-        // In danh sách học phí, STT tự động tăng từ 1
-        int stt = 1;
-        for (Tuition tuition : tuitionList) {
-            System.out.println(String.format("║ %-4d ", stt++) + tuition); // In ra STT, thông tin học phí và trạng thái
-        }
-        System.out.println(""" 
-            ╚══════╩════════════════╩═════════════════════╩════════════╝
-            """);
+        String[] headers = {"Mã SV", "Học Phí", "Trạng Thái"};
+        System.out.println("\nDANH SÁCH HỌC PHÍ:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.print("""
+//            ╔══════════════════════════════════════════════════════════╗
+//            ║                     DANH SÁCH HỌC PHÍ                    ║
+//            ╠══════╦════════════════╦═════════════════════╦════════════╣
+//            ║ STT  ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
+//            ╠══════╬════════════════╬═════════════════════╬════════════╣
+//            """);
+//
+//        // In danh sách học phí, STT tự động tăng từ 1
+//        int stt = 1;
+//        for (Tuition tuition : tuitionList) {
+//            System.out.println(String.format("║ %-4d ", stt++) + tuition); // In ra STT, thông tin học phí và trạng thái
+//        }
+//        System.out.println("""
+//            ╚══════╩════════════════╩═════════════════════╩════════════╝
+//            """);
     }
 
 

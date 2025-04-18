@@ -1,6 +1,7 @@
 package View;
 
 import Model.Events;
+import util.TableUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,25 +66,27 @@ public class ViewEvents {
         return input.inputString("Nhập ID sự kiện");
     }
 
-    public void displayEvents(List<Events> events) {
-        if (events.isEmpty()) {
+    public void displayEvents(List<Events> objectList) {
+        if (objectList.isEmpty()) {
             System.out.println("Không có sự kiện nào.");
             return;
         }
-
-        System.out.print("""
-        ╔══════╦══════╦════════════════════════════════╦════════════════════╦══════════════════════╗
-        ║ STT  ║  ID  ║         Tên sự kiện            ║   Ngày và giờ      ║   Địa điểm tổ chức   ║
-        ╠══════╬══════╬════════════════════════════════╬════════════════════╬══════════════════════╣
-        """);
-
-        int stt = 1;
-        for (Events event : events) {
-            System.out.println(String.format("║ %-4d ", stt++) + event);
-        }
-        System.out.println("""
-        ╚══════╩══════╩════════════════════════════════╩════════════════════╩══════════════════════╝
-        """);
+        String[] headers = {"Mã SK", "Tên Sự Kiện", "Ngày Và Giờ", "Địa Điểm Tổ Chức"};
+        System.out.println("\nDANH SÁCH SỰ KIỆN:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.print("""
+//        ╔══════╦══════╦════════════════════════════════╦════════════════════╦══════════════════════╗
+//        ║ STT  ║  ID  ║         Tên sự kiện            ║   Ngày và giờ      ║   Địa điểm tổ chức   ║
+//        ╠══════╬══════╬════════════════════════════════╬════════════════════╬══════════════════════╣
+//        """);
+//
+//        int stt = 1;
+//        for (Events event : events) {
+//            System.out.println(String.format("║ %-4d ", stt++) + event);
+//        }
+//        System.out.println("""
+//        ╚══════╩══════╩════════════════════════════════╩════════════════════╩══════════════════════╝
+//        """);
 
     }
 

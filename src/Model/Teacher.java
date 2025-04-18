@@ -2,9 +2,9 @@ package Model;
 
 import java.math.BigDecimal;
 
-public class Teacher extends Person {
+public class Teacher extends Person implements TableConvertible{
     private final int yearsOfExperience;
-    private final BigDecimal baseSalary;
+    private BigDecimal baseSalary = BigDecimal.ZERO;
     private BigDecimal salary;
 
     public Teacher(String teacher_id, String name, String email, String phone, String address,
@@ -38,5 +38,11 @@ public class Teacher extends Person {
                 baseSalary != null ? baseSalary.doubleValue() : 0.0,
                 salary != null ? salary.doubleValue() : 0.0
         );
+    }
+    @Override
+    public String[] toRow() {
+        return new String[] {
+                id, name, email, phone, address, String.valueOf(yearsOfExperience) , String.valueOf(baseSalary), String.valueOf(salary)
+        };
     }
 }

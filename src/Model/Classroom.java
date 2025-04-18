@@ -1,6 +1,6 @@
 package Model;
 
-public class Classroom {
+public class Classroom implements TableConvertible{
     private final String classroom_id;
     private final String name;
     private final int capacity;
@@ -31,5 +31,10 @@ public class Classroom {
     @Override
     public String toString() {
         return String.format("║%-4s║%-16s║%-6d║ %-25s ║", this.classroom_id, this.name, this.capacity, this.location);
+    }
+    public String[] toRow() {
+        return new String[] {
+                classroom_id, name, String.valueOf(capacity), location
+        };
     }
 }

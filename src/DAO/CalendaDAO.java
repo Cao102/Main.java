@@ -1,7 +1,7 @@
 package DAO;
 
 import Model.Calenda;
-import connectDatabase.DatabaseConnect;
+import util.DatabaseConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

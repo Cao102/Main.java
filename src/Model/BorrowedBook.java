@@ -2,7 +2,7 @@ package Model;
 
 import java.time.LocalDate;
 
-public class BorrowedBook {
+public class BorrowedBook implements TableConvertible{
     private String studentId;
     private String bookId;
     private LocalDate borrowDate;
@@ -34,5 +34,11 @@ public class BorrowedBook {
                 studentId, bookId,
                 borrowDate.toString(),
                 returnDate != null ? returnDate.toString() : "Chưa trả");
+    }
+    @Override
+    public String[] toRow() {
+        return new String[] {
+                studentId, bookId, String.valueOf(borrowDate), String.valueOf(returnDate)
+        };
     }
 }

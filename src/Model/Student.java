@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.Date;
 
-public class Student extends Person {
+public class Student extends Person implements TableConvertible {
     private final Date dob;
     private final String gender;
 
@@ -21,7 +21,9 @@ public class Student extends Person {
     }
 
     @Override
-    public String toString() {
-        return String.format("║ %-4s ║ %-14s ║  %tF  ║ %-9s ║ %-25s ║ %-12s ║ %-17s ║", id, name, dob, gender, email, phone, address);
+    public String[] toRow() {
+        return new String[] {
+                id, name, dob.toString(), gender, email, phone, address
+        };
     }
 }

@@ -1,6 +1,7 @@
 package View;
 
 import Model.Classroom;
+import util.TableUtils;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class ViewClassroom {
     }
     public int menuObject() {
         System.out.print("""
+                
                 ╔════════════════════════════════════════╗
                 ║           QUẢN LÝ LỚP HỌC              ║
                 ╠════════════════════════════════════════╣
@@ -62,19 +64,22 @@ public class ViewClassroom {
             System.out.println("\nHiện không có lớp học nào.\n");
             return;
         }
-        System.out.print("""
-                
-                ╔════════════════════════════════════════════════════════╗
-                ║                   DANH SÁCH LỚP HỌC                    ║
-                ╠════╦════════════════╦══════╦═══════════════════════════╣
-                ║ ID ║     Tên Lớp    ║  SC  ║           Vị Trí          ║
-                ╠════╬════════════════╬══════╬═══════════════════════════╣
-                """);
-
-        for (Classroom object : objectList) {
-            System.out.println(object);
-        }
-        System.out.println("╚════╩════════════════╩══════╩═══════════════════════════╝");
+        String[] headers = {"Mã Lớp", "Tên Lớp", "Sức Chứa", "Vị Trí"};
+        System.out.println("\nDANH SÁCH LỚP HỌC:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.print("""
+//
+//                ╔════════════════════════════════════════════════════════╗
+//                ║                   DANH SÁCH LỚP HỌC                    ║
+//                ╠════╦════════════════╦══════╦═══════════════════════════╣
+//                ║ ID ║     Tên Lớp    ║  SC  ║           Vị Trí          ║
+//                ╠════╬════════════════╬══════╬═══════════════════════════╣
+//                """);
+//
+//        for (Classroom object : objectList) {
+//            System.out.println(object);
+//        }
+//        System.out.println("╚════╩════════════════╩══════╩═══════════════════════════╝");
     }
 
     public void updateObject() {

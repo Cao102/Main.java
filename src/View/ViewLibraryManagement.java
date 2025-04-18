@@ -2,6 +2,8 @@ package View;
 
 import Model.Library;
 import Model.BorrowedBook;
+import util.TableUtils;
+
 import java.util.List;
 
 public class ViewLibraryManagement {
@@ -56,104 +58,116 @@ public class ViewLibraryManagement {
     public String inputKeyWord() {
         return input.inputString("Nhập từ khóa");
     }
-    public void displayAllBooks(List<Library> bookList) {
-        if (bookList.isEmpty()) {
+    public void displayAllBooks(List<Library> objectList) {
+        if (objectList.isEmpty()) {
             System.out.println("Không có sách nào trong thư viện.");
             return;
         }
-        System.out.print("""
-            ╔══════╦════════════╦═══════════════════════════╦══════════════════════╦══════════╗
-            ║ STT  ║  Mã sách   ║         Tên sách          ║        Tác giả       ║ Số lượng ║
-            ╠══════╬════════════╬═══════════════════════════╬══════════════════════╬══════════╣
-            """);
-
-        int stt = 1;
-        for (Library book : bookList) {
-            System.out.println(String.format("║ %-4d ", stt++) + book);
-        }
-        System.out.println("""
-            ╚══════╩════════════╩═══════════════════════════╩══════════════════════╩══════════╝
-            """);
+        String[] headers = {"Mã Sách", "Tên Sách", "Tác Giả", "Số Lượng"};
+        System.out.println("\nDANH SÁCH SÁCH TRONG THƯ VIỆN:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.print("""
+//            ╔══════╦════════════╦═══════════════════════════╦══════════════════════╦══════════╗
+//            ║ STT  ║  Mã sách   ║         Tên sách          ║        Tác giả       ║ Số lượng ║
+//            ╠══════╬════════════╬═══════════════════════════╬══════════════════════╬══════════╣
+//            """);
+//
+//        int stt = 1;
+//        for (Library book : bookList) {
+//            System.out.println(String.format("║ %-4d ", stt++) + book);
+//        }
+//        System.out.println("""
+//            ╚══════╩════════════╩═══════════════════════════╩══════════════════════╩══════════╝
+//            """);
     }
-    public void displayAvailableBooks(List<Library> availableBooks) {
-        if (availableBooks.isEmpty()) {
+    public void displayAvailableBooks(List<Library> objectList) {
+        if (objectList.isEmpty()) {
             System.out.println("Không có sách khả dụng trong thư viện.");
             return;
         }
-
-        System.out.print("""
-            ╔══════╦════════════╦═══════════════════════════╦══════════════════════╦══════════╗
-            ║ STT  ║  Mã sách   ║         Tên sách          ║        Tác giả       ║ Số lượng ║
-            ╠══════╬════════════╬═══════════════════════════╬══════════════════════╬══════════╣
-            """);
-
-        int stt = 1;
-        for (Library book : availableBooks) {
-            System.out.println(String.format("║ %-4d ", stt++) + book);
-        }
-
-        System.out.println("""
-            ╚══════╩════════════╩═══════════════════════════╩══════════════════════╩══════════╝
-            """);
+        String[] headers = {"Mã Sách", "Tên Sách", "Tác Giả", "Số Lượng"};
+        System.out.println("\nDANH SÁCH SÁCH KHẢ DỤNG:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.print("""
+//            ╔══════╦════════════╦═══════════════════════════╦══════════════════════╦══════════╗
+//            ║ STT  ║  Mã sách   ║         Tên sách          ║        Tác giả       ║ Số lượng ║
+//            ╠══════╬════════════╬═══════════════════════════╬══════════════════════╬══════════╣
+//            """);
+//
+//        int stt = 1;
+//        for (Library book : availableBooks) {
+//            System.out.println(String.format("║ %-4d ", stt++) + book);
+//        }
+//
+//        System.out.println("""
+//            ╚══════╩════════════╩═══════════════════════════╩══════════════════════╩══════════╝
+//            """);
     }
 
-    public void displayBorrowedBooks(List<BorrowedBook> borrowedBooks) {
-        if (borrowedBooks.isEmpty()) {
+    public void displayBorrowedBooks(List<BorrowedBook> objectList) {
+        if (objectList.isEmpty()) {
             System.out.println("Không có sách nào đang được mượn hoặc đã trả");
             return;
         }
-
-        System.out.print("""
-            ╔══════╦════════════════╦════════════╦══════════════╦══════════════╗
-            ║ STT  ║  Mã sinh viên  ║  Mã sách   ║  Ngày mượn   ║   Ngày trả   ║
-            ╠══════╬════════════════╬════════════╬══════════════╬══════════════╣
-            """);
-
-        int stt = 1;
-        for (BorrowedBook b : borrowedBooks) {
-            System.out.println(String.format("║ %-4d ", stt++) + b);
-        }
-
-        System.out.println("""
-            ╚══════╩════════════════╩════════════╩══════════════╩══════════════╝
-            """);
+        String[] headers = {"MSV", "Mã Sách", "Ngày Mượn", "Ngày Trả"};
+        System.out.println("\nDANH SÁCH MƯỢN:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.print("""
+//            ╔══════╦════════════════╦════════════╦══════════════╦══════════════╗
+//            ║ STT  ║  Mã sinh viên  ║  Mã sách   ║  Ngày mượn   ║   Ngày trả   ║
+//            ╠══════╬════════════════╬════════════╬══════════════╬══════════════╣
+//            """);
+//
+//        int stt = 1;
+//        for (BorrowedBook b : borrowedBooks) {
+//            System.out.println(String.format("║ %-4d ", stt++) + b);
+//        }
+//
+//        System.out.println("""
+//            ╚══════╩════════════════╩════════════╩══════════════╩══════════════╝
+//            """);
     }
-    public void showBookByKeyWord(List<Library> books) {
-        System.out.println("Kết quả tìm kiếm sách:");
-        System.out.print("""
-            ╔══════╦════════════╦═══════════════════════════╦══════════════════════╦══════════╗
-            ║ STT  ║  Mã sách   ║         Tên sách          ║        Tác giả       ║ Số lượng ║
-            ╠══════╬════════════╬═══════════════════════════╬══════════════════════╬══════════╣
-            """);
-        int stt = 1;
-        for (Library book : books) {
-            System.out.println(String.format("║ %-4d ", stt++) + book);
-        }
-        System.out.println("""
-            ╚══════╩════════════╩═══════════════════════════╩══════════════════════╩══════════╝
-            """);
+    public void showBookByKeyWord(List<Library> objectList) {
+        String[] headers = {"Mã Sách", "Tên Sách", "Tác Giả", "Số Lượng"};
+        System.out.println("\nDANH SÁCH SÁCH:");
+        TableUtils.printTable(objectList, headers);
+//        System.out.println("Kết quả tìm kiếm sách:");
+//        System.out.print("""
+//            ╔══════╦════════════╦═══════════════════════════╦══════════════════════╦══════════╗
+//            ║ STT  ║  Mã sách   ║         Tên sách          ║        Tác giả       ║ Số lượng ║
+//            ╠══════╬════════════╬═══════════════════════════╬══════════════════════╬══════════╣
+//            """);
+//        int stt = 1;
+//        for (Library book : books) {
+//            System.out.println(String.format("║ %-4d ", stt++) + book);
+//        }
+//        System.out.println("""
+//            ╚══════╩════════════╩═══════════════════════════╩══════════════════════╩══════════╝
+//            """);
     }
 
-    public void showBorrowedBooksByStudentId(List<BorrowedBook> borrowedBooks, String studentId) {
-        if (borrowedBooks.isEmpty()) {
+    public void showBorrowedBooksByStudentId(List<BorrowedBook> objectList, String studentId) {
+        if (objectList.isEmpty()) {
             System.out.println("Sinh viên có mã " + studentId + " không mượn quyển sách nào");
             return;
         }
-
-        System.out.println("Danh sách sách đã mượn của sinh viên có mã: " + studentId);
-        System.out.print("""
-            ╔══════╦════════════════╦════════════╦══════════════╦══════════════╗
-            ║ STT  ║  Mã sinh viên  ║  Mã sách   ║  Ngày mượn   ║   Ngày trả   ║
-            ╠══════╬════════════════╬════════════╬══════════════╬══════════════╣
-            """);
-        int stt = 1;
-        for (BorrowedBook b : borrowedBooks) {
-            System.out.println(String.format("║ %-4d ", stt++) + b);
-        }
-
-        System.out.println("""
-            ╚══════╩════════════════╩════════════╩══════════════╩══════════════╝
-            """);
+        String[] headers = {"Mã SV", "Mã Sách", "Ngày Mượn", "Ngày Trả"};
+        System.out.printf("\nDANH SÁCH SÁCH MÀ SV CÓ MÃ SV: %s:\n", studentId);
+        TableUtils.printTable(objectList, headers);
+//        System.out.println("Danh sách sách đã mượn của sinh viên có mã: " + studentId);
+//        System.out.print("""
+//            ╔══════╦════════════════╦════════════╦══════════════╦══════════════╗
+//            ║ STT  ║  Mã sinh viên  ║  Mã sách   ║  Ngày mượn   ║   Ngày trả   ║
+//            ╠══════╬════════════════╬════════════╬══════════════╬══════════════╣
+//            """);
+//        int stt = 1;
+//        for (BorrowedBook b : borrowedBooks) {
+//            System.out.println(String.format("║ %-4d ", stt++) + b);
+//        }
+//
+//        System.out.println("""
+//            ╚══════╩════════════════╩════════════╩══════════════╩══════════════╝
+//            """);
     }
     public void errorChoose() {
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");

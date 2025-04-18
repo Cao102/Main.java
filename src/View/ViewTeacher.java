@@ -1,6 +1,7 @@
 package View;
 
 import Model.Teacher;
+import util.TableUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -148,21 +149,9 @@ public class ViewTeacher {
             System.out.println("\nHiện không có giáo viên nào.\n");
             return;
         }
-        System.out.print("""
-                
-                ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-                ║                                                   DANH SÁCH GIÁO VIÊN                                                   ║
-                ╠══════╦════════════════════╦═════════════════════════╦════════════╦═══════════════════╦══════╦════════════╦══════════════╣
-                ║  ID  ║          TÊN       ║          EMAIL          ║    SĐT     ║       Địa chỉ     ║ SNCT ║  Lương CB  ║     Lương    ║
-                ╠══════╬════════════════════╬═════════════════════════╬════════════╬═══════════════════╬══════╬════════════╬══════════════╣
-                """);
-
-        for (Teacher object : objectList) {
-            System.out.println(object);
-        }
-        System.out.println("""
-                ╚══════╩════════════════════╩═════════════════════════╩════════════╩═══════════════════╩══════╩════════════╩══════════════╝
-                """);
+        String[] headers = {"Mã GV", "Họ tên", "Email", "Số ĐT", "Địa Chỉ", "SNKN", "LươngCB", "Lương"};
+        System.out.println("\nDANH SÁCH SINH VIÊN:");
+        TableUtils.printTable(objectList, headers);
     }
 
     public int viewSearch() {

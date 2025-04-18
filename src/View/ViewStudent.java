@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import Model.Student;
+import util.TableUtils;
 
 public class ViewStudent {
     private final Input input = new Input();
@@ -144,19 +145,10 @@ public class ViewStudent {
             System.out.println("\nKhông có sinh viên nào.\n");
             return;
         }
-        System.out.print("""
-                ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-                ║                                                   DANH SÁCH SINH VIÊN                                           ║
-                ╠══════╦════════════════╦══════════════╦═══════════╦═══════════════════════════╦══════════════╦═══════════════════╣
-                ║  ID  ║      Tên       ║   Ngày sinh  ║ Giới Tính ║           Email           ║      SĐT     ║      Địa chỉ      ║
-                ╠══════╬════════════════╬══════════════╬═══════════╬═══════════════════════════╬══════════════╬═══════════════════╣
-                """);
-        for (Student object : objectList) {
-            System.out.println(object);
-        }
-        System.out.println("""
-                ╚══════╩════════════════╩══════════════╩═══════════╩═══════════════════════════╩══════════════╩═══════════════════╝
-                """);
+
+        String[] headers = {"Mã SV", "Họ tên", "Ngày sinh", "Giới tính", "Email", "SĐT", "Địa chỉ"};
+        System.out.println("\nDANH SÁCH SINH VIÊN:");
+        TableUtils.printTable(objectList, headers);
     }
 
     public int viewSearch() {

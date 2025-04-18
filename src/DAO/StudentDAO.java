@@ -1,7 +1,7 @@
 package DAO;
 
 import Model.Student;
-import connectDatabase.DatabaseConnect;
+import util.DatabaseConnect;
 
 import java.sql.*;
 import java.util.ArrayList;

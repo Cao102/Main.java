@@ -1,6 +1,6 @@
 package Model;
 
-public class Library {
+public class Library implements TableConvertible{
     private String bookId;
     private String bookName;
     private String author;
@@ -32,5 +32,10 @@ public class Library {
     @Override
     public String toString() {
         return String.format("║ %-10s ║ %-25s ║ %-20s ║ %-8d ║", bookId, bookName, author, quantity);
+    }
+    public String[] toRow() {
+        return new String[] {
+                bookId, bookName, author, String.valueOf(quantity)
+        };
     }
 }

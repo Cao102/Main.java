@@ -2,7 +2,7 @@ package DAO;
 
 import Model.Library;
 import Model.BorrowedBook;
-import connectDatabase.DatabaseConnect;
+import util.DatabaseConnect;
 
 import java.sql.*;
 import java.time.LocalDate;
