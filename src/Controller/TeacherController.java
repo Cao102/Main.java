@@ -19,8 +19,6 @@ public class TeacherController {
         return false;
     }
 
-    public TeacherController(MainController ignoredMainController) {}
-
     public void start() {
         while (true) {
             int input = viewTeacher.menuObject();
@@ -41,7 +39,7 @@ public class TeacherController {
                 case 5:
                     searchObject();
                     break;
-                case 6:
+                case 0:
                     return;
                 default:
                     viewTeacher.errorChoose();
@@ -191,7 +189,7 @@ public class TeacherController {
     public void searchObject() {
         while (true) {
             int choose = viewTeacher.viewSearch();
-            if (choose == 8) {
+            if (choose == 0) {
                 break;
             } else if (choose < 1 || choose > 8) {
                 viewTeacher.errorChoose();
@@ -279,7 +277,7 @@ public class TeacherController {
                     }
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ! Quay lại menu.");
+                    viewTeacher.errorChoose();
                     return;
             }
 

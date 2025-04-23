@@ -49,7 +49,7 @@ public class ViewClassroom {
                 ║ 3. Chỉnh Sửa Thông tin Lớp Học         ║
                 ║ 4. Xóa Thông Tin Lớp Học               ║
                 ║ 5. Tìm Kiếm Thông Tin Lớp Học          ║
-                ║ 6. Quay Lại                            ║
+                ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn của bạn");
@@ -99,7 +99,7 @@ public class ViewClassroom {
                 ║ 1. Tìm kiếm theo Mã Lớp                ║
                 ║ 2. Tìm kiếm theo Tên Lớp               ║
                 ║ 3. Tìm kiếm theo Sức Chứa              ║
-                ║ 4. Quay lại                            ║
+                ║ 0. Quay lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn");

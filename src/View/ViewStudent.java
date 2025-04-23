@@ -38,7 +38,7 @@ public class ViewStudent {
                 ║ 3. Chỉnh sửa thông tin sinh viên       ║
                 ║ 4. Xóa thông tin sinh viên             ║
                 ║ 5. Tìm kiếm thông tin sinh viên        ║
-                ║ 6. Quay lại                            ║
+                ║ 0. Quay lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn của bạn");
@@ -49,7 +49,14 @@ public class ViewStudent {
     }
 
     public String getName() {
-        return input.inputString("Nhập tên SV");
+        String name;
+        while (true){
+            name = input.inputString("Nhập tên SV");
+            if (name.length() <= 100){
+                break;
+            }
+        }
+        return name;
     }
 
     public Date getDob() {
@@ -72,7 +79,7 @@ public class ViewStudent {
     public String getGender() {
         String gender;
         while (true) {
-            gender = input.inputString("Nhập giới tính SV");
+            gender = input.inputString("Nhập giới tính SV (Male, Female, Other)");
             if (gender.isEmpty()) break;
             String checkGender = gender.toLowerCase();
             if (!(checkGender.equals("male") || checkGender.equals("female") || checkGender.equals("other"))) {
@@ -87,8 +94,11 @@ public class ViewStudent {
     public String getEmail() {
         String email;
         while (true) {
-            email = input.inputString("Nhập email sinh viên (@gmail.com)");
+            email = input.inputString("Nhập email sinh viên (****@gmail.com)");
             if (email.isEmpty()) break;
+            if (email.length() > 100){
+                System.out.println("Vui lòng nhập không quá 100 ký tự");
+            }
             if (!email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
                 System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
                 continue;
@@ -164,7 +174,7 @@ public class ViewStudent {
                 ║ 5. Tìm kiếm theo email                 ║
                 ║ 6. Tìm kiếm theo SĐT                   ║
                 ║ 7. Tìm kiếm theo Địa chỉ               ║
-                ║ 8. Quay lại                            ║
+                ║ 0. Quay lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn");

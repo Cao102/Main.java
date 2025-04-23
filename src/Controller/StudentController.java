@@ -11,8 +11,6 @@ public class StudentController {
     private final ViewStudent viewStudent = new ViewStudent();
     private final StudentService studentService = new StudentService(this);
 
-    public StudentController(MainController ignoredMainController) {}
-
     private boolean checkEmpty(String s, String message) {
         if (s.isEmpty()) {
             viewStudent.checkEmpty(message);
@@ -41,10 +39,11 @@ public class StudentController {
                 case 5:
                     searchObject();
                     break;
-                case 6:
+                case 0:
                     return;
                 default:
-                    System.out.println("Vui lòng nhập lại");
+                    viewStudent.errorChoose();
+                    break;
             }
         }
     }
@@ -172,12 +171,12 @@ public class StudentController {
     public void searchObject() {
         while (true) {
             int choose = viewStudent.viewSearch();
-            if (choose == 8) {
-                break;
-            } else if (choose < 1 || choose > 8) {
-                viewStudent.errorChoose();
-                continue;
-            }
+//            if (choose == 0) {
+//                break;
+//            } else if (choose < 1 || choose > 8) {
+//                viewStudent.errorChoose();
+//                continue;
+//            }
             String name_column, attribute;
             switch (choose) {
                 case 1:
@@ -244,7 +243,10 @@ public class StudentController {
                     name_column = "address";
                     attribute = viewStudent.getAddress();
                     break;
+                case 0:
+                    return;
                 default:
+                    viewStudent.errorChoose();
                     return;
             }
             List<Student> studentList = studentService.searchObject(name_column, attribute);

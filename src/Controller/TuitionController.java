@@ -35,7 +35,7 @@ public class TuitionController {
                 case 5:
                     searchByStudentId();
                     break;
-                case 6:
+                case 0:
                     return;  // Quay lại MainController hoặc thoát khỏi chương trình
                 default:
                     viewTuition.errorChoose();  // Nếu lựa chọn không hợp lệ

@@ -52,7 +52,7 @@ public class LibraryManagementController {
                 case 10:
                     displayAvailableBooks();
                     break;
-                case 11:
+                case 0:
                     return; // Thoát về main menu hoặc thoát chương trình
                 default:
                     viewLibraryManagement.errorChoose();

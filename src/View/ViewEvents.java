@@ -23,7 +23,7 @@ public class ViewEvents {
             ║ 3. Xóa sự kiện                         ║
             ║ 4. Hiển thị danh sách sự kiện          ║
             ║ 5. Tìm sự kiện theo ngày               ║
-            ║ 6. Quay lại                            ║
+            ║ 0. Quay lại                            ║
             ╚════════════════════════════════════════╝
             """);
         return input.inputInt("Nhập lựa chọn của bạn");

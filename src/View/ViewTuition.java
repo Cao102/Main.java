@@ -27,7 +27,7 @@ public class ViewTuition {
             ║ 3. Cập nhật học phí                    ║
             ║ 4. Cập nhật trạng thái học phí         ║
             ║ 5. Tìm kiếm học phí theo ID            ║
-            ║ 6. Quay lại                            ║
+            ║ 0. Quay lại                            ║
             ╚════════════════════════════════════════╝
             """);
         return input.inputInt("Nhập lựa chọn của bạn");

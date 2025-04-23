@@ -18,8 +18,6 @@ public class ClassroomsController {
         return false;
     }
 
-    public ClassroomsController(MainController ignoredMainController) {}
-
     public void start() {
         while (true) {
             int input = viewClassroom.menuObject();
@@ -39,10 +37,10 @@ public class ClassroomsController {
                 case 5:
                     searchObject();
                     break;
-                case 6:
+                case 0:
                     return;
                 default:
-                    System.out.println("Vui lòng nhập lại");
+                    viewClassroom.errorChoose();
             }
         }
     }
@@ -141,9 +139,9 @@ public class ClassroomsController {
     public void searchObject() {
         while (true) {
             int choose = viewClassroom.viewSearch();
-            if (choose == 6) {
+            if (choose == 0) {
                 break;
-            } else if (choose < 1 || choose > 6) {
+            } else if (choose < 1 || choose > 5) {
                 viewClassroom.errorChoose();
                 continue;
             }

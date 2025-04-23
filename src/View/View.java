@@ -3,8 +3,9 @@ package View;
 import java.util.Scanner;
 
 public class View {
-    public int menuView() {
-        Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
+    public void menuView() {
+
         System.out.print("""
                 
                 ╔══════════════════════════════════╗
@@ -23,10 +24,16 @@ public class View {
                 ║ 11.  Quản lý Sự Kiện             ║
                 ║ 12.  Quản lý Ký Túc Xá           ║
                 ║ 13.  Báo Cáo Và Thống Kê         ║
-                ║ 14.  Thoát                       ║
+                ║ 0.  Thoát                        ║
                 ╚══════════════════════════════════╝
-                Nhập lựa chọn: \s""");
-        return Integer.parseInt(sc.nextLine());
+                """);
+    }
+    public String inputChoose(){
+        System.out.print("Nhập lựa chọn: ");
+        return sc.nextLine().trim();
+    }
+    public void errorChoose(){
+        System.out.println("Vui lòng nhập lại lựa chọn chỉ có số");
     }
     public void exit(){
         System.out.println("Thoát chương trình...");

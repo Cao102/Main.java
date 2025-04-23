@@ -25,7 +25,7 @@ public class ViewLibraryManagement {
         ║ 8. Hiển thị danh sách mượn sách                ║
         ║ 9. Tìm kiếm thông tin mượn theo ID sinh viên   ║
         ║ 10. Hiển thị danh sách sách khả dụng           ║
-        ║ 11. Quay lại                                   ║
+        ║ 0. Quay lại                                    ║
         ╚════════════════════════════════════════════════╝
         """);
         return input.inputInt("Nhập lựa chọn của bạn");

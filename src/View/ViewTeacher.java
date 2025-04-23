@@ -123,7 +123,7 @@ public class ViewTeacher {
                 ║ 3. Chỉnh sửa thông tin giáo viên       ║
                 ║ 4. Xóa thông tin giáo viên             ║
                 ║ 5. Tìm kiếm thông tin giáo viên        ║
-                ║ 6. Quay lại                            ║
+                ║ 0. Quay lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn của bạn");
@@ -167,7 +167,7 @@ public class ViewTeacher {
                 ║ 5. Tìm kiếm theo Đc                    ║
                 ║ 6. Tìm kiếm theo SNCT                  ║
                 ║ 7. Tìm kiếm theo Lương CB              ║
-                ║ 8. Quay lại                            ║
+                ║ 0. Quay lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn");

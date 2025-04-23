@@ -37,7 +37,7 @@ public class EventsController {
                 case 5:
                     searchEventsByDate();
                     break;
-                case 6:
+                case 0:
                     return; // Thoát khỏi menu sự kiện
                 default:
                     viewEvents.errorChoose();

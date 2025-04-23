@@ -4,9 +4,9 @@ import View.*;
 
 public class MainController {
     private static final View view = new View();
-    private final StudentController studentController = new StudentController(this);
-    private final ClassroomsController classroomsController = new ClassroomsController(this);
-    private final TeacherController teacherController = new TeacherController(this);
+    private final StudentController studentController = new StudentController();
+    private final ClassroomsController classroomsController = new ClassroomsController();
+    private final TeacherController teacherController = new TeacherController();
     private final DormitoryView dormitoryView = new DormitoryView();
     private final SubjectView subjectView = new SubjectView();
     private final ReportView reportView = new ReportView();
@@ -18,7 +18,17 @@ public class MainController {
     private final ViewCalenda viewCalenda = new ViewCalenda();
     public void start() {
         while (true) {
-            int input = view.menuView();
+            view.menuView();
+            String choose;
+            while (true){
+                choose = view.inputChoose();
+                if (!choose.matches("\\d+")){
+                    view.errorChoose();
+                    continue;
+                }
+                break;
+            }
+            int input = Integer.parseInt(choose);
             switch (input) {
                 case 1:
                     studentController.start();
@@ -58,7 +68,7 @@ public class MainController {
                     break;
                 case 13:
                     reportView.main(null);
-                case 14:
+                case 0:
                     view.exit();
                     return;
                 default:
