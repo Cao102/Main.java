@@ -14,7 +14,7 @@ CREATE TABLE Students (
    dob DATE NOT NULL,
    gender ENUM('Male', 'Female', 'Other') NOT NULL,
    email VARCHAR(100) UNIQUE NOT NULL,
-   phone VARCHAR(15) NOT NULL,
+   phone VARCHAR(15) UNIQUE NULL,
    address VARCHAR(255)
 );
 
@@ -24,7 +24,7 @@ CREATE TABLE Teachers (
    teacher_id VARCHAR(10) PRIMARY KEY,
    name VARCHAR(100) NOT NULL,
    email VARCHAR(100) UNIQUE NOT NULL,
-   phone VARCHAR(15),
+   phone VARCHAR(15) UNIQUE,
    address VARCHAR(255),
    years_of_experience INT DEFAULT 0,
    base_salary DECIMAL(10,2) DEFAULT 5000,
