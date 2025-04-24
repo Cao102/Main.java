@@ -10,9 +10,9 @@ public class ClassroomsController {
     private final ViewClassroom viewClassroom = new ViewClassroom();
     private final ClassroomService classroomService = new ClassroomService();
 
-    public boolean checkEmpty(String s, String message) {
-        if (s.isEmpty()) {
-            viewClassroom.checkEmpty(message);
+    private boolean isEmpty(String value, String fieldName) {
+        if (value.isEmpty()) {
+            viewClassroom.checkEmpty(fieldName);
             return true;
         }
         return false;
@@ -20,51 +20,39 @@ public class ClassroomsController {
 
     public void start() {
         while (true) {
-            int input = viewClassroom.menuObject();
-            switch (input) {
-                case 1:
-                    addObject();
-                    break;
-                case 2:
-                    getAll();
-                    break;
-                case 3:
-                    updateObject();
-                    break;
-                case 4:
-                    deleteObject();
-                    break;
-                case 5:
-                    searchObject();
-                    break;
-                case 0:
-                    return;
-                default:
-                    viewClassroom.errorChoose();
+            int choice = viewClassroom.menuObject();
+            switch (choice) {
+                case 1 -> addObject();
+                case 2 -> viewClassroom.getAllObject(classroomService.getAll());
+                case 3 -> updateObject();
+                case 4 -> deleteObject();
+                case 5 -> searchObject();
+                case 0 -> { return; }
+                default -> viewClassroom.errorChoose();
             }
         }
     }
 
     public void addObject() {
         viewClassroom.addObject();
-        String classroom_id;
+
+        String id;
         while (true) {
-            classroom_id = viewClassroom.getID();
-            if (classroom_id.isEmpty()) return;
-            if (!classroomService.checkID(classroom_id)) {
-                viewClassroom.checkID("ID đã tồn tại. Vui lòng nhập lại");
+            id = viewClassroom.getID();
+            if (id.isEmpty()) return;
+            if (!classroomService.checkID(id)) {
+                viewClassroom.checkID("ID Đã Tồn Tại. Vui Lòng Nhập Lại");
                 continue;
             }
             break;
         }
+
         String name;
         while (true) {
             name = viewClassroom.getName();
-            if (checkEmpty(name, "Tên")) {
-                continue;
-            }
-            break;
+            if (!isEmpty(name, "Tên")) break;
         }
+
         int capacity;
         while (true) {
             capacity = viewClassroom.getCapacity();
@@ -74,130 +62,114 @@ public class ClassroomsController {
             }
             break;
         }
+
         String location;
         while (true) {
             location = viewClassroom.getLocation();
-            if (checkEmpty(name, "Vị Chí")) {
-                continue;
-            }
-            break;
+            if (!isEmpty(location, "Vị Trí")) break;
         }
-        viewClassroom.successful("thêm");
-        classroomService.addObject(new Classroom(classroom_id, name, capacity, location));
+
+        classroomService.addObject(new Classroom(id, name, capacity, location));
+        viewClassroom.successful("Thêm");
     }
 
     public void updateObject() {
         viewClassroom.updateObject();
-        String classroom_id;
+
+        String id;
         while (true) {
-            classroom_id = viewClassroom.getID();
-            if (classroom_id.isEmpty()) return;
-            if (classroomService.checkID(classroom_id)) {
-                viewClassroom.checkID("\"ID chưa tồn tại. Vui lòng nhập lại\"");
+            id = viewClassroom.getID();
+            if (id.isEmpty()) return;
+            if (classroomService.checkID(id)) {
+                viewClassroom.checkID("ID Chưa Tồn Tại. Vui Lòng Nhập Lại");
                 continue;
             }
             break;
         }
-        List<Classroom> classroomList = classroomService.searchObject("classroom_id", classroom_id);
-        Classroom classroom = classroomList.getFirst();
-        String name = viewClassroom.getName();
-        if (name.isEmpty()) {
-            name = classroom.getName();
-        }
-        int capacity = viewClassroom.getCapacity();
-        if (capacity < 0) {
-            capacity = classroom.getCapacity();
-        }
-        String location= viewClassroom.getLocation();
-        if (location.isEmpty()) {
-            location = classroom.getLocation();
-        }
-        viewClassroom.successful("Chỉnh sửa");
-        classroomService.updateObject(new Classroom(classroom_id, name, capacity, location));
-    }
 
-    public void getAll() {
-        viewClassroom.getAllObject(classroomService.getAll());
+        Classroom old = classroomService.searchObject("classroom_id", id).getFirst();
+
+        String name = viewClassroom.getName();
+        if (name.isEmpty()) name = old.getName();
+
+        int capacity = viewClassroom.getCapacity();
+        if (capacity < 0) capacity = old.getCapacity();
+
+        String location = viewClassroom.getLocation();
+        if (location.isEmpty()) location = old.getLocation();
+
+        classroomService.updateObject(new Classroom(id, name, capacity, location));
+        viewClassroom.successful("Chỉnh Sửa");
     }
 
     public void deleteObject() {
         viewClassroom.deleteObject();
-        String classroom_id;
+
+        String id;
         while (true) {
-            classroom_id = viewClassroom.getID();
-            if (classroom_id.isEmpty()) return;
-            if (classroomService.checkID(classroom_id)) {
-                viewClassroom.checkID("\"ID chưa tồn tại. Vui lòng nhập lại\"");
+            id = viewClassroom.getID();
+            if (id.isEmpty()) return;
+            if (classroomService.checkID(id)) {
+                viewClassroom.checkID("ID Chưa Tồn Tại. Vui Lòng Nhập Lại");
                 continue;
             }
             break;
         }
-        viewClassroom.successful("xoá");
-        classroomService.deleteObject(classroom_id);
+
+        classroomService.deleteObject(id);
+        viewClassroom.successful("Xoá");
     }
 
     public void searchObject() {
         while (true) {
-            int choose = viewClassroom.viewSearch();
-            if (choose == 0) {
-                break;
-            } else if (choose < 1 || choose > 5) {
-                viewClassroom.errorChoose();
-                continue;
-            }
-            String name_column, attribute;
-            switch (choose) {
+            int choice = viewClassroom.viewSearch();
+            if (choice == 0) break;
+
+            String column = "";
+            String value = "";
+
+            switch (choice) {
                 case 1:
-                    name_column = "classroom_id";
+                    column = "classroom_id";
                     while (true) {
-                        attribute = viewClassroom.getID();
-                        if (attribute.isEmpty()) {
-                            viewClassroom.checkEmpty("ID");
-                            continue;
-                        }
-                        break;
+                        value = viewClassroom.getID();
+                        if (!isEmpty(value, "ID")) break;
                     }
                     break;
                 case 2:
-                    name_column = "name";
+                    column = "name";
                     while (true) {
-                        attribute = viewClassroom.getName();
-                        if (attribute.isEmpty()) {
-                            viewClassroom.checkEmpty("Tên");
-                            continue;
-                        }
-                        break;
+                        value = viewClassroom.getName();
+                        if (!isEmpty(value, "Tên")) break;
                     }
                     break;
                 case 3:
-                    name_column = "capacity";
+                    column = "capacity";
+                    int capacity;
                     while (true) {
-                        int capacity = viewClassroom.getCapacity();
+                        capacity = viewClassroom.getCapacity();
                         if (capacity < 0) {
                             viewClassroom.checkEmpty("Sức Chứa");
                             continue;
                         }
-                        attribute = String.valueOf(capacity);
+                        value = String.valueOf(capacity);
                         break;
                     }
                     break;
                 case 4:
-                    name_column = "location";
+                    column = "location";
                     while (true) {
-                        String location = viewClassroom.getLocation();
-                        if (location.isEmpty()) {
-                            viewClassroom.checkEmpty("Vị trí");
-                            continue;
-                        }
-                        attribute = location;
-                        break;
+                        value = viewClassroom.getLocation();
+                        if (!isEmpty(value, "Vị Trí")) break;
                     }
                     break;
                 default:
-                    return;
+                    viewClassroom.errorChoose();
+                    continue;
             }
-            List<Classroom> classroomList = classroomService.searchObject(name_column, attribute);
-            viewClassroom.getAllObject(classroomList);
+
+            List<Classroom> result = classroomService.searchObject(column, value);
+            viewClassroom.getAllObject(result);
         }
     }
 }

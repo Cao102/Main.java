@@ -1,6 +1,5 @@
 package Service;
 
-import Controller.StudentController;
 import DAO.StudentDAO;
 import Model.Student;
 
@@ -8,8 +7,6 @@ import java.util.List;
 
 public class StudentService {
     private final StudentDAO studentDAO = new StudentDAO();
-
-    public StudentService(StudentController studentController) {}
 
     public void addObject(Student student) {
         studentDAO.add(student);

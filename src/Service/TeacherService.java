@@ -2,15 +2,11 @@ package Service;
 
 import java.util.List;
 
-import Controller.TeacherController;
 import DAO.TeacherDAO;
 import Model.Teacher;
 
 public class TeacherService {
     private final TeacherDAO teacherDAO = new TeacherDAO();
-
-    public TeacherService(TeacherController teacherController) {
-    }
 
     public void addObject(Teacher teacher) {
         teacherDAO.add(teacher);

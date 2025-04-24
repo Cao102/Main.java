@@ -12,7 +12,7 @@ public class ViewStudent {
     private final Input input = new Input();
 
     public void checkEmpty(String message) {
-        System.out.println("Vui lòng không để " + message + " trống");
+        System.out.println("Vui Lòng Không Để " + message + " Trống");
     }
 
     private Date validateDate(String dateStr) {
@@ -31,28 +31,37 @@ public class ViewStudent {
         System.out.print("""
                 
                 ╔════════════════════════════════════════╗
-                ║           QUẢN LÝ SINH VIÊN            ║
+                ║           QUẢN LÝ Sinh Viên            ║
                 ╠════════════════════════════════════════╣
-                ║ 1. Thêm sinh viên                      ║
-                ║ 2. Hiển thị thông tin sinh viên        ║
-                ║ 3. Chỉnh sửa thông tin sinh viên       ║
-                ║ 4. Xóa thông tin sinh viên             ║
-                ║ 5. Tìm kiếm thông tin sinh viên        ║
-                ║ 0. Quay lại                            ║
+                ║ 1. Thêm Sinh Viên                      ║
+                ║ 2. Hiển Thị Thông Tin Sinh Viên        ║
+                ║ 3. Chỉnh Sửa Thông Tin Sinh Viên       ║
+                ║ 4. Xóa Thông Tin Sinh Viên             ║
+                ║ 5. Tìm kiếm Thông Tin Sinh Viên        ║
+                ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập lựa chọn của bạn");
+        return input.inputInt("Nhập Lựa Chọn của bạn");
     }
 
     public String getID() {
-        return input.inputString("Nhập ID SV");
+        String id;
+      while (true) {
+            id = input.inputString("Nhập ID SV");
+            if (id.length() > 10){
+                System.out.println("Vui Lòng Không Nhập ID Quá 10 Ký Tự");
+                continue;
+            }
+            break;
+        }
+        return id;
     }
 
     public String getName() {
         String name;
-        while (true){
-            name = input.inputString("Nhập tên SV");
-            if (name.length() <= 100){
+        while (true) {
+            name = input.inputString("Nhập Tên SV");
+            if (name.length() <= 100) {
                 break;
             }
         }
@@ -62,13 +71,13 @@ public class ViewStudent {
     public Date getDob() {
         Date dob;
         while (true) {
-            String dobStr = input.inputString("Nhập ngày sinh (yyyy-MM-dd)");
+            String dobStr = input.inputString("Nhập Ngày Sinh (yyyy-MM-dd)");
             dob = validateDate(dobStr);
             if (dobStr.isEmpty()) {
                 break;
             }
             if (dob == null) {
-                System.out.println("Ngày sinh không hợp lệ! Vui lòng nhập lại theo định dạng yyyy-MM-dd.");
+                System.out.println("Ngày Sinh Không Hợp Lệ! Vui Lòng Nhập Lại Theo Định Dạng yyyy-MM-dd.");
                 continue;
             }
             break;
@@ -79,11 +88,11 @@ public class ViewStudent {
     public String getGender() {
         String gender;
         while (true) {
-            gender = input.inputString("Nhập giới tính SV (Male, Female, Other)");
+            gender = input.inputString("Nhập Giới Tính SV (Male, Female, Other)");
             if (gender.isEmpty()) break;
             String checkGender = gender.toLowerCase();
             if (!(checkGender.equals("male") || checkGender.equals("female") || checkGender.equals("other"))) {
-                System.out.println("Nhập lại giới tính với đầu vào là Male, Female, Other");
+                System.out.println("Nhập lại Giới Tính Với Đầu Vào Là Male, Female, Other");
                 continue;
             }
             break;
@@ -92,29 +101,30 @@ public class ViewStudent {
     }
 
     public String getEmail() {
-        String email;
+        String Email;
         while (true) {
-            email = input.inputString("Nhập email sinh viên (****@gmail.com)");
-            if (email.isEmpty()) break;
-            if (email.length() > 100){
-                System.out.println("Vui lòng nhập không quá 100 ký tự");
+            Email = input.inputString("Nhập Email Sinh Viên (****@gmail.com)");
+            if (Email.isEmpty()) break;
+            if (Email.length() > 100) {
+                System.out.println("Vui Lòng Nhập Không Quá 100 Ký Tự");
+                continue;
             }
-            if (!email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
-                System.out.println("Email không hợp lệ! Vui lòng nhập lại với đuôi @gmail.com.");
+            if (!Email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+                System.out.println("Email Không Hợp Lệ! Vui Lòng Nhập Lại Với Đuôi @gmail.com.");
                 continue;
             }
             break;
         }
-        return email;
+        return Email;
     }
 
     public String getPhone() {
         String phone;
         while (true) {
-            phone = input.inputString("Nhập SĐT sinh viên (10 số)");
+            phone = input.inputString("Nhập SĐT Sinh Viên (10 số)");
             if (phone.isEmpty()) return "";
             if (!phone.matches("^\\d{10}$")) {
-                System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại (10 chữ số).");
+                System.out.println("Số Điện Thoại Không Hợp Lệ! Vui Lòng Nhập Lại (10 Chữ Số).");
                 continue;
             }
             break;
@@ -125,9 +135,9 @@ public class ViewStudent {
     public String getAddress() {
         String address;
         while (true) {
-            address = input.inputString("Nhập địa chị SV");
+            address = input.inputString("Nhập Địa Chỉ SV");
             if (address.length() >= 255) {
-                System.out.println("Vui lòng không nhấp quá 255 ký tự");
+                System.out.println("Vui Lòng Không Nhập Quá 255 Ký Tự");
                 continue;
             }
             break;
@@ -136,27 +146,27 @@ public class ViewStudent {
     }
 
     public void addObject() {
-        System.out.println("Nhập thông tin mới (hoặc Enter để quay lại):");
+        System.out.println("Nhập Thông Tin Mới (Hoặc Enter Để Quay Lại):");
     }
 
     public void updateObject() {
         System.out.println("""
-                Nhập thông tin cần chỉnh sửa (hoặc Enter để quay lại)
-                Sau khi nhập ID thì Enter để giữ lại thông tin cũ)
+                Nhập Thông Tin Cần Chỉnh Sửa (Hoặc Enter Để Quay Lại)
+                Sau Khi Nhập ID Thì Enter Để Giữ Lại Thông Tin Cũ)
                 """);
     }
 
     public void deleteObject() {
-        System.out.println("Nhập ID cần xoá (hoặc Enter để quay lại)");
+        System.out.println("Nhập ID Cần Xoá (Hoặc Enter Để Quay Lại)");
     }
 
     public void getAllObject(List<Student> objectList) {
         if (objectList.isEmpty()) {
-            System.out.println("\nKhông có sinh viên nào.\n");
+            System.out.println("\nKhông Có Sinh Viên Nào.\n");
             return;
         }
 
-        String[] headers = {"Mã SV", "Họ tên", "Ngày sinh", "Giới tính", "Email", "SĐT", "Địa chỉ"};
+        String[] headers = {"Mã SV", "Họ Tên", "Ngày Sinh", "Giới Tính", "Email", "SĐT", "Địa Chỉ"};
         System.out.println("\nDANH SÁCH SINH VIÊN:");
         TableUtils.printTable(objectList, headers);
     }
@@ -167,32 +177,32 @@ public class ViewStudent {
                 ╔════════════════════════════════════════╗
                 ║           Tìm Kiếm Thông Tin           ║
                 ╠════════════════════════════════════════╣
-                ║ 1. Tìm kiếm theo MSV                   ║
-                ║ 2. Tìm kiếm theo Tên SV                ║
-                ║ 3. Tìm kiếm theo ngày sinh             ║
-                ║ 4. Tìm kiếm theo Giới tính             ║
-                ║ 5. Tìm kiếm theo email                 ║
-                ║ 6. Tìm kiếm theo SĐT                   ║
-                ║ 7. Tìm kiếm theo Địa chỉ               ║
-                ║ 0. Quay lại                            ║
+                ║ 1. Tìm Kiếm Theo MSV                   ║
+                ║ 2. Tìm Kiếm Theo Tên SV                ║
+                ║ 3. Tìm Kiếm Theo Ngày Sinh             ║
+                ║ 4. Tìm Kiếm Theo Giới Tính             ║
+                ║ 5. Tìm Kiếm Theo Email                 ║
+                ║ 6. Tìm Kiếm Theo SĐT                   ║
+                ║ 7. Tìm Kiếm Theo Địa Chỉ               ║
+                ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập lựa chọn");
+        return input.inputInt("Nhập Lựa Chọn");
     }
 
     public void checkID(String message) {
-        System.out.println("ID " + message + " tồn tại. Vui lòng nhập lại");
+        System.out.println("ID " + message + " Tồn Tại. Vui Lòng Nhập Lại");
     }
 
     public void checkEmail() {
-        System.out.println("Email đã tồn tại. Vui lòng nhập lại");
+        System.out.println("Email Đã Tồn Tại. Vui Lòng Nhập Lại");
     }
 
     public void errorChoose() {
-        System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
+        System.out.println("Lựa Chọn Không Hợp Lệ! Vui Lòng Nhập Lại.");
     }
 
     public void successful(String message) {
-        System.out.println("Thực hiện thành công " + message + " Lớp");
+        System.out.println("Thực Hiện Thành Công " + message + " SV");
     }
 }
