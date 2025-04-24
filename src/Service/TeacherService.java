@@ -35,4 +35,7 @@ public class TeacherService {
     public boolean checkEmail(String email) {
         return !teacherDAO.search("email", email).isEmpty();
     }
+    public boolean checkPhone(String phone) {
+        return !searchObject("phone", phone).isEmpty();
+    }
 }

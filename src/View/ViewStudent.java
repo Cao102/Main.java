@@ -46,9 +46,9 @@ public class ViewStudent {
 
     public String getID() {
         String id;
-      while (true) {
+        while (true) {
             id = input.inputString("Nhập ID SV");
-            if (id.length() > 10){
+            if (id.length() > 10) {
                 System.out.println("Vui Lòng Không Nhập ID Quá 10 Ký Tự");
                 continue;
             }
@@ -196,6 +196,10 @@ public class ViewStudent {
 
     public void checkEmail() {
         System.out.println("Email Đã Tồn Tại. Vui Lòng Nhập Lại");
+    }
+
+    public void checkPhone() {
+        System.out.println("SĐT Đã Tồn Tại. Vui Lòng Nhập Lại");
     }
 
     public void errorChoose() {

@@ -35,4 +35,7 @@ public class StudentService {
     public boolean checkEmail(String email) {
         return !searchObject("email", email).isEmpty();
     }
+    public boolean checkPhone(String phone) {
+        return !searchObject("phone", phone).isEmpty();
+    }
 }

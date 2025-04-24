@@ -95,7 +95,16 @@ public class StudentController {
             break;
         }
 
-        String phone = inputNotEmpty("Số điện thoại");
+        String phone;
+        while (true) {
+            phone = inputNotEmpty("Số điện thoại");
+            if (checkEmpty(phone, "Số điện thoại")) continue;
+            if (studentService.checkPhone(phone)) {
+                viewStudent.checkPhone();
+                continue;
+            }
+            break;
+        }
         String address = inputNotEmpty("Địa chỉ");
 
         studentService.addObject(new Student(student_id, name, dob, gender, email, phone, address));
@@ -141,8 +150,19 @@ public class StudentController {
             break;
         }
 
-        String phone = viewStudent.getPhone().trim();
-        phone = phone.isEmpty() ? student.getPhone() : phone;
+        String phone;
+        while (true) {
+            phone = viewStudent.getPhone().trim();
+            if (phone.isEmpty()) {
+                phone = student.getPhone();
+                break;
+            }
+            if (studentService.checkPhone(phone)) {
+                viewStudent.checkPhone();
+                continue;
+            }
+            break;
+        }
 
         String address = viewStudent.getAddress().trim();
         address = address.isEmpty() ? student.getAddress() : address;

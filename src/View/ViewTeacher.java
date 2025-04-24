@@ -102,7 +102,7 @@ public class ViewTeacher {
     public BigDecimal getBaseSalary() {
         BigDecimal bigDecimal;
         while (true) {
-            String line = input.inputString("Nhập Mức Lương Cơ Bản Của GV");
+            String line = input.inputString("Nhập Mức Lương Cơ Bản Của GV (ĐV TR)");
             if (line.isEmpty()) {
                 bigDecimal = new BigDecimal(-1);
                 break;
@@ -189,7 +189,9 @@ public class ViewTeacher {
     public void checkEmail() {
         System.out.println("Email Đã Tồn Tại. Vui Lòng Nhập Lại");
     }
-
+    public void checkPhone() {
+        System.out.println("SĐT Đã Tồn Tại. Vui Lòng Nhập Lại");
+    }
     public void errorChoose() {
         System.out.println("Lựa Chọn Không Hợp Lệ! Vui Lòng Nhập Lại.");
     }

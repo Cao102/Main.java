@@ -90,7 +90,15 @@ public class TeacherController {
             break;
         }
 
-        String phone = inputString("SĐT", viewTeacher.getPhone());
+        String phone;
+        while (true) {
+            phone = inputString("SĐT", viewTeacher.getPhone());;
+            if (teacherService.checkPhone(phone)) {
+                viewTeacher.checkPhone();
+                continue;
+            }
+            break;
+        }
         String address = inputString("Địa chỉ", viewTeacher.getAddress());
 
         int years_of_experience = inputPositiveInt("SNCT", viewTeacher.getYOE());
@@ -132,7 +140,15 @@ public class TeacherController {
         }
         email = email.isEmpty() ? teacher.getEmail() : email;
 
-        String phone = viewTeacher.getPhone();
+        String phone;
+        while (true) {
+            phone = viewTeacher.getPhone();
+            if (!phone.isEmpty() && teacherService.checkPhone(phone)) {
+                viewTeacher.checkPhone();
+                continue;
+            }
+            break;
+        }
         phone = phone.isEmpty() ? teacher.getPhone() : phone;
 
         String address = viewTeacher.getAddress();
