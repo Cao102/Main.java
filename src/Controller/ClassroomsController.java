@@ -20,14 +20,22 @@ public class ClassroomsController {
 
     public void start() {
         while (true) {
-            int choice = viewClassroom.menuObject();
-            switch (choice) {
+            viewClassroom.menuObject();
+            int choose;
+            while (true){
+                choose = viewClassroom.getChoose();
+                if (choose == 0 ) return;
+                if (choose > 0 && choose <= 5){
+                    break;
+                }
+                viewClassroom.errorChoose();
+            }
+            switch (choose) {
                 case 1 -> addObject();
                 case 2 -> viewClassroom.getAllObject(classroomService.getAll());
                 case 3 -> updateObject();
                 case 4 -> deleteObject();
                 case 5 -> searchObject();
-                case 0 -> { return; }
                 default -> viewClassroom.errorChoose();
             }
         }
@@ -122,13 +130,20 @@ public class ClassroomsController {
 
     public void searchObject() {
         while (true) {
-            int choice = viewClassroom.viewSearch();
-            if (choice == 0) break;
-
+            viewClassroom.viewSearch();
+            int choose;
+            while (true){
+                choose = viewClassroom.getChoose();
+                if (choose == 0 ) return;
+                if (choose > 0 && choose <= 4){
+                    break;
+                }
+                viewClassroom.errorChoose();
+            }
             String column = "";
             String value = "";
 
-            switch (choice) {
+            switch (choose) {
                 case 1:
                     column = "classroom_id";
                     while (true) {

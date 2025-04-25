@@ -20,16 +20,40 @@ public class TeacherController {
         return false;
     }
 
+    private int inputPositiveInt(String label, int value) {
+        while (value < 0) {
+            viewTeacher.checkEmpty(label);
+            if ("SNCT".equals(label)) value = viewTeacher.getYOE();
+        }
+        return value;
+    }
+
+    private BigDecimal inputPositiveDecimal(String label, BigDecimal value) {
+        while (value.compareTo(BigDecimal.ZERO) < 0) {
+            viewTeacher.checkEmpty(label);
+            if ("Lương Cơ bản".equals(label)) value = viewTeacher.getBaseSalary();
+        }
+        return value;
+    }
+
     public void start() {
         while (true) {
-            int input = viewTeacher.menuObject();
-            switch (input) {
+            viewTeacher.menuObject();
+            int choose;
+            while (true){
+                choose = viewTeacher.getChoose();
+                if (choose == 0 ) return;
+                if (choose > 0 && choose <= 5){
+                    break;
+                }
+                viewTeacher.errorChoose();
+            }
+            switch (choose) {
                 case 1 -> addObject();
                 case 2 -> viewTeacher.getAllObject(teacherService.getAll());
                 case 3 -> updateObject();
                 case 4 -> deleteObject();
                 case 5 -> searchObject();
-                case 0 -> { return; }
                 default -> viewTeacher.errorChoose();
             }
         }
@@ -44,22 +68,6 @@ public class TeacherController {
                 case "Địa chỉ" -> value = viewTeacher.getAddress();
                 case "ID" -> value = viewTeacher.getID();
             }
-        }
-        return value;
-    }
-
-    private int inputPositiveInt(String label, int value) {
-        while (value < 0) {
-            viewTeacher.checkEmpty(label);
-            if ("SNCT".equals(label)) value = viewTeacher.getYOE();
-        }
-        return value;
-    }
-
-    private BigDecimal inputPositiveDecimal(String label, BigDecimal value) {
-        while (value.compareTo(BigDecimal.ZERO) < 0) {
-            viewTeacher.checkEmpty(label);
-            if ("Lương Cơ bản".equals(label)) value = viewTeacher.getBaseSalary();
         }
         return value;
     }
@@ -183,11 +191,15 @@ public class TeacherController {
 
     public void searchObject() {
         while (true) {
-            int choose = viewTeacher.viewSearch();
-            if (choose == 0) break;
-            if (choose < 1 || choose > 7) {
+            viewTeacher.viewSearch();
+            int choose;
+            while (true){
+                choose = viewTeacher.getChoose();
+                if (choose == 0 ) return;
+                if (choose > 0 && choose <= 7){
+                    break;
+                }
                 viewTeacher.errorChoose();
-                continue;
             }
 
             String name_column = "";
