@@ -42,12 +42,12 @@ public class ExamView {
 
     private void scheduleExam() {
         System.out.print("Nhập ID lớp học: ");
-        String classId = scanner.nextLine();
+        String classroomId = scanner.nextLine();
         System.out.print("Nhập ID môn học: ");
         String subjectId = scanner.nextLine();
         LocalDateTime examDate = inputDateTime("Nhập ngày kiểm tra");
 
-        Exam exam = new Exam(classId, subjectId, examDate);
+        Exam exam = new Exam(classroomId, subjectId, examDate);
         boolean result = controller.scheduleExam(exam);
         System.out.println(result ? "Đã lập lịch thi." : "Lập lịch thi thất bại.");
     }
@@ -56,12 +56,12 @@ public class ExamView {
         System.out.print("Nhập ID kỳ thi: ");
         int id = Integer.parseInt(scanner.nextLine());
         System.out.print("Nhập ID lớp học: ");
-        String classId = scanner.nextLine();
+        String classroomId = scanner.nextLine();
         System.out.print("Nhập ID môn học: ");
         String subjectId = scanner.nextLine();
         LocalDateTime examDate = inputDateTime("Nhập ngày thi");
 
-        Exam exam = new Exam(id, classId, subjectId, examDate);
+        Exam exam = new Exam(id, classroomId, subjectId, examDate);
         boolean result = controller.updateExam(exam);
         System.out.println(result ? "Đã cập nhật." : "Cập nhật thất bại.");
     }
@@ -70,13 +70,13 @@ public class ExamView {
         System.out.print("Nhập ID kỳ thi: ");
         int id = Integer.parseInt(scanner.nextLine());
         boolean result = controller.deleteExam(id);
-        System.out.println(result ? "✅ Đã xóa kỳ thi." : "Xóa thất bại.");
+        System.out.println(result ? " Đã xóa kỳ thi." : "Xóa thất bại.");
     }
 
     private void viewExamsByClass() {
         System.out.print("Nhập ID lớp học: ");
-        String classId = scanner.nextLine();
-        List<Exam> exams = controller.getExamsByClass(classId);
+        String classroomId = scanner.nextLine();
+        List<Exam> exams = controller.getExamsByClass(classroomId);
         exams.forEach(e -> System.out.printf("ID: %d | Môn: %s | Ngày thi: %s%n",
                 e.getId(), e.getSubjectId(), e.getExamDate().format(dateTimeFormatter)));
     }

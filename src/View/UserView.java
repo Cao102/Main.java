@@ -23,18 +23,21 @@ public class UserView {
 
                 }
                 case 2 -> {
-                    System.out.print("Tài khoản: ");
-                    String username = scanner.nextLine();
-                    System.out.print("Mật khẩu: ");
-                    String password = scanner.nextLine();
-                    User user = controller.login(username, password);
-                    if (user != null) {
-                        System.out.println("Đăng nhập thành công!");
-                        ExamView examView = new ExamView();
-                        examView.displayMenu();
-                    } else {
-                        System.out.println("Sai thông tin đăng nhập!");
-                    }
+                    User user = null;
+                    do {
+                        System.out.print("Tài khoản: ");
+                        String username = scanner.nextLine();
+                        System.out.print("Mật khẩu: ");
+                        String password = scanner.nextLine();
+                        user = controller.login(username, password);
+                        if (user == null) {
+                            System.out.println("Sai thông tin đăng nhập! Vui lòng thử lại.");
+                        }
+                    } while (user == null);
+
+                    System.out.println("Đăng nhập thành công!");
+                    ExamView examView = new ExamView();
+                    examView.displayMenu();
                 }
                 case 3 -> {
                     System.out.print("Nhập ID người dùng cần đăng xuất: ");

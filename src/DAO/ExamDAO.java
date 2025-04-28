@@ -19,11 +19,10 @@ public class ExamDAO {
             stmt.setString(2, exam.getSubjectId());
             stmt.setTimestamp(3, Timestamp.valueOf(exam.getExamDate()));
 
-            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+    return false;
     }
 
     public boolean updateExam(Exam exam) {
@@ -83,7 +82,7 @@ public class ExamDAO {
 
     public String getExamResults(int examId) {
         // Mô phỏng trả kết quả, thực tế cần JOIN bảng điểm (ExamResults)
-        return "Kết quả kỳ thi ID " + examId + ": (chưa triển khai thực tế)";
+        return "Kết quả kỳ thi ID " + examId + ": chưa có kết quả";
     }
 
     // ✅ Thêm hàm kiểm tra lịch thi có trùng không
@@ -98,7 +97,7 @@ public class ExamDAO {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Nếu có ít nhất 1 dòng thì đã tồn tại
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
