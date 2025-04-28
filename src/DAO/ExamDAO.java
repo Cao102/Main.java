@@ -11,18 +11,20 @@ import java.util.List;
 public class ExamDAO {
 
     public boolean scheduleExam(Exam exam) {
-        String sql = "INSERT INTO Exams(class_id, subject_id, exam_date) VALUES (?, ?, ?)";
-        try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnect.getConnection()) {
+            String sql = "INSERT INTO Exams(class_id, subject_id, exam_date) VALUES (?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, exam.getClassId());
+                stmt.setString(2, exam.getSubjectId());
+                stmt.setTimestamp(3, Timestamp.valueOf(exam.getExamDate()));
 
-            stmt.setString(1, exam.getClassId());
-            stmt.setString(2, exam.getSubjectId());
-            stmt.setTimestamp(3, Timestamp.valueOf(exam.getExamDate()));
+                return stmt.executeUpdate() > 0;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return false;
+        return false;
     }
 
     public boolean updateExam(Exam exam) {
@@ -56,7 +58,7 @@ public class ExamDAO {
     }
 
     public List<Exam> getExamsByClass(String classId) {
-        List<Exam> list = new ArrayList<>();
+        List<Exam> exams = new ArrayList<>();
         String sql = "SELECT * FROM Exams WHERE class_id = ?";
 
         try (Connection conn = DatabaseConnect.getConnection();
@@ -72,20 +74,19 @@ public class ExamDAO {
                         rs.getString("subject_id"),
                         rs.getTimestamp("exam_date").toLocalDateTime()
                 );
-                list.add(exam);
+                exams.add(exam);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+        return exams;
     }
 
     public String getExamResults(int examId) {
-        // Mô phỏng trả kết quả, thực tế cần JOIN bảng điểm (ExamResults)
+        // Mô phỏng trả kết quả, thực tế cần JOIN bảng kết quả thi (ExamResults)
         return "Kết quả kỳ thi ID " + examId + ": chưa có kết quả";
     }
 
-    // ✅ Thêm hàm kiểm tra lịch thi có trùng không
     public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
         String sql = "SELECT COUNT(*) FROM Exams WHERE class_id = ? AND subject_id = ? AND exam_date = ?";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -104,4 +105,23 @@ public class ExamDAO {
         }
         return false;
     }
+
+
+
+    public boolean checkExits(String id, String tableName, String column) {
+        String sql = "SELECT * FROM " + tableName + "  WHERE " + column +" = ?";
+        try (Connection conn = DatabaseConnect.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi Check Exits " + e.getMessage());
+        }
+        return false;
+    }
 }
+

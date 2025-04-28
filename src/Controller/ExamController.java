@@ -33,4 +33,7 @@ public class ExamController {
     public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
         return dao.isExamScheduled(classId, subjectId, examDate);
     }
+    public boolean checkExits(String id, String tableName, String column){
+        return dao.checkExits(id,tableName,column);
+    }
 }

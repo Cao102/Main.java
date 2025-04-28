@@ -17,14 +17,14 @@ public class ExamView {
     public void displayMenu() {
         while (true) {
             System.out.println("""
-                \n--- Quản lý lịch thi ---
-                1. Lập lịch thi
-                2. Cập nhật lịch thi
-                3. Hủy kỳ thi
-                4. Xem lịch thi theo lớp
-                5. Xem kết quả thi
-                6. Thoát
-            """);
+                        \n--- Quản lý lịch thi ---
+                        1. Lập lịch thi
+                        2. Cập nhật lịch thi
+                        3. Hủy kỳ thi
+                        4. Xem lịch thi theo lớp
+                        5. Xem kết quả thi
+                        6. Thoát
+                    """);
             System.out.print("Chọn: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
@@ -41,24 +41,59 @@ public class ExamView {
     }
 
     private void scheduleExam() {
-        System.out.print("Nhập ID lớp học: ");
-        String classroomId = scanner.nextLine();
-        System.out.print("Nhập ID môn học: ");
-        String subjectId = scanner.nextLine();
+        String classroomId;
+        String subjectId;
+        while (true) {
+            System.out.print("Nhập ID lớp học: ");
+            classroomId = scanner.nextLine();
+            if (controller.checkExits(classroomId, "Classrooms", " classroom_id")) {
+                break;
+            }
+            System.out.println("Lớp học chưa tồn tại:");
+        }
+        while (true) {
+            System.out.print("Nhập ID môn học: ");
+            subjectId = scanner.nextLine();
+            if (controller.checkExits(subjectId, "Subjects", "subject_id")) {
+                break;
+            }
+            System.out.println("Môn học chưa tồn tại:");
+        }
         LocalDateTime examDate = inputDateTime("Nhập ngày kiểm tra");
-
         Exam exam = new Exam(classroomId, subjectId, examDate);
         boolean result = controller.scheduleExam(exam);
         System.out.println(result ? "Đã lập lịch thi." : "Lập lịch thi thất bại.");
     }
 
     private void updateExam() {
-        System.out.print("Nhập ID kỳ thi: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        System.out.print("Nhập ID lớp học: ");
-        String classroomId = scanner.nextLine();
-        System.out.print("Nhập ID môn học: ");
-        String subjectId = scanner.nextLine();
+        int id;
+        while (true) {
+            System.out.print("Nhập ID kì thi: ");
+            String idkt = scanner.nextLine();
+            if (controller.checkExits(idkt, "Exams","id")) {
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            }
+            System.out.println("Chưa có ID kì thi:");
+        }
+        String classroomId;
+        String subjectId;
+        while (true) {
+            System.out.print("Nhập ID lớp học: ");
+            classroomId = scanner.nextLine();
+            if (controller.checkExits(classroomId, "Classrooms"," classroom_id")) {
+                break;
+            }
+            System.out.println("Lớp học chưa tồn tại:");
+        }
+        while (true) {
+            System.out.print("Nhập ID môn học: ");
+            subjectId = scanner.nextLine();
+            if (controller.checkExits(subjectId, "Subjects","subject_id")) {
+                break;
+            }
+            System.out.println("Môn học chưa tồn tại:");
+        }
         LocalDateTime examDate = inputDateTime("Nhập ngày thi");
 
         Exam exam = new Exam(id, classroomId, subjectId, examDate);
