@@ -32,13 +32,38 @@ public class ViewLibraryManagement {
     }
 
     public String inputBookId() {
-        return input.inputString("Nhập mã sách");
+        while (true){
+            String bookId = input.inputString("Nhập mã sách");
+            if(bookId.length()<=10){
+                return bookId;
+            }
+            else{
+                System.out.println("Vui lòng không nhập Id quá 10 ký tự");
+            }
+        }
     }
 
     public Library inputBookDetails(String bookId) {
-        String bookName = input.inputString("Nhập tên sách");
-        String bookAuthor = input.inputString("Nhập tên tác giả");
-
+        String bookName;
+        while (true){
+            bookName = input.inputString("Nhập tên sách");
+            if(bookName.length()<=100){
+                break;
+            }
+            else{
+                System.out.println("Vui lòng không nhập tên sách quá 100 ký tự");
+            }
+        }
+        String bookAuthor;
+        while (true){
+            bookAuthor = input.inputString("Nhập tên tác giả");
+            if(bookAuthor.length()<=100){
+                break;
+            }
+            else{
+                System.out.println("Vui lòng không nhập tên tác giả quá 100 ký tự");
+            }
+        }
         int quantity;
         while (true) {
             quantity = input.inputInt("Nhập số lượng sách");
@@ -53,7 +78,15 @@ public class ViewLibraryManagement {
     }
 
     public String inputStudentId() {
-        return input.inputString("Nhập ID sinh viên");
+        while (true){
+            String studentId = input.inputString("Nhập ID sinh viên");
+            if(studentId.length()<=10){
+                return studentId;
+            }
+            else{
+                System.out.println("Vui lòng không nhập Id quá 10 ký tự");
+            }
+        }
     }
     public String inputKeyWord() {
         return input.inputString("Nhập từ khóa");

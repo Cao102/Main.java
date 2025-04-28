@@ -136,7 +136,7 @@ CREATE TABLE Events (
    event_id  VARCHAR(10) PRIMARY KEY,
    event_name VARCHAR(100),
    event_date DATETIME,
-   location VARCHAR(255)
+   location VARCHAR(100)
 );
 
 
