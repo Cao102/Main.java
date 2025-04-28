@@ -20,7 +20,12 @@ public class Grade {
     public double getGrade() {
         return grade;
     }
-
+    public String getsubjectID() {
+        return subjectID;
+    }
+    public String getStudentID() {
+        return studentID;
+    }
     public String getName() {
         return name;
     }

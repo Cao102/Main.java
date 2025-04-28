@@ -31,7 +31,12 @@ public class ViewGrade {
                     String subjectID1 = sc.nextLine();
                     System.out.print("Nhập điểm sinh viên: ");
                     double grade1 = Double.parseDouble(sc.nextLine());
-                    controller.addGradeController(studentID1, subjectID1, grade1);
+                    if(grade1>10||grade1<0){
+                        System.out.println("Điểm vượt quá phạm vi cho phép từ 0 đến 10");
+                    }
+                    else{
+                        controller.addGradeController(studentID1, subjectID1, grade1);
+                    }
                     break;
 
                 case 2:
@@ -42,7 +47,12 @@ public class ViewGrade {
                     String subjectID2 = sc.nextLine();
                     System.out.print("Nhập điểm mới: ");
                     double grade2 = Double.parseDouble(sc.nextLine());
-                    controller.updateGradeController(studentID2, subjectID2, grade2);
+                    if(grade2>10||grade2<0){
+                        System.out.println("Điểm vượt quá phạm vi cho phép từ 0 đến 10");
+                    }
+                    else{
+                        controller.updateGradeController(studentID2, subjectID2, grade2);
+                    }
                     break;
 
                 case 3:
