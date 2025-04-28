@@ -38,10 +38,27 @@ public class ViewTuition {
     }
 
     public String inputStudentId() {
-        return input.inputString("Nhập ID sinh viên");
+        while (true){
+            String studentId = input.inputString("Nhập ID sinh viên");
+            if(studentId.length()<=10){
+                return studentId;
+            }
+            else{
+                System.out.println("Vui lòng không nhập Id quá 10 ký tự");
+            }
+        }
     }
 
-    public String inputStatus(){ return input.inputString("Nhập trạng thái học phí");   }
+    public String inputStatus(){
+        while (true) {
+            String status = input.inputString("Nhập trạng thái học phí (Đã nộp, Chưa nộp)");
+            if (status.equals("Đã nộp") || status.equals("Chưa nộp")) {
+                return status;
+            } else {
+                System.out.println("Vui lòng chỉ nhập trạng thái Đã nộp hoặc Chưa nộp.");
+            }
+        }
+    }
 
     public double inputAmount() {
         double amount;
@@ -117,6 +134,7 @@ public class ViewTuition {
     public void showTuitionAlreadyPaid(){
         System.out.println("Học phí đã được nộp. Không thể cập nhật");
     }
+
     public void showTuitionByStudentId(Tuition tuition) {
         System.out.println("Thông tin học phí:");
         System.out.print("""
