@@ -1,12 +1,12 @@
-package connectDatabase;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnect {
-    private static final String PASSWORD = "root";
     private static final String USER = "root";
+    private static final String PASSWORD = "031203";
     private static final String URL = "jdbc:mysql://localhost:3306/StudentManagementSystem?useSSL=false&serverTimezone=UTC";
 
     public static Connection getConnection() {

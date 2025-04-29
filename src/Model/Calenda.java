@@ -1,6 +1,6 @@
 package Model;
 
-public class Calenda {
+public class Calenda implements TableConvertible{
     private String id;
     private String classroom_id;
     private String subject_id;
@@ -45,6 +45,12 @@ public class Calenda {
 
     public String getScheduleTime(){
         return schedule_time;
+    }
+    @Override
+    public String[] toRow() {
+        return new String[] {
+                id, String.valueOf(classroom_id), String.valueOf(subject_id), teacher_id, schedule_time, name, subject_name
+        };
     }
 }
 
