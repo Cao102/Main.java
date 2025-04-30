@@ -1,6 +1,6 @@
 package DAO;
 
-import DatabaseConnection.DatabaseConnect;
+import util.DatabaseConnect;
 import Model.Exam;
 
 import java.sql.*;

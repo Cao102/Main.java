@@ -16,6 +16,7 @@ public class MainController {
     private final ViewRegister viewRegister = new ViewRegister();
     private final ViewGrade viewGrade = new ViewGrade();
     private final ViewCalenda viewCalenda = new ViewCalenda();
+    private final ExamView examView = new ExamView();
     public void start() {
         while (true) {
             view.menuView();
@@ -58,7 +59,7 @@ public class MainController {
                     libraryManagementController.startLibrary();
                     break;
                 case 10:
-
+                    examView.displayMenu();
                     break;
                 case 11:
                     eventsController.startEvents();

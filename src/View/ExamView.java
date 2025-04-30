@@ -34,7 +34,9 @@ public class ExamView {
                 case 3 -> deleteExam();
                 case 4 -> viewExamsByClass();
                 case 5 -> viewExamResults();
-                case 6 -> System.exit(0);
+                case 6 -> {
+                    return;
+                }
                 default -> System.out.println("Lựa chọn không hợp lệ!");
             }
         }

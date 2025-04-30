@@ -1,5 +1,6 @@
 package View;
 
+import Controller.MainController;
 import Controller.UserController;
 import Model.User;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class UserView {
     private final UserController controller = new UserController();
     private final Scanner scanner = new Scanner(System.in);
-
+    private final MainController mainController = new MainController();
     public void displayMenu() {
         while (true) {
             System.out.println(
@@ -44,8 +45,7 @@ public class UserView {
                     } while (user == null);
 
                     System.out.println("Đăng nhập thành công!");
-                    ExamView examView = new ExamView();
-                    examView.displayMenu();
+                    mainController.start();
                 }
                 case 3 -> {
                     int userId;
