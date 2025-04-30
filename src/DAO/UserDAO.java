@@ -110,7 +110,7 @@ public class UserDAO {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
-            return rs.next(); // Nếu có dòng trả về nghĩa là username đã tồn tại
+            return rs.next();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,7 +119,6 @@ public class UserDAO {
     }
 
     public boolean logout(int userId) {
-        // Tùy vào logic hệ thống mà bạn có thể xử lý logout như xóa session, cập nhật trạng thái,...
         return false;
     }
 }

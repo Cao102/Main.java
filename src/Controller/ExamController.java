@@ -29,7 +29,7 @@ public class ExamController {
         return dao.getExamResults(examId);
     }
 
-    // ✅ Hàm kiểm tra lịch thi đã tồn tại chưa
+
     public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
         return dao.isExamScheduled(classId, subjectId, examDate);
     }

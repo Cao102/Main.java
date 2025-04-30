@@ -83,7 +83,6 @@ public class ExamDAO {
     }
 
     public String getExamResults(int examId) {
-        // Mô phỏng trả kết quả, thực tế cần JOIN bảng kết quả thi (ExamResults)
         return "Kết quả kỳ thi ID " + examId + ": chưa có kết quả";
     }
 
