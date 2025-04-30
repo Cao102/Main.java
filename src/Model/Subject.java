@@ -1,6 +1,7 @@
+
 package Model;
 
-public class Subject {
+public class Subject implements TableConvertible {
     private String subjectId;
     private String name;
     private String description;
@@ -29,7 +30,11 @@ public class Subject {
     }
 
     @Override
-    public String toString() {
-        return String.format("║ %-6s ║ %-30s ║ %-40s ║", subjectId, name, (description != null ? description : "Không có mô tả"));
+    public String[] toRow() {
+        return new String[] {
+                subjectId,
+                name,
+                description != null ? description : "Không có mô tả"
+        };
     }
 }

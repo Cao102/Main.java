@@ -1,6 +1,8 @@
+
 package View;
 
 import Model.Report;
+import util.TableUtils;
 
 import java.util.List;
 
@@ -50,21 +52,9 @@ public class ViewReport {
             return;
         }
 
-        System.out.print("""
-        ╔══════╦════════════════════════╦══════════╗
-        ║ STT  ║ Mã sinh viên - Họ Tên  ║ GPA      ║
-        ╠══════╬════════════════════════╬══════════╣
-        """);
-
-        int stt = 1;
-        for (Report report : list) {
-            System.out.printf("║ %-4d ║ %-22s ║ %-8.2f ║\n",
-                    stt++,
-                    report.getTopStudentId() + " - " + report.getTopStudentName(),
-                    report.getTopStudentGPA());
-        }
-
-        System.out.println("╚══════╩════════════════════════╩══════════╝");
+        String[] headers = {"Mã Sinh Viên", "Họ Tên", "GPA"};
+        System.out.println("\nDANH SÁCH TOP SINH VIÊN CÓ GPA CAO NHẤT:");
+        TableUtils.printTable(list, headers);
     }
 
     public void errorChoose() {

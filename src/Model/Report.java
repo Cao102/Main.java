@@ -1,6 +1,7 @@
+
 package Model;
 
-public class Report {
+public class Report implements TableConvertible {
     private int studentCount;
     private int teacherCount;
     private int classroomCount;
@@ -50,5 +51,12 @@ public class Report {
 
     public double getTopStudentGPA() {
         return topStudentGPA;
+    }
+
+    @Override
+    public String[] toRow() {
+        return new String[] {
+                topStudentId, topStudentName, String.format("%.2f", topStudentGPA)
+        };
     }
 }

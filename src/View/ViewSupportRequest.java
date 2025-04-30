@@ -1,6 +1,8 @@
+
 package View;
 
 import Model.SupportRequest;
+import util.TableUtils;
 
 import java.util.List;
 
@@ -50,20 +52,9 @@ public class ViewSupportRequest {
             return;
         }
 
-        System.out.print("""
-        ╔══════╦══════════════╦══════════════════════════════════════════════════════════╦══════════════╗
-        ║ ID   ║ Mã sinh viên ║ Nội dung yêu cầu hỗ trợ                                  ║ Trạng thái   ║
-        ╠══════╬══════════════╬══════════════════════════════════════════════════════════╬══════════════╣
-        """);
-
-        for (SupportRequest req : requests) {
-            System.out.printf("║ %-4d ║ %-12s ║ %-50s ║ %-12s ║\n",
-                    req.getId(), req.getStudentId(), req.getMessage(), req.getStatus());
-        }
-
-        System.out.println("""
-        ╚══════╩══════════════╩══════════════════════════════════════════════════════════╩══════════════╝
-        """);
+        String[] headers = {"ID", "Mã Sinh Viên", "Nội Dung", "Trạng Thái"};
+        System.out.println("\nDANH SÁCH YÊU CẦU HỖ TRỢ:");
+        TableUtils.printTable(requests, headers);
     }
 
     public void notifyRequestAdded() {
@@ -86,11 +77,11 @@ public class ViewSupportRequest {
         System.out.println("Không tìm thấy yêu cầu hỗ trợ với ID đã nhập.");
     }
 
-    public void errorChoose() {
-        System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
-    }
     public void showStudentNotExist() {
         System.out.println("Mã sinh viên không tồn tại.");
     }
 
+    public void errorChoose() {
+        System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
+    }
 }

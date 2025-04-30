@@ -1,6 +1,6 @@
 package Model;
 
-public class SupportRequest {
+public class SupportRequest implements TableConvertible {
     private int id;
     private String studentId;
     private String message;
@@ -33,5 +33,15 @@ public class SupportRequest {
 
     public String getStatus() {
         return status;
+    }
+
+    @Override
+    public String[] toRow() {
+        return new String[]{
+                String.valueOf(id),
+                studentId,
+                message != null ? message : "",
+                status
+        };
     }
 }
