@@ -9,15 +9,15 @@ import java.util.List;
 public class ViewTeacher {
     private final Input input = new Input();
 
-    public void checkEmpty(String message) {
-        System.out.println("Vui Lòng Không Để " + message + " Trống");
+    public int getChoose() {
+        return input.inputInt("Nhập Lựa Chọn của bạn");
     }
 
     public String getID() {
         String id;
         while (true) {
             id = input.inputString("Nhập ID GV");
-            if (id.length() > 10){
+            if (id.length() > 10) {
                 System.out.println("Vui Lòng Không Nhập ID Quá 10 Ký Tự");
                 continue;
             }
@@ -121,7 +121,7 @@ public class ViewTeacher {
         return bigDecimal;
     }
 
-    public int menuObject() {
+    public void menuObject() {
         System.out.print("""
                 
                 ╔════════════════════════════════════════╗
@@ -135,7 +135,6 @@ public class ViewTeacher {
                 ║ 0. Quay lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập Lựa Chọn Của Bạn");
     }
 
     public void addObject() {
@@ -163,7 +162,7 @@ public class ViewTeacher {
         TableUtils.printTable(objectList, headers);
     }
 
-    public int viewSearch() {
+    public void viewSearch() {
         System.out.print("""
                 
                 ╔════════════════════════════════════════╗
@@ -179,7 +178,10 @@ public class ViewTeacher {
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập lựa chọn");
+    }
+
+    public void checkEmpty(String message) {
+        System.out.println("Vui Lòng Không Để " + message + " Trống");
     }
 
     public void checkID(String message) {
@@ -189,9 +191,11 @@ public class ViewTeacher {
     public void checkEmail() {
         System.out.println("Email Đã Tồn Tại. Vui Lòng Nhập Lại");
     }
+
     public void checkPhone() {
         System.out.println("SĐT Đã Tồn Tại. Vui Lòng Nhập Lại");
     }
+
     public void errorChoose() {
         System.out.println("Lựa Chọn Không Hợp Lệ! Vui Lòng Nhập Lại.");
     }

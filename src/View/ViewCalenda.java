@@ -9,6 +9,8 @@ public class ViewCalenda {
     public static void main(String[] args) {
         CalendaController controller = new CalendaController();
         Scanner sc = new Scanner(System.in);
+        boolean check = true;
+        while(check){
             System.out.println("========= QUẢN LÝ LỊCH HỌC =========");
             System.out.println("1. Thêm lịch học");
             System.out.println("2. Cập nhật lịch học");
@@ -19,7 +21,7 @@ public class ViewCalenda {
             System.out.println("====================================");
 
             System.out.print("Chọn chức năng: ");
-        int n = Integer.parseInt(sc.nextLine());
+            int n = Integer.parseInt(sc.nextLine());
             switch (n) {
                 case 1:
                     System.out.println("--- Thêm Lịch Học ---");
@@ -78,14 +80,15 @@ public class ViewCalenda {
 
                 case 0:
                     System.out.println("Đã thoát chương trình.");
+                    check = false;
                     break;
-
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                     break;
             }
 
             System.out.println("====================================");
+        }
 
     }
 }

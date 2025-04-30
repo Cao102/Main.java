@@ -8,12 +8,8 @@ import java.util.List;
 public class ViewClassroom {
     private final Input input = new Input();
 
-    public void checkEmpty(String message) {
-        System.out.println("Không Được Để " + message + " Trắng");
-    }
-
-    public void checkID(String message) {
-        System.out.println(message);
+    public int getChoose () {
+        return input.inputInt("Nhập Lựa Chọn của bạn");
     }
 
     public String getID() {
@@ -35,10 +31,12 @@ public class ViewClassroom {
             return Integer.parseInt(line);
         }
     }
-    public String getLocation(){
+
+    public String getLocation() {
         return input.inputString("Nhập Địa Chỉ: ");
     }
-    public int menuObject() {
+
+    public void menuObject() {
         System.out.print("""
                 
                 ╔════════════════════════════════════════╗
@@ -52,7 +50,6 @@ public class ViewClassroom {
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập Lựa Chọn Của Bạn");
     }
 
     public void addObject() {
@@ -77,7 +74,7 @@ public class ViewClassroom {
         System.out.println("Nhập Thông Tin Xoá (Hoặc Enter Để Quay Lại):");
     }
 
-    public int viewSearch() {
+    public void viewSearch() {
         System.out.print("""
                 
                 ╔════════════════════════════════════════╗
@@ -89,7 +86,14 @@ public class ViewClassroom {
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập Lựa Chọn");
+    }
+
+    public void checkEmpty(String message) {
+        System.out.println("Không Được Để " + message + " Trắng");
+    }
+
+    public void checkID(String message) {
+        System.out.println(message);
     }
 
     public void errorChoose() {

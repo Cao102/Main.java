@@ -53,14 +53,22 @@ public class StudentController {
 
     public void start() {
         while (true) {
-            int input = viewStudent.menuObject();
+            viewStudent.menuObject();
+            int input;
+            while (true){
+                input = viewStudent.getChoose();
+                if (input == 0 ) return;
+                if (input > 0 && input <= 5){
+                    break;
+                }
+                viewStudent.errorChoose();
+            }
             switch (input) {
                 case 1 -> addObject();
                 case 2 -> viewStudent.getAllObject(studentService.getAll());
                 case 3 -> updateObject();
                 case 4 -> deleteObject();
                 case 5 -> searchObject();
-                case 0 -> { return; }
                 default -> viewStudent.errorChoose();
             }
         }
@@ -189,7 +197,16 @@ public class StudentController {
 
     public void searchObject() {
         while (true) {
-            int choose = viewStudent.viewSearch();
+            viewStudent.viewSearch();
+            int choose;
+            while (true){
+                choose = viewStudent.getChoose();
+                if (choose == 0 ) return;
+                if (choose > 0 && choose <= 7){
+                    break;
+                }
+                viewStudent.errorChoose();
+            }
             String name_column, attribute;
 
             switch (choose) {
@@ -221,9 +238,6 @@ public class StudentController {
                 case 7 -> {
                     name_column = "address";
                     attribute = inputNotEmpty("Địa chỉ");
-                }
-                case 0 -> {
-                    return;
                 }
                 default -> {
                     viewStudent.errorChoose();

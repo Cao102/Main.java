@@ -14,18 +14,18 @@ public class ViewEvents {
 
     public int menuEvents() {
         System.out.print("""
-            
-            ╔════════════════════════════════════════╗
-            ║          QUẢN LÝ SỰ KIỆN TRƯỜNG        ║
-            ╠════════════════════════════════════════╣
-            ║ 1. Thêm sự kiện                        ║
-            ║ 2. Cập nhật sự kiện                    ║
-            ║ 3. Xóa sự kiện                         ║
-            ║ 4. Hiển thị danh sách sự kiện          ║
-            ║ 5. Tìm sự kiện theo ngày               ║
-            ║ 0. Quay lại                            ║
-            ╚════════════════════════════════════════╝
-            """);
+                
+                ╔════════════════════════════════════════╗
+                ║          QUẢN LÝ SỰ KIỆN TRƯỜNG        ║
+                ╠════════════════════════════════════════╣
+                ║ 1. Thêm sự kiện                        ║
+                ║ 2. Cập nhật sự kiện                    ║
+                ║ 3. Xóa sự kiện                         ║
+                ║ 4. Hiển thị danh sách sự kiện          ║
+                ║ 5. Tìm sự kiện theo ngày               ║
+                ║ 0. Quay lại                            ║
+                ╚════════════════════════════════════════╝
+                """);
         return input.inputInt("Nhập lựa chọn của bạn");
     }
 
@@ -33,9 +33,37 @@ public class ViewEvents {
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
     }
 
+    public String inputLocation() {
+        while (true) {
+            String location = input.inputString("Nhập địa điểm tổ chức sự kiện");
+            if (location.length() <= 100) {
+                return location;
+            } else {
+                System.out.println("Vui lòng không nhập tên địa điểm quá 100 ký tự");
+            }
+        }
+    }
+
+    public String inputEventId() {
+        while (true) {
+            String eventId = input.inputString("Nhập ID sự kiện");
+            if (eventId.length() <= 10) {
+                return eventId;
+            } else {
+                System.out.println("Vui lòng không nhập Id sự kiện quá 10 ký tự");
+            }
+        }
+    }
 
     public String inputEventName() {
-        return input.inputString("Nhập tên sự kiện");
+        while (true) {
+            String eventName = input.inputString("Nhập tên sự kiện");
+            if (eventName.length() <= 100) {
+                return eventName;
+            } else {
+                System.out.println("Vui lòng không nhập tên sự kiện quá 100 ký tự");
+            }
+        }
     }
 
     public LocalDateTime inputEventDateTime() {
@@ -48,6 +76,7 @@ public class ViewEvents {
             }
         }
     }
+
     public LocalDate inputEventDate() {
         while (true) {
             String dateStr = input.inputString("Nhập ngày sự kiện (yyyy-MM-dd)");
@@ -58,13 +87,7 @@ public class ViewEvents {
             }
         }
     }
-    public String inputLocation() {
-        return input.inputString("Nhập địa điểm tổ chức sự kiện");
-    }
 
-    public String inputEventId() {
-        return input.inputString("Nhập ID sự kiện");
-    }
 
     public void displayEvents(List<Events> objectList) {
         if (objectList.isEmpty()) {
@@ -109,6 +132,7 @@ public class ViewEvents {
     public void showNoEventsFound() {
         System.out.println("Không tìm thấy sự kiện với Ngày đã nhập.");
     }
+
     public boolean confirmUpdateEvent() {
         System.out.print("Sự kiện đã tồn tại. Bạn có muốn cập nhật thông tin sự kiện không? (Y/N) ");
         String choice = input.inputString("");

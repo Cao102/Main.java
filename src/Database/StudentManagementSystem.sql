@@ -111,13 +111,13 @@ CREATE TABLE Library (
 
 -- Bảng mượn sách
 CREATE TABLE BorrowedBook (
-   student_id VARCHAR(10),
-   book_id VARCHAR(10),
-   borrow_date DATE NOT NULL,
-   return_date DATE,
-   PRIMARY KEY (student_id, book_id),
-   FOREIGN KEY (student_id) REFERENCES Students(student_id),
-   FOREIGN KEY (book_id) REFERENCES Library(book_id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(10) NOT NULL,
+    book_id VARCHAR(10) NOT NULL,
+    borrow_date DATE NOT NULL,
+    return_date DATE,
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (book_id) REFERENCES Library(book_id)
 );
 
 -- Bảng kỳ thi
@@ -136,7 +136,7 @@ CREATE TABLE Events (
    event_id  VARCHAR(10) PRIMARY KEY,
    event_name VARCHAR(100),
    event_date DATETIME,
-   location VARCHAR(255)
+   location VARCHAR(100)
 );
 
 

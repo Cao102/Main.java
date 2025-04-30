@@ -60,7 +60,7 @@ public class TuitionController {
             } else {
                 boolean update = viewTuition.confirmUpdateTuition();
                 if (update) {
-                    if (existingTuition.getStatus().equals("ok")) {
+                    if (existingTuition.getStatus().equals("Đã nộp")) {
                         viewTuition.showTuitionAlreadyPaid();  // Thông báo học phí đã được nộp
                         continue;
                     }
@@ -89,7 +89,7 @@ public class TuitionController {
                 viewTuition.showTuitionNotExist();  // Thông báo không tồn tại học phí
                 continue;
             } else {
-                if (existingTuition.getStatus().equals("ok")) {
+                if (existingTuition.getStatus().equals("Đã nộp")) {
                     viewTuition.showTuitionAlreadyPaid();  // Thông báo học phí đã được nộp
                     continue;
                 }

@@ -10,9 +10,10 @@ import util.TableUtils;
 
 public class ViewStudent {
     private final Input input = new Input();
+    // Input
 
-    public void checkEmpty(String message) {
-        System.out.println("Vui Lòng Không Để " + message + " Trống");
+    public int getChoose() {
+        return input.inputInt("Nhập Lựa Chọn của bạn");
     }
 
     private Date validateDate(String dateStr) {
@@ -25,23 +26,6 @@ public class ViewStudent {
         } catch (ParseException e) {
             return null;
         }
-    }
-
-    public int menuObject() {
-        System.out.print("""
-                
-                ╔════════════════════════════════════════╗
-                ║           QUẢN LÝ Sinh Viên            ║
-                ╠════════════════════════════════════════╣
-                ║ 1. Thêm Sinh Viên                      ║
-                ║ 2. Hiển Thị Thông Tin Sinh Viên        ║
-                ║ 3. Chỉnh Sửa Thông Tin Sinh Viên       ║
-                ║ 4. Xóa Thông Tin Sinh Viên             ║
-                ║ 5. Tìm kiếm Thông Tin Sinh Viên        ║
-                ║ 0. Quay Lại                            ║
-                ╚════════════════════════════════════════╝
-                """);
-        return input.inputInt("Nhập Lựa Chọn của bạn");
     }
 
     public String getID() {
@@ -145,6 +129,23 @@ public class ViewStudent {
         return address;
     }
 
+    // Hàm chạy
+    public void menuObject() {
+        System.out.print("""
+                
+                ╔════════════════════════════════════════╗
+                ║           QUẢN LÝ Sinh Viên            ║
+                ╠════════════════════════════════════════╣
+                ║ 1. Thêm Sinh Viên                      ║
+                ║ 2. Hiển Thị Thông Tin Sinh Viên        ║
+                ║ 3. Chỉnh Sửa Thông Tin Sinh Viên       ║
+                ║ 4. Xóa Thông Tin Sinh Viên             ║
+                ║ 5. Tìm kiếm Thông Tin Sinh Viên        ║
+                ║ 0. Quay Lại                            ║
+                ╚════════════════════════════════════════╝
+                """);
+    }
+
     public void addObject() {
         System.out.println("Nhập Thông Tin Mới (Hoặc Enter Để Quay Lại):");
     }
@@ -171,7 +172,7 @@ public class ViewStudent {
         TableUtils.printTable(objectList, headers);
     }
 
-    public int viewSearch() {
+    public void viewSearch() {
         System.out.print("""
                 
                 ╔════════════════════════════════════════╗
@@ -187,7 +188,11 @@ public class ViewStudent {
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
-        return input.inputInt("Nhập Lựa Chọn");
+    }
+
+    // Check
+    public void checkEmpty(String message) {
+        System.out.println("Vui Lòng Không Để " + message + " Trống");
     }
 
     public void checkID(String message) {
