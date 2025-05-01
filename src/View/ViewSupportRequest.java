@@ -42,9 +42,6 @@ public class ViewSupportRequest {
         return input.inputString("Nhập nội dung yêu cầu hỗ trợ mới");
     }
 
-    //    public String inputNewStatus() {
-//        return input.inputString("Nhập trạng thái mới (Pending/Resolved)");
-//    }
     public String inputNewStatus() {
         while (true) {
             String status = input.inputString("Nhập trạng thái mới (Pending/Resolved)");
