@@ -12,23 +12,29 @@ public class ViewSubject {
     public int menuSubject() {
         System.out.print("""
                 
-        ╔════════════════════════════════════════════════════════╗
-        ║                  QUẢN LÝ MÔN HỌC                       ║
-        ╠════════════════════════════════════════════════════════╣
-        ║ 1. Thêm môn học                                        ║
-        ║ 2. Cập nhật môn học                                    ║
-        ║ 3. Xóa môn học                                         ║
-        ║ 4. Hiển thị danh sách môn học                          ║
-        ║ 5. Xem thông tin môn học theo ID                       ║
-        ║ 6. Xem danh sách môn học theo giảng viên               ║
-        ║ 7. Quay lại                                            ║
-        ╚════════════════════════════════════════════════════════╝
-        """);
+                ╔════════════════════════════════════════════════════════╗
+                ║                  QUẢN LÝ MÔN HỌC                       ║
+                ╠════════════════════════════════════════════════════════╣
+                ║ 1. Thêm môn học                                        ║
+                ║ 2. Cập nhật môn học                                    ║
+                ║ 3. Xóa môn học                                         ║
+                ║ 4. Hiển thị danh sách môn học                          ║
+                ║ 5. Xem thông tin môn học theo ID                       ║
+                ║ 6. Xem danh sách môn học theo giảng viên               ║
+                ║ 7. Quay lại                                            ║
+                ╚════════════════════════════════════════════════════════╝
+                """);
         return input.inputInt("Nhập lựa chọn của bạn");
     }
 
     public String inputSubjectId() {
-        return input.inputString("Nhập mã môn học (VD: SUB001)");
+        while (true) {
+            String subjectId = input.inputString("Nhập mã môn học (VD: SUB001)");
+            if (subjectId.startsWith("SUB")) {
+                return subjectId;
+            }
+            System.out.println("Lỗi! Mã môn học phải bắt đầu bằng 'SUB'. Vui lòng nhập lại");
+        }
     }
 
     public String inputSubjectName() {
@@ -40,7 +46,7 @@ public class ViewSubject {
     }
 
     public String inputTeacherId() {
-        return input.inputString("Nhập mã giảng viên (VD:T004) :");
+        return input.inputString("Nhập mã giảng viên (VD:T004)");
     }
 
     public void displaySubjects(List<Subject> subjects) {
@@ -55,18 +61,18 @@ public class ViewSubject {
     }
 
     public void displaySubject(Subject subject) {
-        System.out.println("""
-        ╔══════════════════════════════════════════╗
-        ║           THÔNG TIN MÔN HỌC              ║
-        ╠══════════════════════════════════════════╣
-        """);
-        System.out.println("Mã môn học    : " + subject.getSubjectId());
-        System.out.println("Tên môn học   : " + subject.getName());
-        System.out.println("Mô tả         : " + (subject.getDescription() != null ? subject.getDescription() : "Không có mô tả"));
-        System.out.println("""
-        ╚══════════════════════════════════════════╝
-        """);
+        String name = subject.getName() != null ? subject.getName() : "Không có tên";
+        String desc = subject.getDescription() != null ? subject.getDescription() : "Không có mô tả";
+
+        System.out.println("╔════════════════════════════════════════════════════╗");
+        System.out.println("║               THÔNG TIN MÔN HỌC                    ║");
+        System.out.println("╠════════════════════════════════════════════════════╣");
+        System.out.printf("║ %-15s : %-33s║%n", "Mã môn học", subject.getSubjectId());
+        System.out.printf("║ %-15s : %-33s║%n", "Tên môn học", name);
+        System.out.printf("║ %-15s : %-33s║%n", "Mô tả", desc);
+        System.out.println("╚════════════════════════════════════════════════════╝");
     }
+
 
     public void notifySubjectAdded() {
         System.out.println("Môn học đã được thêm thành công!");

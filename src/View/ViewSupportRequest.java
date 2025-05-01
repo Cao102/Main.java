@@ -12,17 +12,17 @@ public class ViewSupportRequest {
     public int menuSupport() {
         System.out.print("""
                 
-        ╔════════════════════════════════════════════════════════╗
-        ║              QUẢN LÝ YÊU CẦU HỖ TRỢ SINH VIÊN          ║
-        ╠════════════════════════════════════════════════════════╣
-        ║ 1. Gửi yêu cầu hỗ trợ                                  ║
-        ║ 2. Xem yêu cầu hỗ trợ                                  ║
-        ║ 3. Sửa yêu cầu hỗ trợ                                  ║
-        ║ 4. Xóa yêu cầu hỗ trợ                                  ║
-        ║ 5. Cập nhật trạng thái yêu cầu hỗ trợ                  ║
-        ║ 0. Quay lại                                            ║
-        ╚════════════════════════════════════════════════════════╝
-        """);
+                ╔════════════════════════════════════════════════════════╗
+                ║              QUẢN LÝ YÊU CẦU HỖ TRỢ SINH VIÊN          ║
+                ╠════════════════════════════════════════════════════════╣
+                ║ 1. Gửi yêu cầu hỗ trợ                                  ║
+                ║ 2. Xem yêu cầu hỗ trợ                                  ║
+                ║ 3. Sửa yêu cầu hỗ trợ                                  ║
+                ║ 4. Xóa yêu cầu hỗ trợ                                  ║
+                ║ 5. Cập nhật trạng thái yêu cầu hỗ trợ                  ║
+                ║ 0. Quay lại                                            ║
+                ╚════════════════════════════════════════════════════════╝
+                """);
         return input.inputInt("Nhập lựa chọn của bạn");
     }
 
@@ -42,8 +42,22 @@ public class ViewSupportRequest {
         return input.inputString("Nhập nội dung yêu cầu hỗ trợ mới");
     }
 
+    //    public String inputNewStatus() {
+//        return input.inputString("Nhập trạng thái mới (Pending/Resolved)");
+//    }
     public String inputNewStatus() {
-        return input.inputString("Nhập trạng thái mới (Pending/Resolved)");
+        while (true) {
+            String status = input.inputString("Nhập trạng thái mới (Pending/Resolved)");
+            if (status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Resolved")) {
+                return capitalize(status); // Chuẩn hóa lại đầu vào
+            }
+            System.out.println("Trạng thái không hợp lệ! Vui lòng nhập 'Pending' hoặc 'Resolved'.");
+        }
+    }
+
+    private String capitalize(String str) {
+        if (str == null || str.isEmpty()) return str;
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 
     public void displayRequests(List<SupportRequest> requests) {
