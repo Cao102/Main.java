@@ -11,6 +11,7 @@ public class SignupView {
     private final Scanner scanner = new Scanner(System.in);
     private final MainController mainController = new MainController();
     private final Input input = new Input();
+
     public void displayMenu() {
         while (true) {
             System.out.println(
@@ -28,19 +29,29 @@ public class SignupView {
                 }
                 case 2 -> {
                     User user = null;
-                    do {
+                    int count = 0;
+                    int maxAttempts = 3;
+
+                    while (count < maxAttempts) {
                         System.out.print("Tài khoản: ");
                         String username = scanner.nextLine();
                         System.out.print("Mật khẩu: ");
                         String password = scanner.nextLine();
                         user = controller.login(username, password);
-                        if (user == null) {
-                            System.out.println("Sai thông tin đăng nhập! Vui lòng thử lại.");
+                        if (user != null) {
+                            break;
                         }
-                    } while (user == null);
+                        count++;
+                        System.out.println("Sai thông tin đăng nhập! Vui lòng thử lại.");
+                        System.out.printf("Bạn còn %d lần thử.\n", maxAttempts - count);
+                    }
 
-                    System.out.println("Đăng nhập thành công!");
-                    mainController.start();
+                    if (user == null) {
+                        System.out.println("Bạn đã đăng nhập sai quá số lần cho phép. Quay lại menu chính.\n");
+                    } else {
+                        System.out.println("Đăng nhập thành công!");
+                        mainController.start();
+                    }
                 }
                 case 3 -> System.exit(0);
                 default -> System.out.println("Lựa chọn không hợp lệ, vui lòng chọn lại.");
