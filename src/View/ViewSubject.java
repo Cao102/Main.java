@@ -28,17 +28,41 @@ public class ViewSubject {
     }
 
     public String inputSubjectId() {
-        while (true) {
-            String subjectId = input.inputString("Nhập mã môn học (VD: SUB001)");
-            if (subjectId.startsWith("SUB")) {
-                return subjectId;
+//        while (true) {
+//            String subjectId = input.inputString("Nhập mã môn học (VD: SUB001)");
+//            if (subjectId.startsWith("SUB")) {
+//                return subjectId;
+//            }
+//            System.out.println("Lỗi! Mã môn học phải bắt đầu bằng 'SUB'. Vui lòng nhập lại");
+//        }
+        String Id;
+        while(true){
+            Id= input.inputString("Nhập mã môn học (VD: SUB001)");
+            if(Id.length()>10 ){
+                System.out.println("ID phải có độ dài nhỏ hơn 10 ! Hãy nhập lại");
+                continue;
             }
-            System.out.println("Lỗi! Mã môn học phải bắt đầu bằng 'SUB'. Vui lòng nhập lại");
+            if(!Id.startsWith("SUB")){
+                System.out.println("Lỗi! Mã môn học phải bắt đầu bằng 'SUB'. Vui lòng nhập lại");
+                continue;
+            }
+            break;
         }
+        return Id;
     }
 
     public String inputSubjectName() {
-        return input.inputString("Nhập tên môn học");
+        String name;
+        while(true){
+            name= input.inputString("Nhập tên môn học");
+            if(name.length()>100) {
+                System.out.println("Tên môn học phải có độ dài nhỏ hơn 100 ! Hãy nhập lại");
+                continue;
+            }
+            break;
+        }
+        //return input.inputString("Nhập tên môn học");
+        return name;
     }
 
     public String inputSubjectDescription() {

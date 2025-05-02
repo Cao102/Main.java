@@ -30,8 +30,6 @@ CREATE TABLE Teachers (
    base_salary DECIMAL(10,2) DEFAULT 5000,
    salary DECIMAL(10,2) GENERATED ALWAYS AS (base_salary + (years_of_experience DIV 5) * 5000) STORED
 );
-
-
 -- Bảng môn học
 CREATE TABLE Subjects (
    subject_id VARCHAR(10) PRIMARY KEY,
