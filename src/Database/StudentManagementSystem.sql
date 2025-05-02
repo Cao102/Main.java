@@ -10,22 +10,22 @@ USE StudentManagementSystem;
 -- Bảng sinh viên
 CREATE TABLE Students (
    student_id VARCHAR(10) PRIMARY KEY,
-   name VARCHAR(100) NOT NULL,
+   name VARCHAR(50) NOT NULL,
    dob DATE NOT NULL,
    gender ENUM('Male', 'Female', 'Other') NOT NULL,
-   email VARCHAR(100) UNIQUE NOT NULL,
-   phone VARCHAR(15) UNIQUE NULL,
-   address VARCHAR(255)
+   email VARCHAR(50) UNIQUE NOT NULL,
+   phone VARCHAR(10) UNIQUE NULL,
+   address VARCHAR(50)
 );
 
 
 -- Bảng giảng viên
 CREATE TABLE Teachers (
    teacher_id VARCHAR(10) PRIMARY KEY,
-   name VARCHAR(100) NOT NULL,
-   email VARCHAR(100) UNIQUE NOT NULL,
-   phone VARCHAR(15) UNIQUE,
-   address VARCHAR(255),
+   name VARCHAR(50) NOT NULL,
+   email VARCHAR(50) UNIQUE NOT NULL,
+   phone VARCHAR(10) UNIQUE,
+   address VARCHAR(50),
    years_of_experience INT DEFAULT 0,
    base_salary DECIMAL(10,2) DEFAULT 5000,
    salary DECIMAL(10,2) GENERATED ALWAYS AS (base_salary + (years_of_experience DIV 5) * 5000) STORED
@@ -44,7 +44,7 @@ CREATE TABLE Subjects (
 CREATE TABLE Classrooms (
    classroom_id VARCHAR(10) PRIMARY KEY,
    name VARCHAR(50),
-   location VARCHAR(255),
+   location VARCHAR(50),
    capacity INT
 );
 
@@ -86,8 +86,8 @@ CREATE TABLE Schedules (
 -- Bảng tài khoản người dùng
 CREATE TABLE Users (
    id INT AUTO_INCREMENT PRIMARY KEY,
-   username VARCHAR(50) UNIQUE,
-   password VARCHAR(255)
+   username VARCHAR(20) UNIQUE,
+   password VARCHAR(50)
 );
 
 
@@ -103,8 +103,8 @@ CREATE TABLE Tuition (
 -- Bảng thư viện
 CREATE TABLE Library (
    book_id VARCHAR(10) PRIMARY KEY,
-   book_name VARCHAR(100),
-   author VARCHAR(100),
+   book_name VARCHAR(50),
+   author VARCHAR(50),
    quantity INT
 );
 
@@ -134,25 +134,9 @@ CREATE TABLE Exams (
 -- Bảng sự kiện
 CREATE TABLE Events (
    event_id  VARCHAR(10) PRIMARY KEY,
-   event_name VARCHAR(100),
+   event_name VARCHAR(50),
    event_date DATETIME,
-   location VARCHAR(100)
-);
-
-
--- Bảng ký túc xá
-CREATE TABLE Dormitories (
-   dorm_id VARCHAR(10) PRIMARY KEY,
-   room_number VARCHAR(10),
-   capacity INT
-);
-
-
-CREATE TABLE StudentDormitory (
-   student_id VARCHAR(10) PRIMARY KEY,
-   dorm_id VARCHAR(10),
-   FOREIGN KEY (student_id) REFERENCES Students(student_id),
-   FOREIGN KEY (dorm_id) REFERENCES Dormitories(dorm_id)
+   location VARCHAR(50)
 );
 
 
@@ -167,8 +151,6 @@ CREATE TABLE SupportRequests (
 
 
 -- Dữ liệu mẫu
-
-
 -- Students
 INSERT INTO Students (student_id, name, dob, gender, email, phone, address) VALUES
 ('S001', 'Nguyen Van A', '2002-05-10', 'Male', 'a.nguyen@example.com', '0987654321', 'Hanoi'),
@@ -302,23 +284,6 @@ INSERT INTO Events (event_id,event_name, event_date, location) VALUES
 ('E002','Math Olympiad', '2025-05-10 09:00:00', 'Auditorium'),
 ('E003','English Speaking Contest', '2025-05-15 09:00:00', 'Conference Room A'),
 ('E004','Chemistry Lab Tour', '2025-05-20 10:00:00', 'Lab 202');
-
-
--- Dormitories
-INSERT INTO Dormitories (dorm_id, room_number, capacity) VALUES
-('D001', 'D101', 4),
-('D002', 'D102', 3),
-('D003', 'D103', 4),
-('D004', 'D104', 2);
-
-
--- StudentDormitory
-INSERT INTO StudentDormitory (student_id, dorm_id) VALUES
-('S001', 'D001'),
-('S002', 'D002'),
-('S003', 'D003'),
-('S004', 'D004');
-
 
 -- SupportRequests
 INSERT INTO SupportRequests (student_id, message, status) VALUES
