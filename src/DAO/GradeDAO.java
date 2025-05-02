@@ -85,7 +85,7 @@ public class GradeDAO {
 
     public List<Grade> showGradeByStudentDAO(String studentID) {
         List<Grade> listGrade = new ArrayList<>();
-        String sql = "SELECT s.name, g.grade " +
+        String sql = "SELECT s.name, g.grade, g.subject_id " +
                 "FROM studentmanagementsystem.grades g " +
                 "INNER JOIN studentmanagementsystem.subjects s ON g.subject_id = s.subject_id " +
                 "WHERE g.student_id = ?";
@@ -99,8 +99,9 @@ public class GradeDAO {
             }
             do {
                 String subjectName = rs.getString("name");
+                String subjectID = rs.getString("subject_id");
                 double grade = rs.getDouble("grade");
-                listGrade.add(new Grade(subjectName, grade));
+                listGrade.add(new Grade(subjectID, grade, subjectName));
             } while (rs.next());
         } catch (Exception e) {
             System.out.println("Lỗi khi hiển thị điểm sinh viên");
@@ -110,7 +111,7 @@ public class GradeDAO {
 
     public List<Grade> showGradeBySubjectDAO(String subjectID) {
         List<Grade> listGrade = new ArrayList<>();
-        String sql = "SELECT s.name, g.grade " +
+        String sql = "SELECT s.name, g.grade, g.student_id " +
                 "FROM studentmanagementsystem.grades g " +
                 "INNER JOIN studentmanagementsystem.students s ON g.student_id = s.student_id " +
                 "WHERE g.subject_id = ?";
@@ -124,8 +125,9 @@ public class GradeDAO {
             }
             do {
                 String studentName = rs.getString("name");
+                String studentID = rs.getString("student_id");
                 double grade = rs.getDouble("grade");
-                listGrade.add(new Grade(studentName, grade));
+                listGrade.add(new Grade(grade,studentID,studentName));
             } while (rs.next());
         } catch (Exception e) {
             System.out.println("Lỗi khi hiển thị điểm môn học");
