@@ -30,8 +30,8 @@ public class ViewTeacher {
         String name;
         while (true) {
             name = input.inputString("Nhập Tên GV");
-            if (name.length() >= 100) {
-                System.out.println("Tên Không Được Quá 100 Ký Tự");
+            if (name.length() > 50) {
+                System.out.println("Tên Không Được Quá 50 Ký Tự");
                 continue;
             }
             break;
@@ -72,7 +72,7 @@ public class ViewTeacher {
         while (true) {
             address = input.inputString("Nhập Địa Chỉ GV");
             if (address.isEmpty()) break;
-            if (address.length() >= 255) {
+            if (address.length() > 50) {
                 System.out.println("Vui Lòng Không Nhấp Quá 255 Ký Tự");
                 continue;
             }
