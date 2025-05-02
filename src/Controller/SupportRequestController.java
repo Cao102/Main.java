@@ -36,7 +36,21 @@ public class SupportRequestController {
             view.showRequestNotExist();
             return;
         }
+
+        // Lấy thông tin hiện tại của yêu cầu hỗ trợ
+        SupportRequest currentRequest = dao.getById(id);
+
+        // Hiển thị thông báo update
+        view.showUpdateInfo();
+
+        // Nhập thông tin mới từ người dùng
         String newMessage = view.inputNewMessage();
+
+        // Nếu người dùng bỏ trống, giữ nguyên thông tin cũ
+        if (newMessage.isEmpty()) {
+            newMessage = currentRequest.getMessage();
+        }
+
         dao.updateMessage(id, newMessage);
         view.notifyRequestUpdated();
     }
@@ -57,20 +71,45 @@ public class SupportRequestController {
             view.showRequestNotExist();
             return;
         }
+
+        // Lấy thông tin hiện tại của yêu cầu hỗ trợ
+        SupportRequest currentRequest = dao.getById(id);
+
+        // Hiển thị trạng thái hiện tại
+        view.showCurrentStatus(currentRequest.getStatus());
+
+        // Nhập trạng thái mới từ người dùng
         String newStatus = view.inputNewStatus();
+
+        // Nếu người dùng bỏ trống, giữ nguyên trạng thái cũ
+        if (newStatus.isEmpty()) {
+            newStatus = currentRequest.getStatus();
+        }
+
         dao.updateStatus(id, newStatus);
         view.notifyStatusUpdated();
     }
+
     private void sendRequest() {
         String studentId = view.inputStudentId();
-        if (!dao.studentExists(studentId)) {
-            view.showStudentNotExist();  // Hiển thị thông báo sinh viên không tồn tại
+        if (studentId.isEmpty()) {
+            view.checkEmpty("Mã sinh viên");
             return;
         }
+
+        if (!dao.studentExists(studentId)) {
+            view.showStudentNotExist();
+            return;
+        }
+
         String message = view.inputMessage();
+        if (message.isEmpty()) {
+            view.checkEmpty("Nội dung yêu cầu");
+            return;
+        }
+
         SupportRequest request = new SupportRequest(studentId, message);
         dao.add(request);
         view.notifyRequestAdded();
     }
-
 }

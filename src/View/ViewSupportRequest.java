@@ -1,4 +1,3 @@
-
 package View;
 
 import Model.SupportRequest;
@@ -27,7 +26,7 @@ public class ViewSupportRequest {
     }
 
     public String inputStudentId() {
-        return input.inputString("Nhập mã sinh viên ( VD: S001)");
+        return input.inputString("Nhập mã sinh viên (VD: S001)");
     }
 
     public String inputMessage() {
@@ -35,20 +34,23 @@ public class ViewSupportRequest {
     }
 
     public int inputRequestId() {
-        return input.inputInt("Nhập ID yêu cầu hỗ trợ(VD: 1)");
+        return input.inputInt("Nhập ID yêu cầu hỗ trợ (VD: 1)");
     }
 
     public String inputNewMessage() {
-        return input.inputString("Nhập nội dung yêu cầu hỗ trợ mới");
+        return input.inputString("Nhập nội dung yêu cầu hỗ trợ mới (hoặc Enter để giữ nguyên)");
     }
 
     public String inputNewStatus() {
         while (true) {
-            String status = input.inputString("Nhập trạng thái mới (Pending/Resolved)");
+            String status = input.inputString("Nhập trạng thái mới (Pending/Resolved) hoặc Enter để giữ nguyên");
+            if (status.isEmpty()) {
+                return status; // Trả về chuỗi rỗng để giữ nguyên giá trị cũ
+            }
             if (status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Resolved")) {
                 return capitalize(status); // Chuẩn hóa lại đầu vào
             }
-            System.out.println("Trạng thái không hợp lệ! Vui lòng nhập 'Pending' hoặc 'Resolved'.");
+            System.out.println("Trạng thái không hợp lệ! Vui lòng nhập 'Pending', 'Resolved' hoặc Enter để giữ nguyên.");
         }
     }
 
@@ -66,6 +68,18 @@ public class ViewSupportRequest {
         String[] headers = {"ID", "Mã Sinh Viên", "Nội Dung", "Trạng Thái"};
         System.out.println("\nDANH SÁCH YÊU CẦU HỖ TRỢ:");
         TableUtils.printTable(requests, headers);
+    }
+
+    public void showUpdateInfo() {
+        System.out.println("Nhập thông tin cần chỉnh sửa (Enter để giữ nguyên giá trị cũ):");
+    }
+
+    public void showCurrentStatus(String currentStatus) {
+        System.out.println("Trạng thái hiện tại: " + currentStatus);
+    }
+
+    public void checkEmpty(String fieldName) {
+        System.out.println("Vui lòng không để " + fieldName + " trống");
     }
 
     public void notifyRequestAdded() {

@@ -21,7 +21,7 @@ public class ViewSubject {
                 ║ 4. Hiển thị danh sách môn học                          ║
                 ║ 5. Xem thông tin môn học theo ID                       ║
                 ║ 6. Xem danh sách môn học theo giảng viên               ║
-                ║ 7. Quay lại                                            ║
+                ║ 0. Quay lại                                            ║
                 ╚════════════════════════════════════════════════════════╝
                 """);
         return input.inputInt("Nhập lựa chọn của bạn");
@@ -98,6 +98,16 @@ public class ViewSubject {
         String choice = input.inputString("Môn học đã tồn tại. Bạn có muốn cập nhật không? (Y/N)");
         return choice.equalsIgnoreCase("Y");
     }
+    public String inputSubjectNameWithDefault(String oldName) {
+        String name = input.inputString("Nhập tên môn học [" + oldName + "]");
+        return name.isEmpty() ? oldName : name;
+    }
+
+    public String inputSubjectDescriptionWithDefault(String oldDescription) {
+        String description = input.inputString("Nhập mô tả môn học [" + oldDescription + "]");
+        return description.isEmpty() ? oldDescription : description;
+    }
+
 
     public void errorChoose() {
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");

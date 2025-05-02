@@ -41,6 +41,28 @@ public class SupportRequestDAO {
         return list;
     }
 
+    // Thêm phương thức getById để lấy thông tin yêu cầu hiện tại
+    public SupportRequest getById(int id) {
+        String sql = "SELECT * FROM SupportRequests WHERE id = ?";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new SupportRequest(
+                        rs.getInt("id"),
+                        rs.getString("student_id"),
+                        rs.getString("message"),
+                        rs.getString("status")
+                );
+            } else {
+                throw new RuntimeException("Không tìm thấy yêu cầu hỗ trợ với ID: " + id);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi lấy thông tin yêu cầu hỗ trợ: " + e.getMessage());
+        }
+    }
+
     public void updateMessage(int id, String newMessage) {
         String sql = "UPDATE SupportRequests SET message = ? WHERE id = ?";
         try (Connection cn = DatabaseConnect.getConnection();
@@ -75,6 +97,7 @@ public class SupportRequestDAO {
             throw new RuntimeException("Lỗi cập nhật trạng thái yêu cầu hỗ trợ: " + e.getMessage());
         }
     }
+
     public boolean studentExists(String studentId) {
         String sql = "SELECT COUNT(*) FROM students WHERE student_id = ?";
         try (Connection cn = DatabaseConnect.getConnection();

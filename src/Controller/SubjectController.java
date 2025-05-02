@@ -25,7 +25,9 @@ public class SubjectController {
                 case 4 -> displaySubjects();
                 case 5 -> displaySubjectById();
                 case 6 -> displaySubjectsByTeacher();
-                case 7 -> { return; }
+                case 7 -> {
+                    return;
+                }
                 default -> viewSubject.errorChoose();
             }
         }
@@ -63,14 +65,26 @@ public class SubjectController {
                 viewSubject.showSubjectNotExist();
                 continue;
             }
-            String name = viewSubject.inputSubjectName();
-            String description = viewSubject.inputSubjectDescription();
-            Subject subject = new Subject(subjectId, name, description);
-            subjectDAO.update(subject);
+
+            Subject oldSubject = subjectDAO.getById(subjectId);
+            if (oldSubject == null) {
+                viewSubject.showSubjectNotExist();
+                continue;
+            }
+
+            // Hiển thị gợi ý nhập lại (nhấn Enter để giữ cũ)
+            System.out.println("Nhấn Enter để giữ lại thông tin cũ.");
+
+            String name = viewSubject.inputSubjectNameWithDefault(oldSubject.getName());
+            String description = viewSubject.inputSubjectDescriptionWithDefault(oldSubject.getDescription());
+
+            Subject updatedSubject = new Subject(subjectId, name, description);
+            subjectDAO.update(updatedSubject);
             viewSubject.notifySubjectUpdated();
             break;
         }
     }
+
 
     private void deleteSubject() {
         while (true) {
