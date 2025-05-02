@@ -59,11 +59,11 @@ public class ViewLibraryManagement {
             if (checkEmpty(bookName)){
                 continue;
             }
-            if(bookName.length()<=100){
+            if(bookName.length()<=50){
                 break;
             }
             else{
-                System.out.println("Vui lòng không nhập tên sách quá 100 ký tự");
+                System.out.println("Vui lòng không nhập tên sách quá 50 ký tự");
             }
         }
         String bookAuthor;
@@ -72,11 +72,11 @@ public class ViewLibraryManagement {
             if (checkEmpty(bookAuthor)){
                 continue;
             }
-            if(bookAuthor.length()<=100){
+            if(bookAuthor.length()<=50){
                 break;
             }
             else{
-                System.out.println("Vui lòng không nhập tên tác giả quá 100 ký tự");
+                System.out.println("Vui lòng không nhập tên tác giả quá 50 ký tự");
             }
         }
         int quantity;
@@ -99,6 +99,9 @@ public class ViewLibraryManagement {
     public String inputStudentId() {
         while (true){
             String studentId = input.inputString("Nhập ID sinh viên");
+            if (checkEmpty(studentId)) {
+                continue;
+            }
             if(studentId.length()<=10){
                 return studentId;
             }

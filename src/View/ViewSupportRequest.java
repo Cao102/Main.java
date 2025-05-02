@@ -26,7 +26,17 @@ public class ViewSupportRequest {
     }
 
     public String inputStudentId() {
-        return input.inputString("Nhập mã sinh viên (VD: S001)");
+        String Id;
+        while(true){
+            Id= input.inputString("Nhập mã sinh viên (VD: S001)");
+            if(Id.length()>10){
+                System.out.println("Mã sinh viên phải có độ dài nhỏ hơn 10 ! Hãy nhập lại");
+                continue;
+            }
+            break;
+        }
+        return Id;
+       // return input.inputString("Nhập mã sinh viên (VD: S001)");
     }
 
     public String inputMessage() {
