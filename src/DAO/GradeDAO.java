@@ -1,7 +1,7 @@
 package DAO;
 
 import Model.Grade;
-import connectDatabase.DatabaseConnect;
+import util.DatabaseConnect;
 
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
