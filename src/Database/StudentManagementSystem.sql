@@ -6,7 +6,7 @@ DROP DATABASE IF EXISTS StudentManagementSystem;
 CREATE DATABASE StudentManagementSystem;
 USE StudentManagementSystem;
 
-
+//
 -- Bảng sinh viên
 CREATE TABLE Students (
    student_id VARCHAR(10) PRIMARY KEY,
