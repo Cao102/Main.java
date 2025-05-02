@@ -54,8 +54,8 @@ CREATE TABLE Registrations (
    student_id VARCHAR(10),
    subject_id VARCHAR(10),
    PRIMARY KEY (student_id, subject_id),
-   FOREIGN KEY (student_id) REFERENCES Students(student_id),
-   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+   FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE,
+   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id) ON DELETE CASCADE
 );
 
 
@@ -65,8 +65,8 @@ CREATE TABLE Grades (
    subject_id VARCHAR(10),
    grade DOUBLE,
    PRIMARY KEY (student_id, subject_id),
-   FOREIGN KEY (student_id) REFERENCES Students(student_id),
-   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+   FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE,
+   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id) ON DELETE CASCADE
 );
 
 
@@ -77,9 +77,9 @@ CREATE TABLE Schedules (
    subject_id VARCHAR(10),
    teacher_id VARCHAR(10),
    schedule_time DATETIME,
-   FOREIGN KEY (classroom_id) REFERENCES Classrooms(classroom_id),
-   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id),
-   FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id)
+   FOREIGN KEY (classroom_id) REFERENCES Classrooms(classroom_id) ON DELETE CASCADE,
+   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id) ON DELETE CASCADE,
+   FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id) ON DELETE CASCADE
 );
 
 
@@ -96,7 +96,7 @@ CREATE TABLE Tuition (
    student_id VARCHAR(10) PRIMARY KEY,
    amount DOUBLE,
    status VARCHAR(20) DEFAULT 'Chưa nộp',
-   FOREIGN KEY (student_id) REFERENCES Students(student_id)
+   FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE
 );
 
 
@@ -116,8 +116,8 @@ CREATE TABLE BorrowedBook (
     book_id VARCHAR(10) NOT NULL,
     borrow_date DATE NOT NULL,
     return_date DATE,
-    FOREIGN KEY (student_id) REFERENCES Students(student_id),
-    FOREIGN KEY (book_id) REFERENCES Library(book_id)
+    FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES Library(book_id) ON DELETE CASCADE
 );
 
 -- Bảng kỳ thi
@@ -126,8 +126,8 @@ CREATE TABLE Exams (
    class_id VARCHAR(10),
    subject_id VARCHAR(10),
    exam_date DATETIME,
-   FOREIGN KEY (class_id) REFERENCES Classrooms(classroom_id),
-   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+   FOREIGN KEY (class_id) REFERENCES Classrooms(classroom_id) ON DELETE CASCADE,
+   FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id) ON DELETE CASCADE
 );
 
 
@@ -146,7 +146,7 @@ CREATE TABLE SupportRequests (
    student_id VARCHAR(10),
    message TEXT,
    status ENUM('Pending', 'Resolved'),
-   FOREIGN KEY (student_id) REFERENCES Students(student_id)
+   FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE
 );
 
 
