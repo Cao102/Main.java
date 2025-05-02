@@ -1,9 +1,10 @@
 import Controller.*;
+import View.SignupView;
 import View.UserView;
 
 public class Main {
-    private static final UserView userView = new UserView();
+    private static final SignupView signupView = new SignupView();
     public static void main(String[] args) {
-        userView.displayMenu();
+        signupView.displayMenu();
     }
 }

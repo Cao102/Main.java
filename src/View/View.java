@@ -24,6 +24,7 @@ public class View {
                 ║ 11.  Quản lý Sự Kiện             ║
                 ║ 12.  Quản lý Hỗ Trợ Sinh Viên    ║
                 ║ 13.  Báo Cáo Và Thống Kê         ║
+                ║ 14.  Quản lý người dùng          ║
                 ║ 0.  Đăng Xuất                    ║
                 ╚══════════════════════════════════╝
                 """);
