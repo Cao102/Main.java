@@ -20,14 +20,14 @@ public class GradeController {
     public void showGradeByStudentController(String studentID) {
         List<Grade> listGrade = dao.showGradeByStudentDAO(studentID);
         for (Grade x : listGrade) {
-            System.out.println("Môn " + x.getName() + ": " + x.getGrade() + " điểm");
+            System.out.println(x.getsubjectID() + " Môn " + x.getName() + ": " + x.getGrade() + " điểm");
         }
     }
 
     public void showGradeBySubjectController(String subjectID) {
         List<Grade> listGrade = dao.showGradeBySubjectDAO(subjectID);
         for (Grade x : listGrade) {
-            System.out.println("Bạn " + x.getName() + " được " + x.getGrade() + " điểm");
+            System.out.println(x.getStudentID() + " Bạn " + x.getName() + " được " + x.getGrade() + " điểm");
         }
     }
 
