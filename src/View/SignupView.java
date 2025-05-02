@@ -14,10 +14,16 @@ public class SignupView {
 
     public void displayMenu() {
         while (true) {
-            System.out.println(
-                    "1. Đăng ký \n" +
-                            "2. Đăng nhập\n" +
-                            "3. Thoát");
+
+            System.out.print("""
+                    ╔════════════════════════════════════════╗
+                    ║              ĐĂNG NHẬP                 ║
+                    ╠════════════════════════════════════════╣
+                    ║ 1. Đăng ký                             ║
+                    ║ 2. Đăng nhập                           ║
+                    ║ 3. Thoát                               ║
+                    ╚════════════════════════════════════════╝
+                    """);
             int choice = input.inputInt("Nhập lựa chọn của bạn");
             switch (choice) {
                 case 1 -> {

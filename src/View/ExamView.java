@@ -25,10 +25,10 @@ public class ExamView {
                 ║ 2. Cập nhật lịch thi                   ║
                 ║ 3. Hủy lịch thi                        ║
                 ║ 4. Xem lịch thi theo lớp               ║
-                ║ 5. Xem kết quả thi                     ║
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
+
             System.out.print("Chọn: ");
             int choice = input.inputInt("Nhập lựa chọn của bạn");
 
@@ -37,7 +37,6 @@ public class ExamView {
                 case 2 -> updateExam();
                 case 3 -> deleteExam();
                 case 4 -> viewExamsByClass();
-                case 5 -> viewExamResults();
                 case 0 -> {
                     return;
                 }

@@ -9,15 +9,22 @@ public class UserView {
     private final UserController controller = new UserController();
     private final Scanner scanner = new Scanner(System.in);
     private final Input input = new Input();
+
     public void displayMenu() {
         while (true) {
-            System.out.println(
-                            "1. Xem người dùng\n" +
-                            "2 Danh sách người dùng\n" +
-                            "3. Đặt lại mật khẩu\n" +
-                            "4. Thoát");
+            System.out.print("""
+                    
+                    ╔════════════════════════════════════════╗
+                    ║           Quản lý Admin                ║
+                    ╠════════════════════════════════════════╣
+                    ║ 1. Xem người dùng                      ║
+                    ║ 2. Danh sách nguơi dùng                ║
+                    ║ 3. Đặt lại mật khẩu                    ║
+                    ║ 4. Thoát                               ║
+                    ╚════════════════════════════════════════╝
+                    """);
             int choice = input.inputInt("Nhập lựa chọn của bạn");
-            if (choice == 4){
+            if (choice == 4) {
                 return;
             }
             switch (choice) {
