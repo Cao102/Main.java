@@ -17,6 +17,7 @@ public class MainController {
     private final ViewGrade viewGrade = new ViewGrade();
     private final ViewCalenda viewCalenda = new ViewCalenda();
     private final ExamView examView = new ExamView();
+    private final UserView userView = new UserView();
     public void start() {
         while (true) {
             view.menuView();
@@ -69,6 +70,10 @@ public class MainController {
                     break;
                 case 13:
                     reportController.startReport();
+                    break;
+                case 14:
+                    userView.displayMenu();
+                    break;
                 case 0:
                     view.exit();
                     return;

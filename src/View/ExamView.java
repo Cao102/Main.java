@@ -13,20 +13,24 @@ public class ExamView {
     private final ExamController controller = new ExamController();
     private final Scanner scanner = new Scanner(System.in);
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
+    private final Input input = new Input();
     public void displayMenu() {
         while (true) {
-            System.out.println("""
-                    \n--- Quản lý lịch thi ---
-                    1. Lập lịch thi
-                    2. Cập nhật lịch thi
-                    3. Hủy kỳ thi
-                    4. Xem lịch thi theo lớp
-                    5. Xem kết quả thi
-                    6. Thoát
-                    """);
+            System.out.print("""
+                
+                ╔════════════════════════════════════════╗
+                ║             Quản lý kỳ thi             ║
+                ╠════════════════════════════════════════╣
+                ║ 1. Lập lịch thi                        ║
+                ║ 2. Cập nhật lịch thi                   ║
+                ║ 3. Hủy lịch thi                        ║
+                ║ 4. Xem lịch thi theo lớp               ║
+                ║ 5. Xem kết quả thi                     ║
+                ║ 0. Quay Lại                            ║
+                ╚════════════════════════════════════════╝
+                """);
             System.out.print("Chọn: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = input.inputInt("Nhập lựa chọn của bạn");
 
             switch (choice) {
                 case 1 -> scheduleExam();
@@ -34,7 +38,7 @@ public class ExamView {
                 case 3 -> deleteExam();
                 case 4 -> viewExamsByClass();
                 case 5 -> viewExamResults();
-                case 6 -> {
+                case 0 -> {
                     return;
                 }
                 default -> System.out.println("Lựa chọn không hợp lệ!");
@@ -162,10 +166,8 @@ public class ExamView {
             }
             System.out.println("Kỳ thi không tồn tại.");
         }
-
         System.out.println(controller.getExamResults(id));
     }
-
     private LocalDateTime inputDateTime(String message) {
         while (true) {
             System.out.print(message + " (yyyy-MM-dd HH:mm): ");

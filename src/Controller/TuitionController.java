@@ -4,6 +4,7 @@ import DAO.TuitionDAO;
 import Model.Tuition;
 import View.ViewTuition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TuitionController {
@@ -118,11 +119,13 @@ public class TuitionController {
         }
     }
     private void searchByStudentId() {
+        List<Tuition> tuitionList = new ArrayList<>();
         while(true){
             String studentId = viewTuition.inputStudentId();  // Lấy ID sinh viên
             Tuition tuition = tuitionDAO.searchByStudentId(studentId);
+            tuitionList.add(tuition);
             if (tuition != null) {
-                viewTuition.showTuitionByStudentId(tuition);
+                viewTuition.getAllTuition(tuitionList);
             } else {
                 viewTuition.showTuitionNotExist();  // Thông báo học phí không tồn tại
                 continue;

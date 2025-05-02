@@ -10,7 +10,7 @@ public class ViewTuition {
 
     private boolean checkEmpty(String s) {
         if (s.isEmpty()) {
-            System.out.println("Vui lòng không để học phí trống");
+            System.out.println("Vui lòng không để trống");
             return true;
         }
         return false;
@@ -40,6 +40,9 @@ public class ViewTuition {
     public String inputStudentId() {
         while (true){
             String studentId = input.inputString("Nhập ID sinh viên");
+            if (checkEmpty(studentId)){
+                continue;
+            }
             if(studentId.length()<=10){
                 return studentId;
             }
@@ -52,6 +55,9 @@ public class ViewTuition {
     public String inputStatus(){
         while (true) {
             String status = input.inputString("Nhập trạng thái học phí (Đã nộp, Chưa nộp)");
+            if (checkEmpty(status)) {
+                continue;
+            }
             if (status.equals("Đã nộp") || status.equals("Chưa nộp")) {
                 return status;
             } else {
@@ -135,17 +141,17 @@ public class ViewTuition {
         System.out.println("Học phí đã được nộp. Không thể cập nhật");
     }
 
-    public void showTuitionByStudentId(Tuition tuition) {
-        System.out.println("Thông tin học phí:");
-        System.out.print("""
-                ╔════════════════╦═════════════════════╦════════════╗
-                ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
-                ╠════════════════╬═════════════════════╬════════════╣
-                """);
-
-        System.out.println(tuition);
-        System.out.println(""" 
-                ╚════════════════╩═════════════════════╩════════════╝
-                """);
-    }
+//    public void showTuitionByStudentId(Tuition tuition) {
+//        System.out.println("Thông tin học phí:");
+//        System.out.print("""
+//                ╔════════════════╦═════════════════════╦════════════╗
+//                ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
+//                ╠════════════════╬═════════════════════╬════════════╣
+//                """);
+//
+//        System.out.println(tuition);
+//        System.out.println("""
+//                ╚════════════════╩═════════════════════╩════════════╝
+//                """);
+//    }
 }

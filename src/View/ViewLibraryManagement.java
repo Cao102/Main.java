@@ -8,7 +8,13 @@ import java.util.List;
 
 public class ViewLibraryManagement {
     private final Input input = new Input();
-
+    private boolean checkEmpty(String s) {
+        if (s.isEmpty()) {
+            System.out.println("Vui lòng không để trống");
+            return true;
+        }
+        return false;
+    }
     public int menuLibraryManagement() {
         System.out.print("""
         
@@ -34,6 +40,9 @@ public class ViewLibraryManagement {
     public String inputBookId() {
         while (true){
             String bookId = input.inputString("Nhập mã sách");
+            if (checkEmpty(bookId)){
+                continue;
+            }
             if(bookId.length()<=10){
                 return bookId;
             }
@@ -47,6 +56,9 @@ public class ViewLibraryManagement {
         String bookName;
         while (true){
             bookName = input.inputString("Nhập tên sách");
+            if (checkEmpty(bookName)){
+                continue;
+            }
             if(bookName.length()<=100){
                 break;
             }
@@ -57,6 +69,9 @@ public class ViewLibraryManagement {
         String bookAuthor;
         while (true){
             bookAuthor = input.inputString("Nhập tên tác giả");
+            if (checkEmpty(bookAuthor)){
+                continue;
+            }
             if(bookAuthor.length()<=100){
                 break;
             }
@@ -66,7 +81,11 @@ public class ViewLibraryManagement {
         }
         int quantity;
         while (true) {
-            quantity = input.inputInt("Nhập số lượng sách");
+            String line = input.inputString("Nhập số lượng sách");
+            if (checkEmpty(line)) {
+                continue;
+            }
+            quantity = Integer.parseInt(line);
             if (quantity <= 0) {
                 System.out.println("Số lượng sách phải lớn hơn không. Vui lòng nhập lại.");
             } else {

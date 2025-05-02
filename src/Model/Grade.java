@@ -12,7 +12,14 @@ public class Grade {
         this.grade = grade;
     }
 
-    public Grade(String name, double grade) {
+    public Grade(String subjectID, double grade ,String name) {
+        this.subjectID = subjectID;
+        this.name = name;
+        this.grade = grade;
+    }
+
+    public Grade(double grade, String studentID ,String name) {
+        this.studentID = studentID;
         this.name = name;
         this.grade = grade;
     }
