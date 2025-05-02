@@ -2,65 +2,111 @@ package Controller;
 
 import DAO.SubjectDAO;
 import Model.Subject;
+import View.ViewSubject;
 
 import java.util.List;
 
 public class SubjectController {
-    private SubjectDAO subjectDAO = new SubjectDAO();
+    private final SubjectDAO subjectDAO;
+    private final ViewSubject viewSubject;
 
-    public void addSubjectController(Subject subject) {
-        subjectDAO.addSubjectDAO(subject);
+    public SubjectController() {
+        this.subjectDAO = new SubjectDAO();
+        this.viewSubject = new ViewSubject();
     }
 
-    public void updateSubjectController(Subject subject) {
-        subjectDAO.updateSubjectDAO(subject);
-    }
-
-    public void deleteSubjectController(String subjectId) {
-        subjectDAO.deleteSubjectDAO(subjectId);
-    }
-
-    public Subject getSubjectByIdController(String subjectId) {
-        return subjectDAO.getSubjectByIdDAO(subjectId);
-    }
-
-    public List<Subject> getAllSubjectsController() {
-        return subjectDAO.getAllSubjectsDAO();
-    }
-
-    public List<Subject> getSubjectsByTeacherController(String teacherId) {
-        return subjectDAO.getSubjectsByTeacherDAO(teacherId);
-    }
-
-    public void displaySubject(Subject subject) {
-        if (subject == null) {
-            System.out.println("Không tìm thấy thông tin môn học");
-            return;
-        }
-
-        System.out.println("----------------------------------------------");
-        System.out.println("Mã môn học     : " + subject.getSubjectId());
-        System.out.println("Tên môn học    : " + subject.getName());
-        System.out.println("Mô tả          : " + subject.getDescription());
-        System.out.println("----------------------------------------------");
-    }
-
-    public void displaySubjectList(List<Subject> subjectList) {
-        if (subjectList.isEmpty()) {
-            System.out.println("Không có môn học nào");
-            return;
-        }
-
-        System.out.println("================ DANH SÁCH MÔN HỌC ================");
-        for (Subject subject : subjectList) {
-            System.out.println("----------------------------------------------");
-            System.out.println("Mã môn học     : " + subject.getSubjectId());
-            System.out.println("Tên môn học    : " + subject.getName());
-            if (subject.getDescription() != null) {
-                System.out.println("Mô tả          : " + subject.getDescription());
+    public void startSubject() {
+        while (true) {
+            int choice = viewSubject.menuSubject();
+            switch (choice) {
+                case 1 -> addSubject();
+                case 2 -> updateSubject();
+                case 3 -> deleteSubject();
+                case 4 -> displaySubjects();
+                case 5 -> displaySubjectById();
+                case 6 -> displaySubjectsByTeacher();
+                case 7 -> { return; }
+                default -> viewSubject.errorChoose();
             }
-            System.out.println("----------------------------------------------");
         }
-        System.out.println("===================================================");
+    }
+
+    private void addSubject() {
+        while (true) {
+            String subjectId = viewSubject.inputSubjectId();
+            if (subjectDAO.isSubjectExist(subjectId)) {
+                boolean update = viewSubject.confirmUpdateSubject();
+                if (update) {
+                    String name = viewSubject.inputSubjectName();
+                    String description = viewSubject.inputSubjectDescription();
+                    Subject subject = new Subject(subjectId, name, description);
+                    subjectDAO.update(subject);
+                    viewSubject.notifySubjectUpdated();
+                } else {
+                    continue;
+                }
+            } else {
+                String name = viewSubject.inputSubjectName();
+                String description = viewSubject.inputSubjectDescription();
+                Subject subject = new Subject(subjectId, name, description);
+                subjectDAO.add(subject);
+                viewSubject.notifySubjectAdded();
+            }
+            break;
+        }
+    }
+
+    private void updateSubject() {
+        while (true) {
+            String subjectId = viewSubject.inputSubjectId();
+            if (!subjectDAO.isSubjectExist(subjectId)) {
+                viewSubject.showSubjectNotExist();
+                continue;
+            }
+            String name = viewSubject.inputSubjectName();
+            String description = viewSubject.inputSubjectDescription();
+            Subject subject = new Subject(subjectId, name, description);
+            subjectDAO.update(subject);
+            viewSubject.notifySubjectUpdated();
+            break;
+        }
+    }
+
+    private void deleteSubject() {
+        while (true) {
+            String subjectId = viewSubject.inputSubjectId();
+            if (!subjectDAO.isSubjectExist(subjectId)) {
+                viewSubject.showSubjectNotExist();
+                continue;
+            }
+            subjectDAO.delete(subjectId);
+            viewSubject.notifySubjectDeleted();
+            break;
+        }
+    }
+
+    private void displaySubjects() {
+        List<Subject> subjects = subjectDAO.getAll();
+        viewSubject.displaySubjects(subjects);
+    }
+
+    private void displaySubjectById() {
+        String subjectId = viewSubject.inputSubjectId();
+        Subject subject = subjectDAO.getById(subjectId);
+        if (subject == null) {
+            viewSubject.showSubjectNotExist();
+        } else {
+            viewSubject.displaySubject(subject);
+        }
+    }
+
+    private void displaySubjectsByTeacher() {
+        String teacherId = viewSubject.inputTeacherId();
+        List<Subject> subjects = subjectDAO.getByTeacherId(teacherId);
+        if (subjects.isEmpty()) {
+            viewSubject.showNoSubjectsForTeacher();
+        } else {
+            viewSubject.displaySubjects(subjects);
+        }
     }
 }

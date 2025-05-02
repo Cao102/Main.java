@@ -2,62 +2,30 @@ package Controller;
 
 import DAO.ReportDAO;
 import Model.Report;
-import Model.TopStudent;
+import View.ViewReport;
 
 import java.util.List;
 
 public class ReportController {
-    private ReportDAO ReportDAO = new ReportDAO();
+    private final ReportDAO reportDAO = new ReportDAO();
+    private final ViewReport view = new ViewReport();
 
-    public int getStudentCountController() {
-        return ReportDAO.getStudentCountDAO();
-    }
-
-    public int getTeacherCountController() {
-        return ReportDAO.getTeacherCountDAO();
-    }
-
-    public int getSubjectCountController() {
-        return ReportDAO.getSubjectCountDAO();
-    }
-
-    public double getRevenueFromTuitionController() {
-        return ReportDAO.getRevenueFromTuitionDAO();
-    }
-
-    public List<TopStudent> getTopStudentsController(int topN) {
-        return ReportDAO.getTopStudentsDAO(topN);
-    }
-
-    public Report getReportOverviewController() {
-        return ReportDAO.getReportOverviewDAO();
-    }
-
-    public void displayReportOverview(Report Report) {
-        System.out.println("=========== TỔNG QUAN THỐNG KÊ ===========");
-        System.out.println("Tổng số sinh viên     : " + Report.getStudentCount());
-        System.out.println("Tổng số giảng viên    : " + Report.getTeacherCount());
-        System.out.println("Tổng số môn học       : " + Report.getSubjectCount());
-        System.out.println("Tổng doanh thu học phí: " + String.format("%,.2f", Report.getTotalRevenue()) + " VND");
-        System.out.println("==========================================");
-    }
-
-    public void displayTopStudents(List<TopStudent> topStudents) {
-        if (topStudents.isEmpty()) {
-            System.out.println("Không có dữ liệu sinh viên.");
-            return;
+    public void startReport() {
+        while (true) {
+            int choice = view.menuReport();
+            switch (choice) {
+                case 1 -> view.displayStudentCount(reportDAO.getGeneralStatistics().getStudentCount());
+                case 2 -> view.displayTeacherCount(reportDAO.getGeneralStatistics().getTeacherCount());
+                case 3 -> view.displayClassroomCount(reportDAO.getGeneralStatistics().getClassroomCount());
+                case 4 -> view.displayTotalTuition(reportDAO.getGeneralStatistics().getTotalTuition());
+                case 5 -> {
+                    int limit = view.inputTopLimit();
+                    List<Report> topStudents = reportDAO.getTopStudentsByGPA(limit);
+                    view.displayTopStudents(topStudents);
+                }
+                case 0 -> { return; }
+                default -> view.errorChoose();
+            }
         }
-
-        System.out.println("===== DANH SÁCH SINH VIÊN CÓ ĐIỂM CAO NHẤT =====");
-        System.out.printf("%-10s | %-30s | %-10s\n", "Mã SV", "Họ và tên", "Điểm TB");
-        System.out.println("--------------------------------------------------");
-
-        for (TopStudent student : topStudents) {
-            System.out.printf("%-10s | %-30s | %-10.2f\n",
-                    student.getStudentId(),
-                    student.getStudentName(),
-                    student.getAverageGrade());
-        }
-        System.out.println("==================================================");
     }
 }

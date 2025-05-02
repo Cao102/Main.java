@@ -22,9 +22,9 @@ public class View {
                 ║ 9.  Quản lý Thư Viện             ║
                 ║ 10.  Quản lý Kỳ Thi              ║
                 ║ 11.  Quản lý Sự Kiện             ║
-                ║ 12.  Quản lý Ký Túc Xá           ║
+                ║ 12.  Quản lý Hỗ Trợ Sinh Viên    ║
                 ║ 13.  Báo Cáo Và Thống Kê         ║
-                ║ 0.  Thoát                        ║
+                ║ 0.  Đăng Xuất                    ║
                 ╚══════════════════════════════════╝
                 """);
     }

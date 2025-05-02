@@ -1,26 +1,24 @@
+
 package Model;
 
-public class Subject {
-    private String subject_id;
+public class Subject implements TableConvertible {
+    private String subjectId;
     private String name;
     private String description;
 
-    // Constructor đầy đủ
-    public Subject(String subject_id, String name, String description) {
-        this.subject_id = subject_id;
+    public Subject(String subjectId, String name, String description) {
+        this.subjectId = subjectId;
         this.name = name;
         this.description = description;
     }
 
-    // Constructor chỉ có ID và tên (cho việc hiển thị tóm tắt)
-    public Subject(String subject_id, String name) {
-        this.subject_id = subject_id;
+    public Subject(String subjectId, String name) {
+        this.subjectId = subjectId;
         this.name = name;
     }
 
-    // Getters
     public String getSubjectId() {
-        return subject_id;
+        return subjectId;
     }
 
     public String getName() {
@@ -29,5 +27,14 @@ public class Subject {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String[] toRow() {
+        return new String[] {
+                subjectId,
+                name,
+                description != null ? description : "Không có mô tả"
+        };
     }
 }

@@ -3,141 +3,121 @@ package DAO;
 import Model.Subject;
 import util.DatabaseConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectDAO {
 
-    public void addSubjectDAO(Subject subject) {
-        String sql = "INSERT INTO studentmanagementsystem.subjects (subject_id, name, description) VALUES (?, ?, ?)";
-        try {
-            Connection cn = DatabaseConnect.getConnection();
-            PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setString(1, subject.getSubjectId());
-            pr.setString(2, subject.getName());
-            pr.setString(3, subject.getDescription());
-
-            pr.executeUpdate();
-            System.out.println("Thêm môn học thành công");
-        } catch (Exception e) {
-            System.out.println("Lỗi khi thêm môn học: " + e.getMessage());
+    public void add(Subject subject) {
+        String sql = "INSERT INTO Subjects (subject_id, name, description) VALUES (?, ?, ?)";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, subject.getSubjectId());
+            ps.setString(2, subject.getName());
+            ps.setString(3, subject.getDescription());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi thêm môn học: " + e.getMessage());
         }
     }
 
-    public void updateSubjectDAO(Subject subject) {
-        String sql = "UPDATE studentmanagementsystem.subjects SET name = ?, description = ? WHERE subject_id = ?";
-        try {
-            Connection cn = DatabaseConnect.getConnection();
-            PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setString(1, subject.getName());
-            pr.setString(2, subject.getDescription());
-            pr.setString(3, subject.getSubjectId());
-
-            int check = pr.executeUpdate();
-            if (check > 0) {
-                System.out.println("Cập nhật môn học thành công");
-            } else {
-                System.out.println("Không tìm thấy môn học cần cập nhật");
-            }
-        } catch (Exception e) {
-            System.out.println("Lỗi khi cập nhật môn học: " + e.getMessage());
+    public void update(Subject subject) {
+        String sql = "UPDATE Subjects SET name = ?, description = ? WHERE subject_id = ?";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, subject.getName());
+            ps.setString(2, subject.getDescription());
+            ps.setString(3, subject.getSubjectId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi cập nhật môn học: " + e.getMessage());
         }
     }
 
-    public void deleteSubjectDAO(String subjectId) {
-        String sql = "DELETE FROM studentmanagementsystem.subjects WHERE subject_id = ?";
-        try {
-            Connection cn = DatabaseConnect.getConnection();
-            PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setString(1, subjectId);
+    public void delete(String subjectId) {
+        String sql = "DELETE FROM Subjects WHERE subject_id = ?";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, subjectId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi xóa môn học: " + e.getMessage());
+        }
+    }
 
-            int check = pr.executeUpdate();
-            if (check > 0) {
-                System.out.println("Xóa môn học thành công");
-            } else {
-                System.out.println("Không tìm thấy môn học cần xóa");
+    public List<Subject> getAll() {
+        List<Subject> subjects = new ArrayList<>();
+        String sql = "SELECT * FROM Subjects ORDER BY subject_id";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                subjects.add(new Subject(
+                        rs.getString("subject_id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                ));
             }
         } catch (SQLException e) {
-            if (e.getMessage().contains("foreign key constraint")) {
-                System.out.println("Không thể xóa môn học này vì đang được sử dụng trong hệ thống");
-            } else {
-                System.out.println("Lỗi khi xóa môn học: " + e.getMessage());
-            }
-        } catch (Exception e) {
-            System.out.println("Lỗi khi xóa môn học: " + e.getMessage());
+            throw new RuntimeException("Lỗi lấy danh sách môn học: " + e.getMessage());
+        }
+        return subjects;
+    }
+
+    public boolean isSubjectExist(String subjectId) {
+        String sql = "SELECT COUNT(*) FROM Subjects WHERE subject_id = ?";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, subjectId);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi kiểm tra tồn tại môn học: " + e.getMessage());
         }
     }
 
-    public Subject getSubjectByIdDAO(String subjectId) {
-        String sql = "SELECT * FROM studentmanagementsystem.subjects WHERE subject_id = ?";
-        try {
-            Connection cn = DatabaseConnect.getConnection();
-            PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setString(1, subjectId);
-
-            ResultSet rs = pr.executeQuery();
+    public Subject getById(String subjectId) {
+        String sql = "SELECT * FROM Subjects WHERE subject_id = ?";
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, subjectId);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                String id = rs.getString("subject_id");
-                String name = rs.getString("name");
-                String description = rs.getString("description");
-
-                return new Subject(id, name, description);
+                return new Subject(
+                        rs.getString("subject_id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                );
             }
-        } catch (Exception e) {
-            System.out.println("Lỗi khi tìm môn học: " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi lấy môn học theo ID: " + e.getMessage());
         }
         return null;
     }
 
-    public List<Subject> getAllSubjectsDAO() {
-        String sql = "SELECT * FROM studentmanagementsystem.subjects";
-        List<Subject> subjectList = new ArrayList<>();
-
-        try {
-            Connection cn = DatabaseConnect.getConnection();
-            PreparedStatement pr = cn.prepareStatement(sql);
-            ResultSet rs = pr.executeQuery();
-
+    public List<Subject> getByTeacherId(String teacherId) {
+        List<Subject> subjects = new ArrayList<>();
+        String sql = """
+            SELECT DISTINCT s.subject_id, s.name, s.description
+            FROM Subjects s
+            JOIN Schedules sc ON s.subject_id = sc.subject_id
+            WHERE sc.teacher_id = ?
+        """;
+        try (Connection cn = DatabaseConnect.getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, teacherId);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String id = rs.getString("subject_id");
-                String name = rs.getString("name");
-                String description = rs.getString("description");
-
-                subjectList.add(new Subject(id, name, description));
+                subjects.add(new Subject(
+                        rs.getString("subject_id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                ));
             }
-        } catch (Exception e) {
-            System.out.println("Lỗi khi lấy danh sách môn học: " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi lấy môn học theo giảng viên: " + e.getMessage());
         }
-
-        return subjectList;
-    }
-
-    public List<Subject> getSubjectsByTeacherDAO(String teacherId) {
-        String sql = "SELECT DISTINCT s.subject_id, s.name FROM studentmanagementsystem.subjects s " +
-                "INNER JOIN studentmanagementsystem.schedules sc ON s.subject_id = sc.subject_id " +
-                "WHERE sc.teacher_id = ?";
-        List<Subject> subjectList = new ArrayList<>();
-
-        try {
-            Connection cn = DatabaseConnect.getConnection();
-            PreparedStatement pr = cn.prepareStatement(sql);
-            pr.setString(1, teacherId);
-            ResultSet rs = pr.executeQuery();
-
-            while (rs.next()) {
-                String id = rs.getString("subject_id");
-                String name = rs.getString("name");
-
-                subjectList.add(new Subject(id, name));
-            }
-        } catch (Exception e) {
-            System.out.println("Lỗi khi lấy danh sách môn học theo giảng viên: " + e.getMessage());
-        }
-
-        return subjectList;
+        return subjects;
     }
 }

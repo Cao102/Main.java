@@ -7,9 +7,9 @@ public class MainController {
     private final StudentController studentController = new StudentController();
     private final ClassroomsController classroomsController = new ClassroomsController();
     private final TeacherController teacherController = new TeacherController();
-    private final DormitoryView dormitoryView = new DormitoryView();
-    private final SubjectView subjectView = new SubjectView();
-    private final ReportView reportView = new ReportView();
+    private final ReportController reportController = new ReportController();
+    private final SubjectController subjectController = new SubjectController();
+    private final SupportRequestController supportRequestController = new SupportRequestController();
     private final TuitionController tuitionController = new TuitionController();
     private final LibraryManagementController libraryManagementController = new LibraryManagementController();
     private final EventsController eventsController = new EventsController();
@@ -38,7 +38,7 @@ public class MainController {
                     teacherController.start();
                     break;
                 case 3:
-                    subjectView.main(null);
+                    subjectController.startSubject();
                     break;
                 case 4:
                     classroomsController.start();
@@ -65,10 +65,10 @@ public class MainController {
                     eventsController.startEvents();
                     break;
                 case 12:
-                    dormitoryView.main(null);
+                    supportRequestController.startSupportRequest();
                     break;
                 case 13:
-                    reportView.main(null);
+                    reportController.startReport();
                 case 0:
                     view.exit();
                     return;

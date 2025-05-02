@@ -1,10 +1,9 @@
 import Controller.*;
+import View.UserView;
 
 public class Main {
-    private final static MainController mainController = new MainController();
-    private  final static StudentController studentController = new StudentController();
-    private final static TeacherController teacherController = new TeacherController();
+    private static final UserView userView = new UserView();
     public static void main(String[] args) {
-        mainController.start();
+        userView.displayMenu();
     }
 }
