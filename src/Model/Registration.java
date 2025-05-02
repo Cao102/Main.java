@@ -8,19 +8,18 @@ public class Registration {
         this.studentId = studentId;
         this.subjectId = subjectId;
     }
-    public Registration(String name, String subjectId) {
+    public Registration(String name, String subjectId){
         this.name = name;
         this.subjectId = subjectId;
     }
-
     public String getStudentId() {
-        return studentId;
+        return this.studentId;
     }
     public String getName(){
-        return name;
+        return this.name;
     }
     public String getSubjectId() {
-        return subjectId;
+        return this.subjectId;
     }
 
     @Override

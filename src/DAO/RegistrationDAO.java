@@ -1,7 +1,7 @@
 package DAO;
 
 import Model.Registration;
-import util.DatabaseConnect;
+import connectDatabase.DatabaseConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
