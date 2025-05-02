@@ -2,44 +2,53 @@ package DAO;
 
 import Model.Registration;
 import connectDatabase.DatabaseConnect;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
 import java.util.*;
 
 public class RegistrationDAO {
 
-    public void addSubject(String student_id, String subject_id){
+    public void addSubject(String student_id, String subject_id) {
         String sqlInsert = "INSERT INTO studentmanagementsystem.registrations (student_id, subject_id) VALUES (?, ?)";
-
+        boolean isValid = true;
         try (Connection cn = DatabaseConnect.getConnection()) {
             try (PreparedStatement ps = cn.prepareStatement(
                     "SELECT student_id FROM studentmanagementsystem.students WHERE student_id = ?")) {
                 ps.setString(1, student_id);
                 ResultSet rs = ps.executeQuery();
                 if (!rs.next()) {
-                    throw new RuntimeException("Không tồn tại sinh viên");
+                    System.out.println("Không tồn tại sinh viên");
+                    isValid = false;
                 }
             }
-            try (PreparedStatement ps = cn.prepareStatement(
-                    "SELECT subject_id FROM studentmanagementsystem.subjects WHERE subject_id = ?")) {
-                ps.setString(1, subject_id);
-                ResultSet rs = ps.executeQuery();
-                if (!rs.next()) {
-                    throw new RuntimeException("Không tồn tại môn học");
+            if (isValid) {
+                try (PreparedStatement ps = cn.prepareStatement(
+                        "SELECT subject_id FROM studentmanagementsystem.subjects WHERE subject_id = ?")) {
+                    ps.setString(1, subject_id);
+                    ResultSet rs = ps.executeQuery();
+                    if (!rs.next()) {
+                        System.out.println("Không tồn tại môn học");
+                        isValid = false;
+                    }
                 }
             }
-            try (PreparedStatement psInsert = cn.prepareStatement(sqlInsert)) {
-                psInsert.setString(1, student_id);
-                psInsert.setString(2, subject_id);
-                psInsert.executeUpdate();
-                System.out.println("Đăng ký môn học thành công");
+            if (isValid) {
+                try (PreparedStatement psInsert = cn.prepareStatement(sqlInsert)) {
+                    psInsert.setString(1, student_id);
+                    psInsert.setString(2, subject_id);
+                    psInsert.executeUpdate();
+                    System.out.println("Đăng ký môn học thành công");
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    System.out.println("Sinh viên đã đăng ký môn này rồi");
+                }
             }
 
         } catch (Exception e) {
-            System.out.println("Sinh viên đã đăng ký môn này rồi");
+            System.out.println("Error");
         }
     }
+
+
 
     public void removeSubject(String student_id, String subject_id){
         String sql = "DELETE FROM studentmanagementsystem.registrations WHERE student_id = ? AND subject_id = ?";
@@ -97,7 +106,7 @@ public class RegistrationDAO {
 
             while (rs.next()) {
                 String st = rs.getString("student_id");
-                registrations.add(new Registration(st, subject_id));
+                registrations.add(new Registration(st, subject_id, null));
             }
 
         } catch(Exception e){
