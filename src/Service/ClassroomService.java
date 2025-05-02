@@ -27,7 +27,7 @@ public class ClassroomService {
     }
 
     public boolean checkID(String classroom_id) {
-        return searchObject("classroom_id", classroom_id).isEmpty();
+        return !classroomDAO.check("classroom_id", classroom_id);
     }
 }
 

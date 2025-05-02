@@ -22,10 +22,10 @@ public class ClassroomsController {
         while (true) {
             viewClassroom.menuObject();
             int choose;
-            while (true){
+            while (true) {
                 choose = viewClassroom.getChoose();
-                if (choose == 0 ) return;
-                if (choose > 0 && choose <= 5){
+                if (choose == 0) return;
+                if (choose > 0 && choose <= 5) {
                     break;
                 }
                 viewClassroom.errorChoose();
@@ -52,13 +52,22 @@ public class ClassroomsController {
                 viewClassroom.checkID("ID Đã Tồn Tại. Vui Lòng Nhập Lại");
                 continue;
             }
+            if (id.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             break;
         }
 
         String name;
         while (true) {
             name = viewClassroom.getName();
-            if (!isEmpty(name, "Tên")) break;
+            if (isEmpty(name, "Tên")) continue;
+            if (name.matches("\\d+")) {
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
+            break;
         }
 
         int capacity;
@@ -74,7 +83,12 @@ public class ClassroomsController {
         String location;
         while (true) {
             location = viewClassroom.getLocation();
-            if (!isEmpty(location, "Vị Trí")) break;
+            if (isEmpty(location, "Vị Trí")) continue;
+            if (location.matches("\\d+")) {
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
+            break;
         }
 
         classroomService.addObject(new Classroom(id, name, capacity, location));
@@ -97,13 +111,31 @@ public class ClassroomsController {
 
         Classroom old = classroomService.searchObject("classroom_id", id).getFirst();
 
-        String name = viewClassroom.getName();
+        String name;
+        while (true) {
+            name = viewClassroom.getName();
+            if (name.isEmpty()) break;
+            if (name.matches("\\d+")) {
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
+            break;
+        }
         if (name.isEmpty()) name = old.getName();
 
         int capacity = viewClassroom.getCapacity();
         if (capacity < 0) capacity = old.getCapacity();
 
-        String location = viewClassroom.getLocation();
+        String location;
+        while (true){
+            location = viewClassroom.getLocation();
+            if (location.isEmpty()) break;
+            if (location.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
+            break;
+        }
         if (location.isEmpty()) location = old.getLocation();
 
         classroomService.updateObject(new Classroom(id, name, capacity, location));
@@ -132,10 +164,10 @@ public class ClassroomsController {
         while (true) {
             viewClassroom.viewSearch();
             int choose;
-            while (true){
+            while (true) {
                 choose = viewClassroom.getChoose();
-                if (choose == 0 ) return;
-                if (choose > 0 && choose <= 4){
+                if (choose == 0) return;
+                if (choose > 0 && choose <= 4) {
                     break;
                 }
                 viewClassroom.errorChoose();

@@ -32,6 +32,11 @@ public class ViewStudent {
         String id;
         while (true) {
             id = input.inputString("Nhập ID SV");
+            if (id.isEmpty()) break;
+            if (id.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             if (id.length() > 10) {
                 System.out.println("Vui Lòng Không Nhập ID Quá 10 Ký Tự");
                 continue;
@@ -45,6 +50,11 @@ public class ViewStudent {
         String name;
         while (true) {
             name = input.inputString("Nhập Tên SV");
+            if (name.isEmpty()) break;
+            if (name.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             if (name.length() > 50) {
                 System.out.println("Vui lòng nhập tên không quá 50 ký tự");
                 continue;
@@ -122,6 +132,11 @@ public class ViewStudent {
         String address;
         while (true) {
             address = input.inputString("Nhập Địa Chỉ SV");
+            if (address.isEmpty()) break;
+            if (address.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             if (address.length() > 50) {
                 System.out.println("Vui Lòng Không Nhập Quá 50 Ký Tự");
                 continue;

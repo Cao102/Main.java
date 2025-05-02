@@ -107,4 +107,16 @@ public class TeacherDAO {
             throw new RuntimeException("Lỗi truy xuất dữ liệu: " + e.getMessage());
         }
     }
+    public boolean check(String name_column, String attribute) {
+        String sql = "SELECT * FROM Teachers WHERE " + name_column + " LIKE ?";
+        try (Connection connection = DatabaseConnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, attribute);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi Kiểm tra tồn tại" + e.getMessage());
+        }
+    }
 }

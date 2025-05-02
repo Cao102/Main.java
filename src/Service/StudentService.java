@@ -29,13 +29,13 @@ public class StudentService {
     }
 
     public boolean checkID(String student_id) {
-        return searchObject("student_id", student_id).isEmpty();
+        return !studentDAO.check("student_id", student_id);
     }
 
     public boolean checkEmail(String email) {
-        return !searchObject("email", email).isEmpty();
+        return studentDAO.check("email", email);
     }
     public boolean checkPhone(String phone) {
-        return !searchObject("phone", phone).isEmpty();
+        return studentDAO.check("phone", phone);
     }
 }

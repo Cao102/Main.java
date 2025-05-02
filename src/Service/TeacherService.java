@@ -29,13 +29,13 @@ public class TeacherService {
     }
 
     public boolean checkID(String teacher_id) {
-        return teacherDAO.search("teacher_id", teacher_id).isEmpty();
+        return !teacherDAO.check("teacher_id", teacher_id);
     }
 
     public boolean checkEmail(String email) {
-        return !teacherDAO.search("email", email).isEmpty();
+        return teacherDAO.check("email", email);
     }
     public boolean checkPhone(String phone) {
-        return !searchObject("phone", phone).isEmpty();
+        return teacherDAO.check("phone", phone);
     }
 }
