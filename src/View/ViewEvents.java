@@ -32,10 +32,19 @@ public class ViewEvents {
     public void errorChoose() {
         System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
     }
-
+    private boolean checkEmpty(String s) {
+        if (s.isEmpty()) {
+            System.out.println("Vui lòng không để trống");
+            return true;
+        }
+        return false;
+    }
     public String inputLocation() {
         while (true) {
             String location = input.inputString("Nhập địa điểm tổ chức sự kiện");
+            if (checkEmpty(location)){
+                continue;
+            }
             if (location.length() <= 100) {
                 return location;
             } else {
@@ -47,6 +56,9 @@ public class ViewEvents {
     public String inputEventId() {
         while (true) {
             String eventId = input.inputString("Nhập ID sự kiện");
+            if (checkEmpty(eventId)){
+                continue;
+            }
             if (eventId.length() <= 10) {
                 return eventId;
             } else {
@@ -58,6 +70,9 @@ public class ViewEvents {
     public String inputEventName() {
         while (true) {
             String eventName = input.inputString("Nhập tên sự kiện");
+            if (checkEmpty(eventName)){
+                continue;
+            }
             if (eventName.length() <= 100) {
                 return eventName;
             } else {
