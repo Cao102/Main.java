@@ -45,10 +45,10 @@ public class ViewEvents {
             if (checkEmpty(location)){
                 continue;
             }
-            if (location.length() <= 100) {
+            if (location.length() <= 50) {
                 return location;
             } else {
-                System.out.println("Vui lòng không nhập tên địa điểm quá 100 ký tự");
+                System.out.println("Vui lòng không nhập tên địa điểm quá 50 ký tự");
             }
         }
     }
@@ -73,10 +73,10 @@ public class ViewEvents {
             if (checkEmpty(eventName)){
                 continue;
             }
-            if (eventName.length() <= 100) {
+            if (eventName.length() <= 50) {
                 return eventName;
             } else {
-                System.out.println("Vui lòng không nhập tên sự kiện quá 100 ký tự");
+                System.out.println("Vui lòng không nhập tên sự kiện quá 50 ký tự");
             }
         }
     }
