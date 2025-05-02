@@ -151,22 +151,6 @@ public class ExamView {
                     e.getId(), e.getSubjectId(), e.getExamDate().format(dateTimeFormatter)));
         }
     }
-
-    private void viewExamResults() {
-        String idStr;
-        int id;
-
-        while (true) {
-            System.out.print("Nhập ID kỳ thi: ");
-            idStr = scanner.nextLine();
-            if (controller.checkExits(idStr, "Exams", "id")) {
-                id = Integer.parseInt(idStr);
-                break;
-            }
-            System.out.println("Kỳ thi không tồn tại.");
-        }
-        System.out.println(controller.getExamResults(id));
-    }
     private LocalDateTime inputDateTime(String message) {
         while (true) {
             System.out.print(message + " (yyyy-MM-dd HH:mm): ");
