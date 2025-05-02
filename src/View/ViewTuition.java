@@ -141,17 +141,17 @@ public class ViewTuition {
         System.out.println("Học phí đã được nộp. Không thể cập nhật");
     }
 
-    public void showTuitionByStudentId(Tuition tuition) {
-        System.out.println("Thông tin học phí:");
-        System.out.print("""
-                ╔════════════════╦═════════════════════╦════════════╗
-                ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
-                ╠════════════════╬═════════════════════╬════════════╣
-                """);
-
-        System.out.println(tuition);
-        System.out.println(""" 
-                ╚════════════════╩═════════════════════╩════════════╝
-                """);
-    }
+//    public void showTuitionByStudentId(Tuition tuition) {
+//        System.out.println("Thông tin học phí:");
+//        System.out.print("""
+//                ╔════════════════╦═════════════════════╦════════════╗
+//                ║  Mã sinh viên  ║       Học phí       ║ Trạng thái ║
+//                ╠════════════════╬═════════════════════╬════════════╣
+//                """);
+//
+//        System.out.println(tuition);
+//        System.out.println("""
+//                ╚════════════════╩═════════════════════╩════════════╝
+//                """);
+//    }
 }
