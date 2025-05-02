@@ -13,11 +13,29 @@ public class ViewClassroom {
     }
 
     public String getID() {
-        return input.inputString("Nhập ID");
+        String id;
+        while (true){
+            id = input.inputString("Nhập ID");
+            if (id.length() > 10){
+                System.out.println("Vui lòng nhập ID không quá 10 ký tự");
+                continue;
+            }
+            break;
+        }
+        return id;
     }
 
     public String getName() {
-        return input.inputString("Nhập Tên");
+        String name;
+        while (true){
+            name = input.inputString("Nhập Tên");
+            if (name.length() > 50){
+                System.out.println("Vui lòng nhập tên không quá 50 ký tự");
+                continue;
+            }
+            break;
+        }
+        return name;
     }
 
     public int getCapacity() {

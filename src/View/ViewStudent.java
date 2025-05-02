@@ -45,9 +45,11 @@ public class ViewStudent {
         String name;
         while (true) {
             name = input.inputString("Nhập Tên SV");
-            if (name.length() <= 100) {
-                break;
+            if (name.length() > 50) {
+                System.out.println("Vui lòng nhập tên không quá 50 ký tự");
+                continue;
             }
+            break;
         }
         return name;
     }
@@ -89,8 +91,8 @@ public class ViewStudent {
         while (true) {
             Email = input.inputString("Nhập Email Sinh Viên (****@gmail.com)");
             if (Email.isEmpty()) break;
-            if (Email.length() > 100) {
-                System.out.println("Vui Lòng Nhập Không Quá 100 Ký Tự");
+            if (Email.length() > 50) {
+                System.out.println("Vui Lòng Nhập Không Quá 50 Ký Tự");
                 continue;
             }
             if (!Email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
@@ -120,8 +122,8 @@ public class ViewStudent {
         String address;
         while (true) {
             address = input.inputString("Nhập Địa Chỉ SV");
-            if (address.length() >= 255) {
-                System.out.println("Vui Lòng Không Nhập Quá 255 Ký Tự");
+            if (address.length() > 50) {
+                System.out.println("Vui Lòng Không Nhập Quá 50 Ký Tự");
                 continue;
             }
             break;
