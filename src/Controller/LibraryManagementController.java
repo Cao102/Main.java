@@ -117,17 +117,9 @@ public class LibraryManagementController {
     }
 
     private void searchBookByKeyWord() {
-        while (true) {
             String keyWord = viewLibraryManagement.inputKeyWord();
             List<Library> results = libraryManagementDAO.searchByKeyWord(keyWord);
-            if (results.isEmpty()) {
-                viewLibraryManagement.showKeyWordNotFound();
-                continue;
-            } else {
-                viewLibraryManagement.showBookByKeyWord(results);
-            }
-            break;
-        }
+            viewLibraryManagement.showBookByKeyWord(results);
     }
 
     private void borrowBook() {
