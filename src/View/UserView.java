@@ -17,8 +17,8 @@ public class UserView {
                     ╔════════════════════════════════════════╗
                     ║           Quản lý Admin                ║
                     ╠════════════════════════════════════════╣
-                    ║ 1. Xem người dùng                      ║
-                    ║ 2. Danh sách nguơi dùng                ║
+                    ║ 1. Xem Admin                           ║
+                    ║ 2. Danh sách Admin                     ║
                     ║ 3. Đặt lại mật khẩu                    ║
                     ║ 4. Thoát                               ║
                     ╚════════════════════════════════════════╝
@@ -32,7 +32,7 @@ public class UserView {
                 case 1 -> {
                     int userId;
                     while (true) {
-                        System.out.print("Nhập ID Người dùng: ");
+                        System.out.print("Nhập ID Admin: ");
                         userId = scanner.nextInt();
                         scanner.nextLine();
                         User user = controller.getUserById(userId);
@@ -48,7 +48,7 @@ public class UserView {
                 case 3 -> {
                     int userId;
                     while (true) {
-                        System.out.print("Nhập ID người dùng: ");
+                        System.out.print("Nhập ID Admin: ");
                         userId = scanner.nextInt();
                         scanner.nextLine();
                         if (controller.getUserById(userId) != null) {
