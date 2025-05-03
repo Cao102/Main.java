@@ -28,13 +28,13 @@ public class BorrowedBook implements TableConvertible{
         return borrowDate;
     }
 
-    @Override
-    public String toString() {
-        return String.format("║ %-14s ║ %-10s ║ %-12s ║ %-12s ║",
-                studentId, bookId,
-                borrowDate.toString(),
-                returnDate != null ? returnDate.toString() : "Chưa trả");
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("║ %-14s ║ %-10s ║ %-12s ║ %-12s ║",
+//                studentId, bookId,
+//                borrowDate.toString(),
+//                returnDate != null ? returnDate.toString() : "Chưa trả");
+//    }
     @Override
     public String[] toRow() {
         return new String[] {

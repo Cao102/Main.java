@@ -27,10 +27,10 @@ public class Tuition implements TableConvertible {
         return status;
     }
 
-    @Override
-    public String toString() {
-        return String.format("║ %-14s ║ %-19.2f ║ %-10s ║", student_id, amount, status);
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("║ %-14s ║ %-19.2f ║ %-10s ║", student_id, amount, status);
+//    }
 
     public String[] toRow() {
         return new String[]{

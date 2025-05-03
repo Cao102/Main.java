@@ -282,5 +282,7 @@ public class ViewLibraryManagement {
     public void notifyAlreadyBorrowed() {
         System.out.println("Sinh viên đã mượn cuốn sách này và chưa trả!");
     }
-
+    public void notifyBookInUse(){
+        System.out.println("Không thể xóa sách vì sách đang được mượn. Hãy trả sách trước khi xóa.");
+    }
 }

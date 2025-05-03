@@ -32,11 +32,11 @@ public class Events implements TableConvertible{
         return location;
     }
 
-    @Override
-    public String toString() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return String.format("║ %-4s ║ %-30s ║ %-18s ║ %-20s ║", id, eventName, eventDate.format(dateTimeFormatter), location);
-    }
+//    @Override
+//    public String toString() {
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        return String.format("║ %-4s ║ %-30s ║ %-18s ║ %-20s ║", id, eventName, eventDate.format(dateTimeFormatter), location);
+//    }
     public String[] toRow() {
         return new String[] {
                 id, eventName, eventDate.toString(), location

@@ -29,10 +29,10 @@ public class Library implements TableConvertible{
         return quantity;
     }
 
-    @Override
-    public String toString() {
-        return String.format("║ %-10s ║ %-25s ║ %-20s ║ %-8d ║", bookId, bookName, author, quantity);
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("║ %-10s ║ %-25s ║ %-20s ║ %-8d ║", bookId, bookName, author, quantity);
+//    }
     public String[] toRow() {
         return new String[] {
                 bookId, bookName, author, String.valueOf(quantity)
