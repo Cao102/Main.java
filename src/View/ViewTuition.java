@@ -87,12 +87,26 @@ public class ViewTuition {
         return amount;
     }
 
+    public String inputTutionName(){
+        while (true) {
+            String tutionName = input.inputString("Nhập tên học phí");
+            if (checkEmpty(tutionName)) {
+                continue;
+            }
+            if(tutionName.length()<=50){
+                return tutionName;
+            }
+            else{
+                System.out.println("Vui lòng không nhập tên học phí quá 50 ký tự");
+            }
+        }
+    }
     public void getAllTuition(List<Tuition> objectList) {
         if (objectList.isEmpty()) {
             System.out.println("Không có học phí nào.");
             return;
         }
-        String[] headers = {"Mã SV", "Học Phí", "Trạng Thái"};
+        String[] headers = {"Mã SV", "Học Phí", "Trạng Thái" , "Loại học phí"};
         System.out.println("\nDANH SÁCH HỌC PHÍ:");
         TableUtils.printTable(objectList, headers);
 //        System.out.print("""
