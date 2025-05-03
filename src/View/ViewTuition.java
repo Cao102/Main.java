@@ -149,7 +149,7 @@ public class ViewTuition {
         System.out.println("Sinh viên không tồn tại trong hệ thống. Vui lòng kiểm tra lại ID.");
     }
     public void showTuitionNotExist(){
-        System.out.println("Không tìm thấy học phí cho sinh viên với ID đã nhập.");
+        System.out.println("Không tìm thấy học phí cho sinh viên với ID và tên đã nhập.");
     }
     public void showTuitionAlreadyPaid(){
         System.out.println("Học phí đã được nộp. Không thể cập nhật");
