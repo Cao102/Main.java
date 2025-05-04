@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,15 @@ public class CalendaDAO {
                 "(id, classroom_id, subject_id, teacher_id, schedule_time) " +
                 "VALUES (?, ?, ?, ?, ?)";
         try (Connection cn = DatabaseConnect.getConnection()) {
+
+            try (PreparedStatement ps = cn.prepareStatement(
+                    "SELECT id FROM studentmanagementsystem.schedules WHERE id = ?")) {
+                ps.setString(1, a.getID());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    throw new RuntimeException("Không được nhập trùng id lịch học");
+                }
+            }
             // Check classroom
             try (PreparedStatement ps = cn.prepareStatement(
                     "SELECT classroom_id FROM studentmanagementsystem.classrooms WHERE classroom_id = ?")) {
@@ -56,14 +66,20 @@ public class CalendaDAO {
                     "SELECT schedule_time FROM studentmanagementsystem.schedules WHERE classroom_id = ?")) {
                 ps.setString(1, a.getClassroomID());
                 ResultSet rs = ps.executeQuery();
-                LocalDateTime newScheduleTime = LocalDateTime.parse(a.getScheduleTime(), formatter);
-                while (rs.next()) {
-                    LocalDateTime existingScheduleTime = LocalDateTime.parse(rs.getString("schedule_time"), formatter);
-                    long minutes = Math.abs(Duration.between(existingScheduleTime, newScheduleTime).toMinutes());
-                    if (minutes < 60) {
-                        throw new RuntimeException("Lỗi: Thời gian nhập cách lịch hiện có trong phòng dưới 1 tiếng.");
+                try{
+                    LocalDateTime newScheduleTime = LocalDateTime.parse(a.getScheduleTime(), formatter);
+                    while (rs.next()) {
+                        LocalDateTime existingScheduleTime = LocalDateTime.parse(rs.getString("schedule_time"), formatter);
+                        long minutes = Math.abs(Duration.between(existingScheduleTime, newScheduleTime).toMinutes());
+                        if (minutes < 60) {
+                            throw new RuntimeException("Lịch hiện tại đang kín xin vui lòng chọn vào thời gian khác");
+                        }
                     }
+                } catch (DateTimeParseException e){
+                    System.out.println("Không đúng định dạng Date xin vui lòng nhập đúng định dạng");
+                    return;
                 }
+
             }
 
             //Insert database
