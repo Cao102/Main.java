@@ -36,6 +36,19 @@ public class TeacherController {
         return value;
     }
 
+    private String inputString(String label, String value) {
+        while (checkEmpty(value, label)) {
+            switch (label) {
+                case "Tên" -> value = viewTeacher.getName();
+                case "Email" -> value = viewTeacher.getEmail();
+                case "SĐT" -> value = viewTeacher.getPhone();
+                case "Địa Chỉ" -> value = viewTeacher.getAddress();
+                case "ID" -> value = viewTeacher.getID();
+            }
+        }
+        return value;
+    }
+
     public void start() {
         while (true) {
             viewTeacher.menuObject();
@@ -57,19 +70,6 @@ public class TeacherController {
                 default -> viewTeacher.errorChoose();
             }
         }
-    }
-
-    private String inputString(String label, String value) {
-        while (checkEmpty(value, label)) {
-            switch (label) {
-                case "Tên" -> value = viewTeacher.getName();
-                case "Email" -> value = viewTeacher.getEmail();
-                case "SĐT" -> value = viewTeacher.getPhone();
-                case "Địa Chỉ" -> value = viewTeacher.getAddress();
-                case "ID" -> value = viewTeacher.getID();
-            }
-        }
-        return value;
     }
 
     public void addObject() {

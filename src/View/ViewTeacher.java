@@ -36,8 +36,8 @@ public class ViewTeacher {
         while (true) {
             name = input.inputString("Nhập Tên GV");
             if (name.isEmpty()) break;
-            if (name.matches("\\d+")){
-                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+            if (!name.matches("[\\p{L} ]+")){
+                System.out.println("Tên Chỉ Có Chữ Và Bao Gồm Cả Khoảng Trắng");
                 continue;
             }
             if (name.length() > 50) {
