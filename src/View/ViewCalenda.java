@@ -21,8 +21,13 @@ public class ViewCalenda {
             System.out.println("====================================");
 
             System.out.print("Chọn chức năng: ");
-            int n = Integer.parseInt(sc.nextLine());
-            switch (n) {
+            int i = 6;
+            try{
+                i = Integer.parseInt(sc.nextLine());
+            } catch (Exception e){
+
+            }
+            switch (i) {
                 case 1:
                     System.out.println("--- Thêm Lịch Học ---");
                     System.out.print("Nhập ID lịch: ");

@@ -20,7 +20,12 @@ public class ViewGrade {
             System.out.println("================================");
 
             System.out.print("Chọn chức năng: ");
-            int i = Integer.parseInt(sc.nextLine());
+            int i = 6;
+            try{
+                i = Integer.parseInt(sc.nextLine());
+            } catch (Exception e){
+
+            }
 
             switch (i) {
                 case 1:
@@ -30,12 +35,16 @@ public class ViewGrade {
                     System.out.print("Nhập mã môn học: ");
                     String subjectID1 = sc.nextLine();
                     System.out.print("Nhập điểm sinh viên: ");
-                    double grade1 = Double.parseDouble(sc.nextLine());
-                    if(grade1>10||grade1<0){
-                        System.out.println("Điểm vượt quá phạm vi cho phép từ 0 đến 10");
-                    }
-                    else{
-                        controller.addGradeController(studentID1, subjectID1, grade1);
+                    try {
+                        double grade1 = Double.parseDouble(sc.nextLine());
+                        if(grade1>10||grade1<0){
+                            System.out.println("Điểm vượt quá phạm vi cho phép từ 0 đến 10");
+                        }
+                        else{
+                            controller.addGradeController(studentID1, subjectID1, grade1);
+                        }
+                    } catch (Exception e){
+                        System.out.println("Phải nhập đúng định dạng điểm");
                     }
                     break;
 
@@ -46,12 +55,16 @@ public class ViewGrade {
                     System.out.print("Nhập mã môn học: ");
                     String subjectID2 = sc.nextLine();
                     System.out.print("Nhập điểm mới: ");
-                    double grade2 = Double.parseDouble(sc.nextLine());
-                    if(grade2>10||grade2<0){
-                        System.out.println("Điểm vượt quá phạm vi cho phép từ 0 đến 10");
-                    }
-                    else{
-                        controller.updateGradeController(studentID2, subjectID2, grade2);
+                    try {
+                        double grade2 = Double.parseDouble(sc.nextLine());
+                        if(grade2>10||grade2<0){
+                            System.out.println("Điểm vượt quá phạm vi cho phép từ 0 đến 10");
+                        }
+                        else{
+                            controller.updateGradeController(studentID2, subjectID2, grade2);
+                        }
+                    } catch (Exception e){
+                        System.out.println("Phải nhập đúng định dạng điểm");
                     }
                     break;
 

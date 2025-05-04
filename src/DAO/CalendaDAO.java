@@ -130,11 +130,16 @@ public class CalendaDAO {
              PreparedStatement pr = cn.prepareStatement(sql)) {
 
             pr.setString(1, id);
+            ResultSet rs = pr.executeQuery();
+            if(!rs.next()){
+                System.out.println("Lịch học không có");
+                return;
+            }
             pr.executeUpdate();
             System.out.println("Xóa lịch thành công");
 
         } catch (Exception e) {
-            System.out.println("Lỗi khi xóa lịch: " + e.getMessage());
+            System.out.println("Lỗi khi xóa lịch");
         }
     }
 

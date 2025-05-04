@@ -17,9 +17,13 @@ public class ViewRegister {
             System.out.println("0. Thoát");
             System.out.println("====================================");
             System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(sc.nextLine());
+            int i = 6;
+            try{
+                i = Integer.parseInt(sc.nextLine());
+            } catch (Exception e){
 
-            switch (choice) {
+            }
+            switch (i) {
                 case 1:
                     System.out.print("Nhập mã sinh viên: ");
                     String studentId1 = sc.nextLine();
