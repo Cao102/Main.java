@@ -27,7 +27,7 @@ public class ReportDAO {
             ResultSet rs3 = st.executeQuery("SELECT COUNT(*) FROM Classrooms");
             if (rs3.next()) classroomCount = rs3.getInt(1);
 
-            ResultSet rs4 = st.executeQuery("SELECT SUM(amount) FROM Tuition");
+            ResultSet rs4 = st.executeQuery("SELECT SUM(amount) FROM Tuition WHERE status = 'Đã nộp'");
             if (rs4.next()) totalTuition = rs4.getDouble(1);
 
         } catch (SQLException e) {

@@ -34,7 +34,8 @@ public class Subject implements TableConvertible {
         return new String[] {
                 subjectId,
                 name,
-                description != null ? description : "Không có mô tả"
+//                description != null ? description : "Không có mô tả"
+                description != null && !description.isEmpty() ? description : "Không có mô tả"
         };
     }
 }

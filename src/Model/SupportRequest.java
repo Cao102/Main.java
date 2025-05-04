@@ -40,7 +40,7 @@ public class SupportRequest implements TableConvertible {
         return new String[]{
                 String.valueOf(id),
                 studentId,
-                message != null ? message : "",
+                message ,
                 status
         };
     }
