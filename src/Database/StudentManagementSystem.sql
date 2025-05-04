@@ -119,7 +119,7 @@ CREATE TABLE BorrowedBook (
     borrow_date DATE NOT NULL,
     return_date DATE,
     FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE,
-    FOREIGN KEY (book_id) REFERENCES Library(book_id) ON DELETE CASCADE
+    FOREIGN KEY (book_id) REFERENCES Library(book_id)
 );
 
 -- Bảng kỳ thi

@@ -15,10 +15,10 @@ public class UserView {
             System.out.print("""
                     
                     ╔════════════════════════════════════════╗
-                    ║           Quản lý Admin                ║
+                    ║           Thông Tin Account            ║
                     ╠════════════════════════════════════════╣
-                    ║ 1. Xem Admin                           ║
-                    ║ 2. Danh sách Admin                     ║
+                    ║ 1. Xem Account                         ║
+                    ║ 2. Danh sách Account                   ║
                     ║ 3. Đặt lại mật khẩu                    ║
                     ║ 4. Thoát                               ║
                     ╚════════════════════════════════════════╝
@@ -58,7 +58,7 @@ public class UserView {
     }
     private int inputValidUserId() {
         while (true) {
-            System.out.print("Nhập ID Admin: ");
+            System.out.print("Nhập ID Account: ");
             try {
                 String inputStr = scanner.nextLine().trim();
                 if (!inputStr.matches("\\d+")) {
