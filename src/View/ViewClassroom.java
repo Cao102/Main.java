@@ -13,29 +13,25 @@ public class ViewClassroom {
     }
 
     public String getID() {
-        String id;
         while (true){
-            id = input.inputString("Nhập ID");
+            String id = input.inputString("Nhập ID");
             if (id.length() > 10){
                 System.out.println("Vui lòng nhập ID không quá 10 ký tự");
                 continue;
             }
-            break;
+            return id;
         }
-        return id;
     }
 
     public String getName() {
-        String name;
         while (true){
-            name = input.inputString("Nhập Tên");
+            String name = input.inputString("Nhập Tên");
             if (name.length() > 50){
                 System.out.println("Vui lòng nhập tên không quá 50 ký tự");
                 continue;
             }
-            break;
+            return name;
         }
-        return name;
     }
 
     public int getCapacity() {
@@ -46,12 +42,16 @@ public class ViewClassroom {
                 System.out.println("Đầu Vào Là Số");
                 continue;
             }
+            if (Integer.parseInt(line) == 0){
+                System.out.println("Vui Lòng Nhập Sức Chứa Lớn Hơn 0");
+                continue;
+            }
             return Integer.parseInt(line);
         }
     }
 
     public String getLocation() {
-        return input.inputString("Nhập Địa Chỉ: ");
+        return input.inputString("Nhập Địa Chỉ");
     }
 
     public void menuObject() {
@@ -61,10 +61,10 @@ public class ViewClassroom {
                 ║           QUẢN LÝ Lớp Học              ║
                 ╠════════════════════════════════════════╣
                 ║ 1. Thêm Lớp Học                        ║
-                ║ 2. Hiển Thị Thông tin Lớp Học          ║
-                ║ 3. Chỉnh Sửa Thông tin Lớp Học         ║
-                ║ 4. Xóa Thông tin Lớp Học               ║
-                ║ 5. Tìm Kiếm Thông tin Lớp Học          ║
+                ║ 2. Hiển Thị Thông Tin Lớp Học          ║
+                ║ 3. Chỉnh Sửa Thông Tin Lớp Học         ║
+                ║ 4. Xóa Thông Tin Lớp Học               ║
+                ║ 5. Tìm Kiếm Thông Tin Lớp Học          ║
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
@@ -101,6 +101,7 @@ public class ViewClassroom {
                 ║ 1. Tìm Kiếm Theo Mã Lớp                ║
                 ║ 2. Tìm Kiếm Theo Tên Lớp               ║
                 ║ 3. Tìm Kiếm Theo Sức Chứa              ║
+                ║ 4. Tìm Kiếm Theo Vị Trí                ║
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);

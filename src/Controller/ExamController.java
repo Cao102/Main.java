@@ -25,11 +25,6 @@ public class ExamController {
         return dao.getExamsByClass(classId);
     }
 
-    public String getExamResults(int examId) {
-        return dao.getExamResults(examId);
-    }
-
-
     public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
         return dao.isExamScheduled(classId, subjectId, examDate);
     }

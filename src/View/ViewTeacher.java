@@ -17,6 +17,11 @@ public class ViewTeacher {
         String id;
         while (true) {
             id = input.inputString("Nhập ID GV");
+            if (id.isEmpty()) break;
+            if (id.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             if (id.length() > 10) {
                 System.out.println("Vui Lòng Không Nhập ID Quá 10 Ký Tự");
                 continue;
@@ -30,6 +35,11 @@ public class ViewTeacher {
         String name;
         while (true) {
             name = input.inputString("Nhập Tên GV");
+            if (name.isEmpty()) break;
+            if (name.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             if (name.length() > 50) {
                 System.out.println("Tên Không Được Quá 50 Ký Tự");
                 continue;
@@ -72,6 +82,10 @@ public class ViewTeacher {
         while (true) {
             address = input.inputString("Nhập Địa Chỉ GV");
             if (address.isEmpty()) break;
+            if (address.matches("\\d+")){
+                System.out.println("Đầu Vào Phải Có Ít Nhất 1 Ký Tự");
+                continue;
+            }
             if (address.length() > 50) {
                 System.out.println("Vui Lòng Không Nhấp Quá 255 Ký Tự");
                 continue;
@@ -102,7 +116,7 @@ public class ViewTeacher {
     public BigDecimal getBaseSalary() {
         BigDecimal bigDecimal;
         while (true) {
-            String line = input.inputString("Nhập Mức Lương Cơ Bản Của GV (ĐV TR)");
+            String line = input.inputString("Nhập Mức Lương Cơ Bản Của GV (ĐV Nghìn Đồng)");
             if (line.isEmpty()) {
                 bigDecimal = new BigDecimal(-1);
                 break;

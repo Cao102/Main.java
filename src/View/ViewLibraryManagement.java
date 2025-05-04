@@ -85,11 +85,16 @@ public class ViewLibraryManagement {
             if (checkEmpty(line)) {
                 continue;
             }
-            quantity = Integer.parseInt(line);
-            if (quantity <= 0) {
-                System.out.println("Số lượng sách phải lớn hơn không. Vui lòng nhập lại.");
-            } else {
-                break;
+            try {
+                quantity = Integer.parseInt(line);
+                if (quantity <= 0) {
+                    System.out.println("Số lượng sách phải lớn hơn không. Vui lòng nhập lại.");
+                    continue;
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Số lượng sách không hợp lệ! Vui lòng nhập số nguyên dương.");
             }
         }
 
@@ -111,7 +116,13 @@ public class ViewLibraryManagement {
         }
     }
     public String inputKeyWord() {
-        return input.inputString("Nhập từ khóa");
+        while (true){
+            String keyWord = input.inputString("Nhập từ khóa");
+            if (checkEmpty(keyWord)){
+                continue;
+            }
+            return keyWord;
+        }
     }
     public void displayAllBooks(List<Library> objectList) {
         if (objectList.isEmpty()) {
@@ -183,6 +194,10 @@ public class ViewLibraryManagement {
 //            """);
     }
     public void showBookByKeyWord(List<Library> objectList) {
+        if (objectList.isEmpty()) {
+            System.out.println("Không tìm thấy sách với từ khóa đã nhập.");
+            return;
+        }
         String[] headers = {"Mã Sách", "Tên Sách", "Tác Giả", "Số Lượng"};
         System.out.println("\nDANH SÁCH SÁCH:");
         TableUtils.printTable(objectList, headers);
@@ -240,9 +255,7 @@ public class ViewLibraryManagement {
         System.out.println("Xóa sách thành công!");
     }
 
-    public void showKeyWordNotFound() {
-        System.out.println("Không tìm thấy sách với từ khóa đã nhập.");
-    }
+
     public void showStudentNotExist(){
         System.out.println("Sinh viên không tồn tại trong hệ thống. Vui lòng kiểm tra lại ID");
     }
@@ -269,5 +282,7 @@ public class ViewLibraryManagement {
     public void notifyAlreadyBorrowed() {
         System.out.println("Sinh viên đã mượn cuốn sách này và chưa trả!");
     }
-
+    public void notifyBookInUse(){
+        System.out.println("Không thể xóa sách vì sách đang được mượn. Hãy trả sách trước khi xóa.");
+    }
 }

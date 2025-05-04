@@ -25,10 +25,10 @@ public class StudentController {
             switch (message) {
                 case "ID" -> input = viewStudent.getID().trim();
                 case "Tên" -> input = viewStudent.getName().trim();
-                case "Giới tính" -> input = viewStudent.getGender().trim();
+                case "Giới Tính" -> input = viewStudent.getGender().trim();
                 case "Email" -> input = viewStudent.getEmail().trim();
-                case "Số điện thoại" -> input = viewStudent.getPhone().trim();
-                case "Địa chỉ" -> input = viewStudent.getAddress().trim();
+                case "Số Điện Thoại" -> input = viewStudent.getPhone().trim();
+                case "Địa Chỉ" -> input = viewStudent.getAddress().trim();
                 default -> input = "";
             }
 
@@ -82,7 +82,7 @@ public class StudentController {
             student_id = viewStudent.getID().trim();
             if (student_id.isEmpty()) return;
             if (!studentService.checkID(student_id)) {
-                viewStudent.checkID("Đã tồn tại ID này");
+                viewStudent.checkID("Đã Tồn Tại ID Này");
                 continue;
             }
             break;
@@ -90,7 +90,7 @@ public class StudentController {
 
         String name = inputNotEmpty("Tên");
         Date dob = inputDateNotNull("Ngày Sinh");
-        String gender = inputNotEmpty("Giới tính");
+        String gender = inputNotEmpty("Giới Tính");
 
         String email;
         while (true) {
@@ -105,18 +105,18 @@ public class StudentController {
 
         String phone;
         while (true) {
-            phone = inputNotEmpty("Số điện thoại");
-            if (checkEmpty(phone, "Số điện thoại")) continue;
+            phone = inputNotEmpty("Số Điện Thoại");
+            if (checkEmpty(phone, "Số Điện Thoại")) continue;
             if (studentService.checkPhone(phone)) {
                 viewStudent.checkPhone();
                 continue;
             }
             break;
         }
-        String address = inputNotEmpty("Địa chỉ");
+        String address = inputNotEmpty("Địa Chỉ");
 
         studentService.addObject(new Student(student_id, name, dob, gender, email, phone, address));
-        viewStudent.successful("thêm");
+        viewStudent.successful("Thêm");
     }
 
     public void updateObject() {
@@ -126,7 +126,7 @@ public class StudentController {
             student_id = viewStudent.getID().trim();
             if (student_id.isEmpty()) return;
             if (studentService.checkID(student_id)) {
-                viewStudent.checkID("chưa tồn tại");
+                viewStudent.checkID("Chưa Tồn Tại");
                 continue;
             }
             break;
@@ -147,7 +147,7 @@ public class StudentController {
         String email;
         while (true) {
             email = viewStudent.getEmail().trim();
-            if (email.isEmpty()) {
+            if (email.isEmpty() || email.equals(student.getEmail())) {
                 email = student.getEmail();
                 break;
             }
@@ -161,7 +161,7 @@ public class StudentController {
         String phone;
         while (true) {
             phone = viewStudent.getPhone().trim();
-            if (phone.isEmpty()) {
+            if (phone.isEmpty() || phone.equals(student.getPhone())) {
                 phone = student.getPhone();
                 break;
             }
@@ -176,7 +176,7 @@ public class StudentController {
         address = address.isEmpty() ? student.getAddress() : address;
 
         studentService.updateObject(new Student(student_id, name, dob, gender, email, phone, address));
-        viewStudent.successful("chỉnh sửa");
+        viewStudent.successful("Chỉnh Sửa");
     }
 
     public void deleteObject() {
@@ -186,13 +186,13 @@ public class StudentController {
             student_id = viewStudent.getID().trim();
             if (student_id.isEmpty()) return;
             if (studentService.checkID(student_id)) {
-                viewStudent.checkID("chưa tồn tại");
+                viewStudent.checkID("Chưa Tồn Tại");
                 continue;
             }
             break;
         }
         studentService.deleteObject(student_id);
-        viewStudent.successful("xoá");
+        viewStudent.successful("Xoá");
     }
 
     public void searchObject() {

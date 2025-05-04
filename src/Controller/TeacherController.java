@@ -31,7 +31,7 @@ public class TeacherController {
     private BigDecimal inputPositiveDecimal(String label, BigDecimal value) {
         while (value.compareTo(BigDecimal.ZERO) < 0) {
             viewTeacher.checkEmpty(label);
-            if ("Lương Cơ bản".equals(label)) value = viewTeacher.getBaseSalary();
+            if ("Lương Cơ Bản".equals(label)) value = viewTeacher.getBaseSalary();
         }
         return value;
     }
@@ -65,7 +65,7 @@ public class TeacherController {
                 case "Tên" -> value = viewTeacher.getName();
                 case "Email" -> value = viewTeacher.getEmail();
                 case "SĐT" -> value = viewTeacher.getPhone();
-                case "Địa chỉ" -> value = viewTeacher.getAddress();
+                case "Địa Chỉ" -> value = viewTeacher.getAddress();
                 case "ID" -> value = viewTeacher.getID();
             }
         }
@@ -80,7 +80,7 @@ public class TeacherController {
             teacher_id = viewTeacher.getID();
             if (teacher_id.isEmpty()) return;
             if (!teacherService.checkID(teacher_id)) {
-                viewTeacher.checkID("đã");
+                viewTeacher.checkID("Đã");
                 continue;
             }
             break;
@@ -107,14 +107,14 @@ public class TeacherController {
             }
             break;
         }
-        String address = inputString("Địa chỉ", viewTeacher.getAddress());
+        String address = inputString("Địa Chỉ", viewTeacher.getAddress());
 
         int years_of_experience = inputPositiveInt("SNCT", viewTeacher.getYOE());
-        BigDecimal baseSalary = inputPositiveDecimal("Lương Cơ bản", viewTeacher.getBaseSalary());
+        BigDecimal baseSalary = inputPositiveDecimal("Lương Cơ Bản", viewTeacher.getBaseSalary());
 
         Teacher newTeacher = new Teacher(teacher_id, name, email, phone, address, years_of_experience, baseSalary);
         teacherService.addObject(newTeacher);
-        viewTeacher.successful("thêm");
+        viewTeacher.successful("Thêm");
     }
 
     public void updateObject() {
@@ -124,15 +124,14 @@ public class TeacherController {
             teacher_id = viewTeacher.getID();
             if (teacher_id.isEmpty()) return;
             if (teacherService.checkID(teacher_id)) {
-                viewTeacher.checkID("chưa");
+                viewTeacher.checkID("Chưa");
                 continue;
             }
             break;
         }
 
-        Optional<Teacher> optionalTeacher = teacherService.searchObject("teacher_id", teacher_id).stream().findFirst();
-        if (optionalTeacher.isEmpty()) return;
-        Teacher teacher = optionalTeacher.get();
+        List<Teacher> list =  teacherService.searchObject("teacher_id", teacher_id);
+        Teacher teacher = list.getFirst();
 
         String name = viewTeacher.getName();
         name = name.isEmpty() ? teacher.getName() : name;
@@ -140,6 +139,7 @@ public class TeacherController {
         String email;
         while (true) {
             email = viewTeacher.getEmail();
+            if (email.equals(teacher.getEmail())) break;
             if (!email.isEmpty() && teacherService.checkEmail(email)) {
                 viewTeacher.checkEmail();
                 continue;
@@ -151,6 +151,7 @@ public class TeacherController {
         String phone;
         while (true) {
             phone = viewTeacher.getPhone();
+            if (phone.equals(teacher.getPhone())) break;
             if (!phone.isEmpty() && teacherService.checkPhone(phone)) {
                 viewTeacher.checkPhone();
                 continue;
@@ -170,7 +171,7 @@ public class TeacherController {
 
         Teacher updatedTeacher = new Teacher(teacher_id, name, email, phone, address, yoe, baseSalary);
         teacherService.updateObject(updatedTeacher);
-        viewTeacher.successful("chỉnh sửa");
+        viewTeacher.successful("Chỉnh Sửa");
     }
 
     public void deleteObject() {
@@ -180,13 +181,13 @@ public class TeacherController {
             teacher_id = viewTeacher.getID();
             if (teacher_id.isEmpty()) return;
             if (teacherService.checkID(teacher_id)) {
-                viewTeacher.checkID("chưa");
+                viewTeacher.checkID("Chưa");
                 continue;
             }
             break;
         }
         teacherService.deleteObject(teacher_id);
-        viewTeacher.successful("xoá");
+        viewTeacher.successful("Xoá");
     }
 
     public void searchObject() {
@@ -224,7 +225,7 @@ public class TeacherController {
                 }
                 case 5 -> {
                     name_column = "address";
-                    attribute = inputString("Địa chỉ", viewTeacher.getAddress());
+                    attribute = inputString("Địa Chỉ", viewTeacher.getAddress());
                 }
                 case 6 -> {
                     name_column = "years_of_experience";

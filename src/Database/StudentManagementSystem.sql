@@ -93,10 +93,12 @@ CREATE TABLE Users (
 
 -- Bảng học phí
 CREATE TABLE Tuition (
-   student_id VARCHAR(10) PRIMARY KEY,
-   amount DOUBLE,
-   status VARCHAR(20) DEFAULT 'Chưa nộp',
-   FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     student_id VARCHAR(10),
+     amount DOUBLE,
+     tuition_name varchar(50),
+     status VARCHAR(20) DEFAULT 'Chưa nộp',
+     FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE
 );
 
 
@@ -243,16 +245,17 @@ INSERT INTO Users (username, password) VALUES
 
 -- Tuition
 INSERT INTO Tuition (student_id, amount) VALUES
-('S001', 5000.00),
-('S002', 4800.00),
-('S003', 5200.00),
-('S004', 5100.00),
-('S005', 4700.00),
-('S006', 5000.00),
-('S007', 4900.00),
-('S008', 5300.00),
-('S009', 4950.00),
-('S010', 5050.00);
+('S001', 5000.00, 'Học kỳ 1'),
+('S002', 4800.00, 'Học kỳ 1'),
+('S003', 5200.00, 'Học kỳ 1'),
+('S004', 5100.00, 'Học kỳ 1'),
+('S005', 4700.00, 'Học kỳ 1'),
+('S006', 5000.00, 'Học kỳ 1'),
+('S007', 4900.00, 'Học kỳ 1'),
+('S008', 5300.00, 'Học kỳ 1'),
+('S009', 4950.00, 'Học kỳ 1'),
+('S010', 5050.00, 'Học kỳ 1');
+
 
 
 -- Library

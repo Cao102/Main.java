@@ -81,11 +81,6 @@ public class ExamDAO {
         }
         return exams;
     }
-
-    public String getExamResults(int examId) {
-        return "Kết quả kỳ thi ID " + examId + ": chưa có kết quả";
-    }
-
     public boolean isExamScheduled(String classId, String subjectId, LocalDateTime examDate) {
         String sql = "SELECT COUNT(*) FROM Exams WHERE class_id = ? AND subject_id = ? AND exam_date = ?";
         try (Connection conn = DatabaseConnect.getConnection();

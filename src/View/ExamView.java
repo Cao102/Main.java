@@ -25,10 +25,10 @@ public class ExamView {
                 ║ 2. Cập nhật lịch thi                   ║
                 ║ 3. Hủy lịch thi                        ║
                 ║ 4. Xem lịch thi theo lớp               ║
-                ║ 5. Xem kết quả thi                     ║
                 ║ 0. Quay Lại                            ║
                 ╚════════════════════════════════════════╝
                 """);
+
             System.out.print("Chọn: ");
             int choice = input.inputInt("Nhập lựa chọn của bạn");
 
@@ -37,7 +37,6 @@ public class ExamView {
                 case 2 -> updateExam();
                 case 3 -> deleteExam();
                 case 4 -> viewExamsByClass();
-                case 5 -> viewExamResults();
                 case 0 -> {
                     return;
                 }
@@ -151,22 +150,6 @@ public class ExamView {
             exams.forEach(e -> System.out.printf("ID: %d | Môn: %s | Ngày thi: %s%n",
                     e.getId(), e.getSubjectId(), e.getExamDate().format(dateTimeFormatter)));
         }
-    }
-
-    private void viewExamResults() {
-        String idStr;
-        int id;
-
-        while (true) {
-            System.out.print("Nhập ID kỳ thi: ");
-            idStr = scanner.nextLine();
-            if (controller.checkExits(idStr, "Exams", "id")) {
-                id = Integer.parseInt(idStr);
-                break;
-            }
-            System.out.println("Kỳ thi không tồn tại.");
-        }
-        System.out.println(controller.getExamResults(id));
     }
     private LocalDateTime inputDateTime(String message) {
         while (true) {

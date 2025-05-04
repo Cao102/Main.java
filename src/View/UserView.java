@@ -9,15 +9,22 @@ public class UserView {
     private final UserController controller = new UserController();
     private final Scanner scanner = new Scanner(System.in);
     private final Input input = new Input();
+
     public void displayMenu() {
         while (true) {
-            System.out.println(
-                            "1. Xem người dùng\n" +
-                            "2 Danh sách người dùng\n" +
-                            "3. Đặt lại mật khẩu\n" +
-                            "4. Thoát");
+            System.out.print("""
+                    
+                    ╔════════════════════════════════════════╗
+                    ║           Quản lý Admin                ║
+                    ╠════════════════════════════════════════╣
+                    ║ 1. Xem Admin                           ║
+                    ║ 2. Danh sách Admin                     ║
+                    ║ 3. Đặt lại mật khẩu                    ║
+                    ║ 4. Thoát                               ║
+                    ╚════════════════════════════════════════╝
+                    """);
             int choice = input.inputInt("Nhập lựa chọn của bạn");
-            if (choice == 4){
+            if (choice == 4) {
                 return;
             }
             switch (choice) {
@@ -25,7 +32,7 @@ public class UserView {
                 case 1 -> {
                     int userId;
                     while (true) {
-                        System.out.print("Nhập ID Người dùng: ");
+                        System.out.print("Nhập ID Admin: ");
                         userId = scanner.nextInt();
                         scanner.nextLine();
                         User user = controller.getUserById(userId);
@@ -41,7 +48,7 @@ public class UserView {
                 case 3 -> {
                     int userId;
                     while (true) {
-                        System.out.print("Nhập ID người dùng: ");
+                        System.out.print("Nhập ID Admin: ");
                         userId = scanner.nextInt();
                         scanner.nextLine();
                         if (controller.getUserById(userId) != null) {

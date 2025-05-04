@@ -4,7 +4,6 @@ import DAO.TuitionDAO;
 import Model.Tuition;
 import View.ViewTuition;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TuitionController {
@@ -48,16 +47,18 @@ public class TuitionController {
     private void addTuition() {
         while (true) {
             String studentId = viewTuition.inputStudentId();
-            if (!tuitionDAO.isStudentExist(studentId)) {
+            if (!tuitionDAO.isValueExist(studentId, "Students", "student_id")) {
                 viewTuition.showStudentNotExist();
                 continue; // cho nhập lại ID
             }
-            Tuition existingTuition = tuitionDAO.searchByStudentId(studentId);
+            String tuitionName = viewTuition.inputTutionName();
+            Tuition existingTuition = tuitionDAO.getTuitionByStudentIdAndName(studentId, tuitionName);
             if (existingTuition == null) {
                 double amount = viewTuition.inputAmount();
-                Tuition tuition = new Tuition(studentId, amount);
-                tuitionDAO.add(tuition);
+                Tuition newTuition = new Tuition(studentId, amount, tuitionName);
+                tuitionDAO.add(newTuition);
                 viewTuition.checkTuitionAdded();
+
             } else {
                 boolean update = viewTuition.confirmUpdateTuition();
                 if (update) {
@@ -66,7 +67,7 @@ public class TuitionController {
                         continue;
                     }
                     double amount = viewTuition.inputAmount();
-                    Tuition tuition = new Tuition(studentId, amount);
+                    Tuition tuition = new Tuition(studentId, amount, tuitionName);
                     tuitionDAO.update(tuition);
                     viewTuition.checkTuitionUpdated();
                 } else {
@@ -83,19 +84,20 @@ public class TuitionController {
     }
 
     private void updateTuition() {
-        while(true){
-            String studentId = viewTuition.inputStudentId();  // Lấy ID sinh viên
-            Tuition existingTuition = tuitionDAO.searchByStudentId(studentId);
+        while (true) {
+            String studentId = viewTuition.inputStudentId();
+            String tuitionName = viewTuition.inputTutionName();
+            Tuition existingTuition = tuitionDAO.getTuitionByStudentIdAndName(studentId, tuitionName);
             if (existingTuition == null) {
-                viewTuition.showTuitionNotExist();  // Thông báo không tồn tại học phí
+                viewTuition.showTuitionNotExist();
                 continue;
-            } else {
+            }else {
                 if (existingTuition.getStatus().equals("Đã nộp")) {
                     viewTuition.showTuitionAlreadyPaid();  // Thông báo học phí đã được nộp
                     continue;
                 }
                 double amount = viewTuition.inputAmount();  // Lấy số tiền học phí mới
-                Tuition tuition = new Tuition(studentId, amount);
+                Tuition tuition = new Tuition(studentId, amount, tuitionName);
                 tuitionDAO.update(tuition);
                 viewTuition.checkTuitionUpdated();
             }
@@ -104,33 +106,32 @@ public class TuitionController {
     }
 
     private void updateTuitionStatus() {
-        while (true){
+        while (true) {
             String studentId = viewTuition.inputStudentId();
-            Tuition existingTuition = tuitionDAO.searchByStudentId(studentId);
+            String tuitionName = viewTuition.inputTutionName();
+            Tuition existingTuition = tuitionDAO.getTuitionByStudentIdAndName(studentId, tuitionName);
             if (existingTuition == null) {
                 viewTuition.showTuitionNotExist();
                 continue;
             } else {
                 String status = viewTuition.inputStatus();
-                tuitionDAO.updateStatus(studentId, status);
+                tuitionDAO.updateStatus(studentId, tuitionName,status);
                 viewTuition.checkTuitionUpdateStatus();
             }
             break;
         }
     }
+
     private void searchByStudentId() {
-        List<Tuition> tuitionList = new ArrayList<>();
-        while(true){
-            String studentId = viewTuition.inputStudentId();  // Lấy ID sinh viên
-            Tuition tuition = tuitionDAO.searchByStudentId(studentId);
-            tuitionList.add(tuition);
-            if (tuition != null) {
-                viewTuition.getAllTuition(tuitionList);
+        while (true) {
+            String studentId = viewTuition.inputStudentId();
+            List<Tuition> tuitionList = tuitionDAO.searchByStudentId(studentId);
+            if (tuitionList == null || tuitionList.isEmpty()) {
+                viewTuition.showTuitionNotExist();
             } else {
-                viewTuition.showTuitionNotExist();  // Thông báo học phí không tồn tại
-                continue;
+                viewTuition.getAllTuition(tuitionList);
+                break;
             }
-            break;
         }
     }
 }
