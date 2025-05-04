@@ -74,7 +74,9 @@ public class ViewGrade {
                     System.out.print("Nhập ID sinh viên: ");
                     String studentID5 = sc.nextLine();
                     double gpa = controller.calculateGrade(studentID5);
-                    System.out.printf("GPA của sinh viên %s là: %.2f", studentID5, gpa);
+                    if(gpa!=-1){
+                        System.out.printf("GPA của sinh viên %s là: %.2f\n", studentID5, gpa);
+                    }
                     break;
 
                 case 0:

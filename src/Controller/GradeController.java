@@ -33,6 +33,9 @@ public class GradeController {
 
     public double calculateGrade(String studentID) {
         List<Grade> listGrade = dao.showGradeByStudentDAO(studentID);
+        if(listGrade.isEmpty()){
+            return -1;
+        }
         double gpa = 0;
         double n = 0;
         for (Grade x : listGrade) {
