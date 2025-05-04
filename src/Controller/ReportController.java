@@ -20,6 +20,10 @@ public class ReportController {
                 case 4 -> view.displayTotalTuition(reportDAO.getGeneralStatistics().getTotalTuition());
                 case 5 -> {
                     int limit = view.inputTopLimit();
+                    if (limit > reportDAO.getGeneralStatistics().getStudentCount()){
+                        System.out.println("Số lượn sinh viên không được vượt quá: "+reportDAO.getGeneralStatistics().getStudentCount());
+                        continue;
+                    }
                     List<Report> topStudents = reportDAO.getTopStudentsByGPA(limit);
                     view.displayTopStudents(topStudents);
                 }
