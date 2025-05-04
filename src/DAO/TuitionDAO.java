@@ -9,12 +9,11 @@ import java.util.List;
 
 public class TuitionDAO {
 
-    // Thêm học phí cho sinh viên (mặc định status là "Chưa nộp")
+    // Thêm học phí cho sinh viên
     public void add(Tuition tuition) {
         String sql = "INSERT INTO Tuition (student_id, amount, tuition_name, status) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            connection.setAutoCommit(true);
             statement.setString(1, tuition.getStudentId());
             statement.setDouble(2, tuition.getAmount());
             statement.setString(3, tuition.getTuitionName());
@@ -33,10 +32,7 @@ public class TuitionDAO {
             statement.setDouble(1, tuition.getAmount());
             statement.setString(2, tuition.getStudentId());
             statement.setString(3, tuition.getTuitionName());
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Không có học phí với trạng thái 'Chưa nộp' để cập nhật.");
-            }
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi cập nhật học phí: " + e.getMessage());
         }
@@ -96,6 +92,7 @@ public class TuitionDAO {
         }
     }
 
+    //Kiểm tra tồn tại
     public boolean isValueExist(String value, String tableName, String columnName) {
         String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE " + columnName + " = ?";
         try (Connection connection = DatabaseConnect.getConnection();
@@ -108,6 +105,7 @@ public class TuitionDAO {
         }
     }
 
+    //Kiểm tra cặp ID và Tên hp có tồn tại không
     public Tuition getTuitionByStudentIdAndName(String studentId, String tuitionName) {
         String sql = "SELECT * FROM Tuition WHERE student_id = ? AND tuition_name = ?";
         try (Connection connection = DatabaseConnect.getConnection();

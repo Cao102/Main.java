@@ -8,8 +8,8 @@ import java.util.List;
 
 public class TuitionController {
 
-    private final TuitionDAO tuitionDAO;  // Đã khai báo là final
-    private final ViewTuition viewTuition;  // Đã khai báo là final
+    private final TuitionDAO tuitionDAO;
+    private final ViewTuition viewTuition;
 
     public TuitionController() {
         this.tuitionDAO = new TuitionDAO();
@@ -36,9 +36,9 @@ public class TuitionController {
                     searchByStudentId();
                     break;
                 case 0:
-                    return;  // Quay lại MainController hoặc thoát khỏi chương trình
+                    return;
                 default:
-                    viewTuition.errorChoose();  // Nếu lựa chọn không hợp lệ
+                    viewTuition.errorChoose();
                     break;
             }
         }
@@ -91,7 +91,7 @@ public class TuitionController {
             if (existingTuition == null) {
                 viewTuition.showTuitionNotExist();
                 continue;
-            }else {
+            } else {
                 if (existingTuition.getStatus().equals("Đã nộp")) {
                     viewTuition.showTuitionAlreadyPaid();  // Thông báo học phí đã được nộp
                     continue;
@@ -115,7 +115,7 @@ public class TuitionController {
                 continue;
             } else {
                 String status = viewTuition.inputStatus();
-                tuitionDAO.updateStatus(studentId, tuitionName,status);
+                tuitionDAO.updateStatus(studentId, tuitionName, status);
                 viewTuition.checkTuitionUpdateStatus();
             }
             break;
