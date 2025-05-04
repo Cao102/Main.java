@@ -89,7 +89,6 @@ public class ViewLibraryManagement {
                 quantity = Integer.parseInt(line);
                 if (quantity <= 0) {
                     System.out.println("Số lượng sách phải lớn hơn không. Vui lòng nhập lại.");
-                    continue;
                 } else {
                     break;
                 }
