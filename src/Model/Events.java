@@ -2,8 +2,8 @@ package Model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-public class Events implements TableConvertible{
+import java.time.format.DateTimeFormatter;
+public class Events implements TableConvertible {
     private String id;
     private String eventName;
     private LocalDateTime eventDate;
@@ -32,14 +32,16 @@ public class Events implements TableConvertible{
         return location;
     }
 
-//    @Override
+    //    @Override
 //    public String toString() {
 //        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 //        return String.format("║ %-4s ║ %-30s ║ %-18s ║ %-20s ║", id, eventName, eventDate.format(dateTimeFormatter), location);
 //    }
     public String[] toRow() {
-        return new String[] {
-                id, eventName, eventDate.toString(), location
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDate = eventDate.format(formatter);
+        return new String[]{
+                id, eventName, formattedDate, location
         };
     }
 }
