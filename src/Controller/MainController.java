@@ -18,6 +18,7 @@ public class MainController {
     private final ViewCalenda viewCalenda = new ViewCalenda();
     private final ExamView examView = new ExamView();
     private final UserView userView = new UserView();
+    private static final SignupView signupView = new SignupView();
     public void start() {
         while (true) {
             view.menuView();
@@ -75,8 +76,7 @@ public class MainController {
                     userView.displayMenu();
                     break;
                 case 0:
-                    view.exit();
-                    return;
+                    signupView.displayMenu();
                 default:
                     System.out.println("Vui lòng nhập lại lựa chọn");
                     break;
