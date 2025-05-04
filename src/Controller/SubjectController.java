@@ -39,7 +39,15 @@ public class SubjectController {
             if (subjectDAO.isSubjectExist(subjectId)) {
                 boolean update = viewSubject.confirmUpdateSubject();
                 if (update) {
-                    String name = viewSubject.inputSubjectName();
+                    String name ;
+                    while(true){
+                         name = viewSubject.inputSubjectName();
+                         if(name.isEmpty()){
+                             System.out.println("Tên môn học không được để trống!");
+                             continue;
+                         }
+                         break;
+                    }
                     String description = viewSubject.inputSubjectDescription();
                     Subject subject = new Subject(subjectId, name, description);
                     subjectDAO.update(subject);
@@ -48,7 +56,15 @@ public class SubjectController {
                     continue;
                 }
             } else {
-                String name = viewSubject.inputSubjectName();
+                String name ;
+                while(true){
+                    name = viewSubject.inputSubjectName();
+                    if(name.isEmpty()){
+                        System.out.println("Tên môn học không được để trống!");
+                        continue;
+                    }
+                    break;
+                }
                 String description = viewSubject.inputSubjectDescription();
                 Subject subject = new Subject(subjectId, name, description);
                 subjectDAO.add(subject);
