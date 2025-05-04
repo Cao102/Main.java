@@ -225,7 +225,7 @@ public class StudentController {
                 }
                 case 4 -> {
                     name_column = "gender";
-                    attribute = inputNotEmpty("Giới tính");
+                    attribute = inputNotEmpty("Giới Tính");
                 }
                 case 5 -> {
                     name_column = "email";
@@ -233,11 +233,11 @@ public class StudentController {
                 }
                 case 6 -> {
                     name_column = "phone";
-                    attribute = inputNotEmpty("Số điện thoại");
+                    attribute = inputNotEmpty("Số Điện Thoại");
                 }
                 case 7 -> {
                     name_column = "address";
-                    attribute = inputNotEmpty("Địa chỉ");
+                    attribute = inputNotEmpty("Địa Chỉ");
                 }
                 default -> {
                     viewStudent.errorChoose();

@@ -13,7 +13,7 @@ public class GradeDAO {
     public void addGrade(String studentID, String subjectID,double grade ) {
         String checkStudentSQL = "SELECT COUNT(*) FROM studentmanagementsystem.students WHERE student_id = ?";
         String checkSubjectSQL = "SELECT COUNT(*) FROM studentmanagementsystem.subjects WHERE subject_id = ?";
-
+        String checkRegistrationSQL = "SELECT COUNT(*) FROM studentmanagementsystem.registrations WHERE subject_id = ? AND student_id = ?";
 
         try (Connection cn = DatabaseConnect.getConnection()) {
             PreparedStatement prStudent = cn.prepareStatement(checkStudentSQL);
@@ -29,6 +29,15 @@ public class GradeDAO {
             ResultSet rsSubject = prSubject.executeQuery();
             if (rsSubject.next() && rsSubject.getInt(1) == 0) {
                 System.out.println("Không tồn tại môn học");
+                return;
+            }
+
+            PreparedStatement prRegistration = cn.prepareStatement(checkRegistrationSQL);
+            prRegistration.setString(1, subjectID);
+            prRegistration.setString(2, studentID);
+            ResultSet rsRegistration = prRegistration.executeQuery();
+            if (rsRegistration.next() && rsRegistration.getInt(1) == 0) {
+                System.out.println("Sinh viên chưa đăng ký môn học này");
                 return;
             }
 
