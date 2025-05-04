@@ -27,12 +27,21 @@ public class SignupView {
             int choice = input.inputInt("Nhập lựa chọn của bạn");
             switch (choice) {
                 case 1 -> {
-                    System.out.print("Tài khoản: ");
-                    String username = scanner.nextLine();
+                    String username;
+                    while (true) {
+                        System.out.print("Tài khoản: ");
+                        username = scanner.nextLine();
+                        if (username.length() > 20) {
+                            System.out.println("Tên tài khoản không được vượt quá 20 ký tự. Vui lòng nhập lại.");
+                        } else {
+                            break;
+                        }
+                    }
                     System.out.print("Mật khẩu: ");
                     String password = scanner.nextLine();
                     User user = controller.registerUser(username, password);
                 }
+
                 case 2 -> {
                     User user = null;
                     int count = 0;
