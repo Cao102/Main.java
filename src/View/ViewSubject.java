@@ -28,13 +28,7 @@ public class ViewSubject {
     }
 
     public String inputSubjectId() {
-//        while (true) {
-//            String subjectId = input.inputString("Nhập mã môn học (VD: SUB001)");
-//            if (subjectId.startsWith("SUB")) {
-//                return subjectId;
-//            }
-//            System.out.println("Lỗi! Mã môn học phải bắt đầu bằng 'SUB'. Vui lòng nhập lại");
-//        }
+
         String Id;
         while(true){
             Id= input.inputString("Nhập mã môn học (VD: SUB001)");

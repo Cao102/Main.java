@@ -48,7 +48,7 @@ public class EventsController {
     private void addEvent() {
         while (true){
             String eventId = viewEvents.inputEventId();
-            if (eventsDAO.isEventExist(eventId)) {
+            if (eventsDAO.isValueExist(eventId, "Events","event_id")) {
                 boolean update = viewEvents.confirmUpdateEvent();  // Hỏi người dùng có muốn cập nhật
                 if (update) {
                     String name = viewEvents.inputEventName();
@@ -75,7 +75,7 @@ public class EventsController {
     private void updateEvent() {
         while (true){
             String eventId = viewEvents.inputEventId();
-            if (!eventsDAO.isEventExist(eventId)) {
+            if (!eventsDAO.isValueExist(eventId, "Events","event_id")) {
                 viewEvents.showEventNotExist();
                 continue;
             }else{
@@ -93,7 +93,7 @@ public class EventsController {
     private void deleteEvent() {
         while (true){
             String eventId = viewEvents.inputEventId();
-            if (!eventsDAO.isEventExist(eventId)) {
+            if (!eventsDAO.isValueExist(eventId, "Events","event_id")) {
                 viewEvents.showEventNotExist();
                 continue;
             }else{

@@ -17,8 +17,8 @@ public class UserView {
                     ╔════════════════════════════════════════╗
                     ║           Quản lý Admin                ║
                     ╠════════════════════════════════════════╣
-                    ║ 1. Xem người dùng                      ║
-                    ║ 2. Danh sách nguơi dùng                ║
+                    ║ 1. Xem Admin                           ║
+                    ║ 2. Danh sách Admin                     ║
                     ║ 3. Đặt lại mật khẩu                    ║
                     ║ 4. Thoát                               ║
                     ╚════════════════════════════════════════╝
@@ -28,29 +28,20 @@ public class UserView {
                 return;
             }
             switch (choice) {
-
                 case 1 -> {
-                    int userId;
-                    while (true) {
-                        System.out.print("Nhập ID Người dùng: ");
-                        userId = scanner.nextInt();
-                        scanner.nextLine();
-                        User user = controller.getUserById(userId);
-                        if (user != null) {
-                            System.out.println(user);
-                            break;
-                        } else {
-                            System.out.println("Không tồn tại ID, vui lòng nhập lại.");
-                        }
+                    int userId = inputValidUserId();
+                    User user = controller.getUserById(userId);
+                    if (user != null) {
+                        System.out.println(user);
+                    } else {
+                        System.out.println("Không tồn tại ID.");
                     }
                 }
                 case 2 -> controller.getAllUsers().forEach(System.out::println);
                 case 3 -> {
                     int userId;
                     while (true) {
-                        System.out.print("Nhập ID người dùng: ");
-                        userId = scanner.nextInt();
-                        scanner.nextLine();
+                        userId = inputValidUserId();
                         if (controller.getUserById(userId) != null) {
                             break;
                         }
@@ -62,6 +53,30 @@ public class UserView {
                     System.out.println(updated ? "Cập nhật mật khẩu thành công." : "Cập nhật mật khẩu thất bại.");
                 }
                 default -> System.out.println("Lựa chọn không hợp lệ, vui lòng chọn lại.");
+            }
+        }
+    }
+    private int inputValidUserId() {
+        while (true) {
+            System.out.print("Nhập ID Admin: ");
+            try {
+                String inputStr = scanner.nextLine().trim();
+                if (!inputStr.matches("\\d+")) {
+                    System.out.println("Vui lòng chỉ nhập số nguyên dương.");
+                    continue;
+                }
+                if (inputStr.length() > 10) {
+                    System.out.println("ID không được vượt quá 10 chữ số.");
+                    continue;
+                }
+                long idLong = Long.parseLong(inputStr);
+                if (idLong > Integer.MAX_VALUE) {
+                    System.out.println("ID vượt quá giới hạn cho phép.");
+                    continue;
+                }
+                return (int) idLong;
+            } catch (Exception e) {
+                System.out.println("Lỗi không xác định. Vui lòng thử lại.");
             }
         }
     }

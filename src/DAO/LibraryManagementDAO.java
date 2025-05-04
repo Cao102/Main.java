@@ -215,29 +215,16 @@ public class LibraryManagementDAO {
         }
     }
 
-    // Kiểm tra sự tồn tại của student_id trong bảng students
-    public boolean isStudentExist(String studentId) {
-        String sql = "SELECT COUNT(*) FROM students WHERE student_id = ?";
+    // kiểm tra tồn tại trong bảng... cột...
+    public boolean isValueExist(String value, String tableName, String columnName) {
+        String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE " + columnName + " = ?";
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, studentId);
+            statement.setString(1, value);
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next() && resultSet.getInt(1) > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Lỗi kiểm tra sinh viên: " + e.getMessage());
-        }
-    }
-
-    // Kiểm tra sự tồn tại của bookId trong bảng Library
-    public boolean isBookIdExist(String bookId) {
-        String sql = "SELECT COUNT(*) FROM Library WHERE book_id = ?";
-        try (Connection connection = DatabaseConnect.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, bookId);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet.next() && resultSet.getInt(1) > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException("Lỗi kiểm tra mã sách: " + e.getMessage());
+            throw new RuntimeException("Lỗi kiểm tra giá trị trong bảng " + tableName + ": " + e.getMessage());
         }
     }
 

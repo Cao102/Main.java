@@ -96,16 +96,16 @@ public class EventsDAO {
     }
 
 
-    // Kiểm tra sự kiện có tồn tại
-    public boolean isEventExist(String eventId) {
-        String sql = "SELECT COUNT(*) FROM Events WHERE event_id = ?";
+    // Kiểm tra  tồn tại
+    public boolean isValueExist(String value, String tableName, String columnName) {
+        String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE " + columnName + " = ?";
         try (Connection connection = DatabaseConnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, eventId);
-            ResultSet rs = statement.executeQuery();
-            return rs.next() && rs.getInt(1) > 0;
+            statement.setString(1, value);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next() && resultSet.getInt(1) > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Lỗi kiểm tra sự tồn tại sự kiện: " + e.getMessage());
+            throw new RuntimeException("Lỗi kiểm tra giá trị trong bảng " + tableName + ": " + e.getMessage());
         }
     }
 }
