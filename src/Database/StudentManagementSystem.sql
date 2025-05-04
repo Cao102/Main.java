@@ -244,7 +244,7 @@ INSERT INTO Users (username, password) VALUES
 
 
 -- Tuition
-INSERT INTO Tuition (student_id, amount) VALUES
+INSERT INTO Tuition (student_id, amount, tuition_name) VALUES
 ('S001', 5000.00, 'Học kỳ 1'),
 ('S002', 4800.00, 'Học kỳ 1'),
 ('S003', 5200.00, 'Học kỳ 1'),
